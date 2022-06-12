@@ -121,7 +121,7 @@ if ( ! class_exists( 'EasyPoll' ) ) {
 			$tables = array(
 				EasyPolls::class,
 				EasyPollFields::class,
-				EasyPollFeedback::class
+				EasyPollFeedback::class,
 			);
 
 			foreach ( $tables as $table ) {
