@@ -12,6 +12,7 @@
  * @package         EasyPoll
  */
 
+use EasyPoll\Admin\Admin;
 use EasyPoll\Database\EasyPollFeedback;
 use EasyPoll\Database\EasyPollFields;
 use EasyPoll\Database\EasyPolls;
@@ -147,12 +148,12 @@ if ( ! class_exists( 'EasyPoll' ) ) {
 		}
 
 		/**
-		 * Load packages
+		 * Load inital packages
 		 *
 		 * @return void
 		 */
 		public function load_packages() {
-
+			new Admin();
 		}
 	}
 	// trigger.
