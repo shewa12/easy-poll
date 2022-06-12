@@ -1,13 +1,13 @@
 <?php
 /**
- * Plugin Name:     Evaluation Form
- * Plugin URI:      PLUGIN SITE HERE
- * Description:     PLUGIN DESCRIPTION HERE
- * Author:          YOUR NAME HERE
- * Author URI:      YOUR SITE HERE
+ * Plugin Name:     Easy Poll
+ * Plugin URI:      https://shewazone.com
+ * Description:     A simple plugin for creating polls, survey, user's feedback management system
+ * Author:          Shewa
+ * Author URI:      https://shewazone.com
  * Text Domain:     easy-poll
  * Domain Path:     /languages
- * Version:         0.1.0
+ * Version:         1.0.0
  *
  * @package         EasyPoll
  */
