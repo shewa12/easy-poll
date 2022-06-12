@@ -15,14 +15,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Evaluation_Table
  */
-class EasyPollFields extends DatabaseTable {
+class EasyPollFeedback extends DatabaseTable {
 
 	/**
 	 * Course evaluation table name
 	 *
 	 * @var $table_name
 	 */
-	private static $table_name = 'ep_evaluation_form_fields';
+	private static $table_name = 'easy_poll_feedback';
 
 	/**
 	 * Get table name
@@ -43,31 +43,29 @@ class EasyPollFields extends DatabaseTable {
 	 * @since v1.0.0
 	 */
 	public static function create_table(): void {
-		do_action( 'tutor_periscope_before_evaluation_table' );
+		do_action( 'ep_before_easy_poll_feedback_table' );
 		global $wpdb;
-		$evaluation_form_table = $wpdb->prefix . EasyPoll::get_table();
+		$field_table = $wpdb->prefix . EasyPollFields::get_table();
 
 		$charset_collate = $wpdb->get_charset_collate();
 		$table_name      = $wpdb->prefix . self::$table_name;
 		$sql             = "CREATE TABLE $table_name (
         id INT(9) unsigned NOT NULL AUTO_INCREMENT,
-		form_id INT(9) unsigned NOT NULL,
-        tutor_course_id INT(9) NOT NULL,
-        field_id INT(3),
-        field_label VARCHAR(255),
-        field_type VARCHAR(255),
+		field_id INT(9) unsigned NOT NULL,
 
-		FOREIGN KEY (form_id)
-			REFERENCES $evaluation_form_table(id)
-			ON DELETE CASCADE,
-		
+        FOREIGN KEY (field_id)
+		    REFERENCES $field_table(id)
+            ON DELETE CASCADE,
+
+		user_id INT(9) NOT NULL,
+        feedback TEXT,
         PRIMARY KEY  (id)
-        ) ENGINE = INNODB
-		$charset_collate;";
+        )  ENGINE = INNODB
+        $charset_collate;";
 
 		require_once ABSPATH . 'wp-admin/includes/upgrade.php';
 		dbDelta( $sql );
-		do_action( 'tutor_periscope_after_evaluation_table' );
+		do_action( 'ep_after_easy_poll_feedback_table' );
 	}
 
 	/**
@@ -77,8 +75,8 @@ class EasyPollFields extends DatabaseTable {
 	 */
 	public static function drop_table() {
 		global $wpdb;
-		do_action( 'tutor_periscope_before_evaluation_table_drop' );
+		do_action( 'ep_before_easy_poll_feedback_table_drop' );
 		$wpdb->query( 'DROP TABLE IF EXISTS ' . $wpdb->prefix . self::$table_name );
-		do_action( 'tutor_periscope_after_evaluation_table_drop' );
+		do_action( 'ep_after_easy_poll_feedback_table_drop' );
 	}
 }

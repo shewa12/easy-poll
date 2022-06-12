@@ -15,14 +15,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Evaluation feedback table
  */
-class EasyPollFeedback extends DatabaseTable {
+class EasyPollFields extends DatabaseTable {
 
 	/**
 	 * Course evaluation table name
 	 *
 	 * @var $table_name
 	 */
-	private static $table_name = 'ep_evaluation_form_feedback';
+	private static $table_name = 'easy_poll_fields';
 
 	/**
 	 * Get table name
@@ -43,25 +43,25 @@ class EasyPollFeedback extends DatabaseTable {
 	 * @since v2.0.0
 	 */
 	public static function create_table(): void {
-		do_action( 'tutor_periscope_before_evaluation_table' );
+		do_action( 'ep_before_easy_poll_fields_table' );
 		global $wpdb;
-		$evaluation_form_field_table = $wpdb->prefix . EasyPollFields::get_table();
+		$polls_table = $wpdb->prefix . EasyPolls::get_table();
 
 		$charset_collate = $wpdb->get_charset_collate();
 		$table_name      = $wpdb->prefix . self::$table_name;
 		$sql             = "CREATE TABLE $table_name (
         id INT(9) unsigned NOT NULL AUTO_INCREMENT,
-		field_id INT(9) unsigned NOT NULL,
+		poll_id INT(9) unsigned NOT NULL,
+        field_label VARCHAR(255),
+        field_type VARCHAR(255),
 
-        FOREIGN KEY (field_id)
-		    REFERENCES $evaluation_form_field_table(id)
-            ON DELETE CASCADE,
-
-		user_id INT(9) NOT NULL,
-        feedback VARCHAR(255) NOT NULL,
+		FOREIGN KEY (poll_id)
+			REFERENCES $polls_table(id)
+			ON DELETE CASCADE,
+		
         PRIMARY KEY  (id)
-        )  ENGINE = INNODB
-        $charset_collate;";
+        ) ENGINE = INNODB
+		$charset_collate;";
 
 		require_once ABSPATH . 'wp-admin/includes/upgrade.php';
 		dbDelta( $sql );
@@ -75,8 +75,8 @@ class EasyPollFeedback extends DatabaseTable {
 	 */
 	public static function drop_table() {
 		global $wpdb;
-		do_action( 'tutor_periscope_before_evaluation_table_drop' );
+		do_action( 'ep_before_easy_poll_fiels_table_drop' );
 		$wpdb->query( 'DROP TABLE IF EXISTS ' . $wpdb->prefix . self::$table_name );
-		do_action( 'tutor_periscope_after_evaluation_table_drop' );
+		do_action( 'ep_after_easy_poll_fiels_table_drop' );
 	}
 }

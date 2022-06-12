@@ -12,6 +12,10 @@
  * @package         EasyPoll
  */
 
+use EasyPoll\Database\EasyPollFeedback;
+use EasyPoll\Database\EasyPollFields;
+use EasyPoll\Database\EasyPolls;
+
 if ( ! class_exists( 'EasyPoll' ) ) {
 
 	/**
@@ -107,7 +111,21 @@ if ( ! class_exists( 'EasyPoll' ) ) {
 		 * @return void
 		 */
 		public static function register_activation() {
-			update_option( '_plugin_starter_install_time', time() );
+			update_option( 'easy_poll_install_time', time() );
+			/**
+			 * Create tables
+			 *
+			 * @since v1.0.0
+			 */
+			$tables = array(
+				EasyPolls::class,
+				EasyPollFields::class,
+				EasyPollFeedback::class
+			);
+
+			foreach ( $tables as $table ) {
+				$table::create_table();
+			}
 		}
 
 		/**
@@ -138,5 +156,5 @@ if ( ! class_exists( 'EasyPoll' ) ) {
 		}
 	}
 	// trigger.
-	PluginStarter::instance();
+	EasyPoll::instance();
 }

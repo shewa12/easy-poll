@@ -42,8 +42,8 @@ abstract class DatabaseTable {
 	 */
 	public static function drop_table() {
 		global $wpdb;
-		do_action( 'tutor_periscope_before_drop_' . self::get_table() );
+		do_action( 'ep_before_drop_' . self::get_table() );
 		$wpdb->query( 'DROP TABLE IF EXISTS ' . $wpdb->prefix . self::$table_name );
-		do_action( 'tutor_periscope_after_drop_' . self::$table_name );
+		do_action( 'ep_after_drop_' . self::$table_name );
 	}
 }

@@ -15,14 +15,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * EasyPoll table.
  */
-class EasyPoll extends DatabaseTable {
+class EasyPolls extends DatabaseTable {
 
 	/**
 	 * Course evaluation table name
 	 *
 	 * @var $table_name
 	 */
-	private static $table_name = 'ep_evaluation_form';
+	private static $table_name = 'easy_polls';
 
 	/**
 	 * Get table name
@@ -43,14 +43,14 @@ class EasyPoll extends DatabaseTable {
 	 * @since v1.0.0
 	 */
 	public static function create_table(): void {
-		do_action( 'tutor_periscope_before_evaluation_table' );
+		do_action( 'ep_before_easy_polls_table' );
 		global $wpdb;
 		$charset_collate = $wpdb->get_charset_collate();
 		$table_name      = $wpdb->prefix . self::$table_name;
 		$sql             = "CREATE TABLE $table_name (
         id INT(9) unsigned NOT NULL AUTO_INCREMENT,
-        form_title VARCHAR(255),
-        form_description TEXT,
+        poll_title VARCHAR(255),
+        poll_description TEXT,
         created_at datetime default CURRENT_TIMESTAMP,
         PRIMARY KEY  (id)
         ) ENGINE = INNODB
@@ -58,7 +58,7 @@ class EasyPoll extends DatabaseTable {
 
 		require_once ABSPATH . 'wp-admin/includes/upgrade.php';
 		dbDelta( $sql );
-		do_action( 'tutor_periscope_after_evaluation_table' );
+		do_action( 'ep_after_easy_polls_table' );
 	}
 
 }
