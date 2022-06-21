@@ -35,11 +35,6 @@ class InitCustomPosts {
 	 * @return void
 	 */
 	public static function init(): void {
-		// register_post_type(
-		// EasyPollPost::post_type(),
-		// EasyPollPost::post_args()
-		// );
-
 		$types = array(
 			EasyPollPost::class,
 		);

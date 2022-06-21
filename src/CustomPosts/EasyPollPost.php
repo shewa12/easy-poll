@@ -11,8 +11,6 @@
 
 namespace EasyPoll\CustomPosts;
 
-use EasyPoll\Admin\Menu\MainMenu;
-
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -74,16 +72,12 @@ class EasyPollPost {
 		);
 	}
 
-	public static function register_post_type() {
-
-	}
-
 	/**
 	 * Meta box view for this post type
 	 *
 	 * @return void
 	 */
-	public static function meta_box(): void {
-		echo 'Hello';
+	public static function meta_box() {
+		return 'Hello';
 	}
 }
