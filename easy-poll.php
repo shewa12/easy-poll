@@ -13,6 +13,7 @@
  */
 
 use EasyPoll\Admin\Admin;
+use EasyPoll\CustomPosts\InitCustomPosts;
 use EasyPoll\Database\EasyPollFeedback;
 use EasyPoll\Database\EasyPollFields;
 
@@ -152,6 +153,7 @@ if ( ! class_exists( 'EasyPoll' ) ) {
 		 */
 		public function load_packages() {
 			new Admin();
+			new InitCustomPosts();
 		}
 	}
 	// trigger.

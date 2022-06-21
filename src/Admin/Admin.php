@@ -4,7 +4,7 @@
  *
  * @package EasyPoll\Admin
  *
- * @since v2.0.0
+ * @since v1.0.0
  */
 
 namespace EasyPoll\Admin;

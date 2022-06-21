@@ -57,7 +57,7 @@ class EasyPollFields extends DatabaseTable {
         PRIMARY KEY  (id)
         ) ENGINE = INNODB
 		$charset_collate;";
-
+		tutor_log( $sql );
 		require_once ABSPATH . 'wp-admin/includes/upgrade.php';
 		dbDelta( $sql );
 		do_action( 'tutor_periscope_after_evaluation_table' );
