@@ -45,7 +45,6 @@ class EasyPollFields extends DatabaseTable {
 	public static function create_table(): void {
 		do_action( 'ep_before_easy_poll_fields_table' );
 		global $wpdb;
-		$polls_table = $wpdb->prefix . EasyPolls::get_table();
 
 		$charset_collate = $wpdb->get_charset_collate();
 		$table_name      = $wpdb->prefix . self::$table_name;
@@ -55,10 +54,6 @@ class EasyPollFields extends DatabaseTable {
         field_label VARCHAR(255),
         field_type VARCHAR(255),
 
-		FOREIGN KEY (poll_id)
-			REFERENCES $polls_table(id)
-			ON DELETE CASCADE,
-		
         PRIMARY KEY  (id)
         ) ENGINE = INNODB
 		$charset_collate;";

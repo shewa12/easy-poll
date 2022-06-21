@@ -15,7 +15,6 @@
 use EasyPoll\Admin\Admin;
 use EasyPoll\Database\EasyPollFeedback;
 use EasyPoll\Database\EasyPollFields;
-use EasyPoll\Database\EasyPolls;
 
 if ( ! class_exists( 'EasyPoll' ) ) {
 
@@ -119,7 +118,6 @@ if ( ! class_exists( 'EasyPoll' ) ) {
 			 * @since v1.0.0
 			 */
 			$tables = array(
-				EasyPolls::class,
 				EasyPollFields::class,
 				EasyPollFeedback::class,
 			);
