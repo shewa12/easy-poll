@@ -4,7 +4,7 @@
  *
  * @package EasyPoll/Database
  *
- * @since v2.0.0
+ * @since v1.0.0
  */
 
 namespace EasyPoll\Database;
@@ -27,7 +27,7 @@ class EasyPollFields extends DatabaseTable {
 	/**
 	 * Get table name
 	 *
-	 * @since v2.0.0
+	 * @since v1.0.0
 	 *
 	 * @return string
 	 */
@@ -40,7 +40,7 @@ class EasyPollFields extends DatabaseTable {
 	 *
 	 * @return void
 	 *
-	 * @since v2.0.0
+	 * @since v1.0.0
 	 */
 	public static function create_table(): void {
 		do_action( 'ep_before_easy_poll_fields_table' );

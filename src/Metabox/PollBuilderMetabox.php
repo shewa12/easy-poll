@@ -33,7 +33,7 @@ class PollBuilderMetabox extends MetaboxFactory {
 	/**
 	 * Create new meta box, implementation of abstract method
 	 *
-	 * @since v2.0.0
+	 * @since v1.0.0
 	 *
 	 * @return MetaboxInterface
 	 */
@@ -50,7 +50,7 @@ class PollBuilderMetabox extends MetaboxFactory {
 	/**
 	 * Meta box view
 	 *
-	 * @since v2.0.0
+	 * @since v1.0.0
 	 *
 	 * @return void
 	 */

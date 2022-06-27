@@ -21,7 +21,7 @@ class MetaboxInit {
 	/**
 	 * Load meta boxes
 	 *
-	 * @since v2.0.0
+	 * @since v1.0.0
 	 *
 	 * @return void
 	 */

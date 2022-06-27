@@ -21,7 +21,7 @@ class SubMenuFactory {
 	/**
 	 * Create instance of sub menu
 	 *
-	 * @since v2.0.0
+	 * @since v1.0.0
 	 *
 	 * @param string $type  class name.
 	 *

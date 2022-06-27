@@ -4,7 +4,7 @@
  *
  * @package EasyPoll/Database
  *
- * @since v2.0.0
+ * @since v1.0.0
  */
 
 namespace EasyPoll\Database;
@@ -20,7 +20,7 @@ abstract class DatabaseTable {
 	/**
 	 * Get table name for implementing on Concrete Class
 	 *
-	 * @since v2.0.0
+	 * @since v1.0.0
 	 *
 	 * @return string   table name.
 	 */
@@ -29,7 +29,7 @@ abstract class DatabaseTable {
 	/**
 	 * Create table for implementing on Concrete Class.
 	 *
-	 * @since v2.0.0
+	 * @since v1.0.0
 	 *
 	 * @return void
 	 */

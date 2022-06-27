@@ -14,14 +14,14 @@ use EasyPoll\Admin\Menu\MainMenu;
 /**
  * Admin Package loader
  *
- * @since v2.0.0
+ * @since v1.0.0
  */
 class Admin {
 
 	/**
 	 * Load dependencies
 	 *
-	 * @since v2.0.0
+	 * @since v1.0.0
 	 *
 	 * @return void
 	 */

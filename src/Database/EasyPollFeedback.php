@@ -4,7 +4,7 @@
  *
  * @package EasyPoll/Database
  *
- * @since v2.0.0
+ * @since v1.0.0
  */
 
 namespace EasyPoll\Database;
@@ -27,7 +27,7 @@ class EasyPollFeedback extends DatabaseTable {
 	/**
 	 * Get table name
 	 *
-	 * @since v2.0.0
+	 * @since v1.0.0
 	 *
 	 * @return string
 	 */

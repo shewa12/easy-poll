@@ -19,7 +19,7 @@ class AddNewPoll implements SubMenuInterface {
 	/**
 	 * Page title
 	 *
-	 * @since v2.0.0
+	 * @since v1.0.0
 	 *
 	 * @return string  page title
 	 */
@@ -30,7 +30,7 @@ class AddNewPoll implements SubMenuInterface {
 	/**
 	 * Menu title
 	 *
-	 * @since v2.0.0
+	 * @since v1.0.0
 	 *
 	 * @return string  menu title
 	 */
@@ -41,7 +41,7 @@ class AddNewPoll implements SubMenuInterface {
 	/**
 	 * Capability to access this menu
 	 *
-	 * @since v2.0.0
+	 * @since v1.0.0
 	 *
 	 * @return string  capability
 	 */
@@ -52,7 +52,7 @@ class AddNewPoll implements SubMenuInterface {
 	/**
 	 * Page URL slug
 	 *
-	 * @since v2.0.0
+	 * @since v1.0.0
 	 *
 	 * @return string  slug
 	 */
@@ -63,7 +63,7 @@ class AddNewPoll implements SubMenuInterface {
 	/**
 	 * Render content for this sub-menu page
 	 *
-	 * @since v2.0.0
+	 * @since v1.0.0
 	 *
 	 * @return void
 	 */

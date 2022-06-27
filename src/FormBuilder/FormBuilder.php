@@ -2,7 +2,7 @@
 /**
  * Form builder factory class
  * 
- * @since v2.0.0
+ * @since v1.0.0
  * @package TutorPeriscope\FormBuilder
  */
 
@@ -18,7 +18,7 @@ class FormBuilder {
      * Create object as per type so that client code can
      * interact with concrete class.
      *
-     * @since v2.0.0
+     * @since v1.0.0
      * @return FormInterface
      */
     public static function create( string $type ): FormInterface {
