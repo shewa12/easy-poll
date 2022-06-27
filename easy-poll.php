@@ -16,6 +16,7 @@ use EasyPoll\Admin\Admin;
 use EasyPoll\CustomPosts\InitCustomPosts;
 use EasyPoll\Database\EasyPollFeedback;
 use EasyPoll\Database\EasyPollFields;
+use EasyPoll\Metabox\MetaboxInit;
 
 if ( ! class_exists( 'EasyPoll' ) ) {
 
@@ -154,6 +155,7 @@ if ( ! class_exists( 'EasyPoll' ) ) {
 		public function load_packages() {
 			new Admin();
 			new InitCustomPosts();
+			new MetaboxInit();
 		}
 	}
 	// trigger.

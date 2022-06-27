@@ -63,21 +63,11 @@ class EasyPollPost {
 			),
 			'description'          => __( 'Easy poll custom post type', 'easy-poll' ),
 			'public'               => true,
-            'show_ui'              => true,
+			'show_ui'              => true,
 			'show_in_menu'         => 'easy-poll',
-            'show_in_rest'         => true,
+			'show_in_rest'         => true,
 			'capability_type'      => 'post',
-            'supports'             => array( 'title', 'editor', 'author', 'thumbnail' ),
-			'register_meta_box_cb' => __CLASS__ . '::meta_box',
+			'supports'             => array( 'title', 'editor', 'author', 'thumbnail' ),
 		);
-	}
-
-	/**
-	 * Meta box view for this post type
-	 *
-	 * @return void
-	 */
-	public static function meta_box() {
-		return 'Hello';
 	}
 }
