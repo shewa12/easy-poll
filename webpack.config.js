@@ -10,7 +10,7 @@ module.exports = (env) => {
             // css
             common: './assets/scss/common-style.scss',
             frontend: './assets/scss/frontend-style.scss',
-            backend: './assets/scss/backend-style.scss'
+            backend: './assets/scss/backend-style.scss',
 		},
         // Both js & css files will be stored inside the bundles dir
 		output: {
