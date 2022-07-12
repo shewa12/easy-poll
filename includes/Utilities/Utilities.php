@@ -3,7 +3,7 @@
  * Contains utilities static methods
  *
  * @since    v1.0.0
- * 
+ *
  * @package  EasyPoll\Utilities
  */
 
@@ -27,7 +27,7 @@ class Utilities {
 	 *
 	 * @return void
 	 */
-	public static function load_template( string $template, $data, $once = false ) {
+	public static function load_template( string $template, $data = '', $once = false ) {
 		if ( file_exists( $template ) ) {
 			if ( $once ) {
 				include_once $template;
@@ -35,7 +35,7 @@ class Utilities {
 				include $template;
 			}
 		} else {
-            echo esc_html( $template . ' file not found' );
-        }
+			echo esc_html( $template . ' file not found' );
+		}
 	}
 }

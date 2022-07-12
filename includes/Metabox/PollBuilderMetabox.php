@@ -10,7 +10,9 @@
 
 namespace EasyPoll\Metabox;
 
+use EasyPoll;
 use EasyPoll\CustomPosts\EasyPollPost;
+use EasyPoll\Utilities\Utilities;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -55,6 +57,8 @@ class PollBuilderMetabox extends MetaboxFactory {
 	 * @return void
 	 */
 	public function meta_box_view() {
-		echo "hello";
+		$plugin_data = EasyPoll::plugin_data();
+		$template    = trailingslashit( $plugin_data['views'] . 'metabox' ) . 'poll-builder.php';
+		Utilities::load_template( $template );
 	}
 }
