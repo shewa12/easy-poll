@@ -9,6 +9,8 @@
 
 namespace EasyPoll\Utilities;
 
+use EasyPoll;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	return;
 }
@@ -36,6 +38,32 @@ class Utilities {
 			}
 		} else {
 			echo esc_html( $template . ' file not found' );
+		}
+	}
+
+		/**
+	 * Create nonce field.
+	 *
+	 * @since v1.0.0
+	 *
+	 * @return void
+	 */
+	public static function create_nonce_field() {
+		$plugin_data = EasyPoll::plugin_data();
+		wp_nonce_field( $plugin_data['nonce_action'], $plugin_data['nonce'] );
+	}
+
+	/**
+	 * Verify nonce not it verified then die
+	 *
+	 * @since v1.0.0
+	 *
+	 * @return void
+	 */
+	public static function verify_nonce() {
+		$plugin_data = EasyPoll::plugin_data();
+		if ( isset( $_POST[ $plugin_data['nonce'] ] ) && ! wp_verify_nonce( $_POST[ $plugin_data['nonce'] ], $plugin_data['nonce_action'] ) ) {
+			die( __( 'Tutor periscope nonce verification failed', 'tutor-periscope' ) );
 		}
 	}
 }
