@@ -13,10 +13,10 @@ $form_builder = FormBuilder::create( 'FormField' );
 $field_types  = $form_builder::field_types();
 ?>
 <?php do_action( 'ep_before_poll_builder_meta_box', get_the_ID() ); ?>
-<div class="ep-meta-box-wrapper">
+<div class="ep-meta-box-wrapper ep-wrapper">
 	<form action="">
-		<div class="ep-row">
-			<div class="ep-form-group">
+		<div class="ep-row ep-justify-between ep-pt-10">
+			<div class="ep-form-group ep-flex-basis-60">
 				<input type="text" id="ep-field-label" name="ep-field-label">
 			</div>
 			<div class="ep-form-group">

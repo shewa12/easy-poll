@@ -13,6 +13,7 @@
  */
 
 use EasyPoll\Admin\Admin;
+use EasyPoll\Assets\Enqueue;
 use EasyPoll\CustomPosts\InitCustomPosts;
 use EasyPoll\Database\EasyPollFeedback;
 use EasyPoll\Database\EasyPollFields;
@@ -158,6 +159,7 @@ if ( ! class_exists( 'EasyPoll' ) ) {
 			new Admin();
 			new InitCustomPosts();
 			new MetaboxInit();
+			new Enqueue();
 		}
 	}
 	// trigger.

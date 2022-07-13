@@ -12,6 +12,12 @@ module.exports = (env) => {
             frontend: './assets/scss/frontend-style.scss',
             backend: './assets/scss/backend-style.scss',
 		},
+		plugins: [
+            // Extract css from js & make it separate
+            new MiniCssExtractPlugin({
+              filename: '[name].min.css'
+            })
+        ],
         // Both js & css files will be stored inside the bundles dir
 		output: {
 			filename: `[name].min.js`,
@@ -21,16 +27,15 @@ module.exports = (env) => {
 		module: {
 			rules: [
                 {
-                    test: /\.(scss|css)$/,
-                    use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"]
+					test: /\.s[ac]ss$/i,
+					exclude: /node_modules/,
+					use: [
+					  MiniCssExtractPlugin.loader,
+					  "css-loader",
+					  "sass-loader",
+					],
                 }
 			],
 		},
-        plugins: [
-            // Extract css from js & make it separate
-            new MiniCssExtractPlugin({
-              filename: '[name].min.css'
-            })
-        ]
 	};
 };
