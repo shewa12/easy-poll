@@ -1,1 +1,12 @@
-body{background-color:#639}body p{color:#f0f8ff}body .header nav li{color:#faebd7}
+/*!************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./assets/scss/common-style.scss ***!
+  \************************************************************************************************************************/
+body {
+  background-color: rebeccapurple;
+}
+body p {
+  color: aliceblue;
+}
+body .header nav li {
+  color: antiquewhite;
+}

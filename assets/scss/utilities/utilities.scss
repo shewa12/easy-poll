@@ -1,0 +1,107 @@
+// Default styles
+.ep-wrapper {
+    input {
+        width: 100%;
+    }
+}
+// Flex utilities.
+.ep-row {
+    display: flex;
+}
+.ep-justify-between {
+    justify-content: space-between;
+}
+.ep-justify-start {
+    justify-content: flex-start;
+}
+.ep-justify-end {
+    justify-content: flex-end;
+}
+
+.ep-col-1 {
+    flex-basis: 8%;
+}
+.ep-col-2 {
+    flex-basis: 16%;
+}
+.ep-col-3 {
+    flex-basis: 24%;
+}
+.ep-col-4 {
+    flex-basis: 32%;
+}
+.ep-col-5 {
+    flex-basis: 40%;
+}
+.ep-col-6 {
+    flex-basis: 48%;
+}
+.ep-col-7 {
+    flex-basis: 56%;
+}
+.ep-col-8 {
+    flex-basis: 64%;
+}
+.ep-col-9 {
+    flex-basis: 72%;
+}
+.ep-col-10 {
+    flex-basis: 80%;
+}
+.ep-col-11 {
+    flex-basis: 88%;
+}
+.ep-col-2 {
+    flex-basis: 96%;
+}
+ 
+// Space utilities.
+.ep-mt-10 {
+    margin-top: 10px;
+}
+.ep-mb-10 {
+    margin-bottom: 10px;
+}
+.ep-ml-10 {
+    margin-left: 10px;
+}
+.ep-mr-10 {
+    margin-right: 10px;
+}
+.ep-mt-20 {
+    margin-top: 20px;
+}
+.ep-mb-20 {
+    margin-bottom: 20px;
+}
+.ep-ml-20 {
+    margin-left: 20px;
+}
+.ep-mr-20 {
+    margin-right: 20px;
+}
+
+.ep-pt-10 {
+    padding-top: 10px;
+}
+.ep-pb-10 {
+    padding-bottom: 10px;
+}
+.ep-pl-10 {
+    padding-left: 10px;
+}
+.ep-pr-10 {
+    padding-right: 10px;
+}
+.ep-pt-20 {
+    padding-top: 20px;
+}
+.ep-pb-20 {
+    padding-bottom: 20px;
+}
+.ep-pl-20 {
+    padding-left: 20px;
+}
+.ep-pr-20 {
+    padding-right: 20px;
+}

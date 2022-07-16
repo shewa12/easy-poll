@@ -24,7 +24,7 @@ class Enqueue {
 	public function __construct() {
 		add_action( 'admin_enqueue_scripts', array( __CLASS__, 'load_admin_scripts' ) );
 		// frontend scripts.
-		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'load_front_end_scripts' ) );
+		// add_action( 'wp_enqueue_scripts', array( __CLASS__, 'load_front_end_scripts' ) );
 
 		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'script_text_domain' ) );
 	}
@@ -41,9 +41,9 @@ class Enqueue {
 		// load styles & scripts only required page.
 		if ( 'easy-poll' === $post_type ) {
 			// if dev env then load extended file.
-			wp_enqueue_style( 'ep-backend-style', $plugin_data['assets'] . 'bundles/backend.min.css', array(), filemtime( $plugin_data['plugin_path'] . "assets/bundles/backend.min.css" ) );
+			wp_enqueue_style( 'ep-backend-style', $plugin_data['assets'] . 'bundles/backend.min.css', array(), filemtime( $plugin_data['plugin_path'] . 'assets/bundles/backend.min.css' ) );
 
-			wp_enqueue_script( 'ep-backend-script', $plugin_data['assets'] . 'assets/bundles/backend.min.js', array( 'wp-i18n' ), filemtime( $plugin_data['plugin_path'] . "assets/bundles/backend.min.js" ), true );
+			wp_enqueue_script( 'ep-backend-script', $plugin_data['assets'] . 'assets/bundles/backend.min.js', array( 'wp-i18n' ), filemtime( $plugin_data['plugin_path'] . 'assets/bundles/backend.min.js' ), true );
 
 			// add data to use in js files.
 			wp_add_inline_script( 'plugin-starter-backend', 'const epData = ' . json_encode( self::scripts_data() ), 'before' );
