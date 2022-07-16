@@ -41,26 +41,9 @@ document.addEventListener("DOMContentLoaded", function () {
         const html = `
         <div class="ep-row ep-justify-between ep-pt-10 ep-remove-able-wrapper">
             <div class="ep-form-group ep-col-8">
-                <input type="text" id="ep-field-label[]" name="ep-field-label" placeholder="Write field label...">
+                <input type="text" id="ep-field-options[]" name="ep-field-label" placeholder="Write field label...">
             </div>
             <div class="ep-form-group ep-row">
-                <select name="ep-field-type[]" id="ep-field-type">
-                    <option value="" title="Select Field Type">
-                        ${__('Select Field Type', 'easy-poll')}							
-                    </option>
-                    <option value="" title="Single Choice">
-                        ${__('Single Choice', 'easy-poll')}							
-                    </option>               
-                    <option value="" title="Double Choice">
-                        ${__('Double Choice', 'easy-poll')}							
-                    </option>              
-                    <option value="" title="Input Field">
-                        ${__('Input Field', 'easy-poll')}							
-                    </option>     
-                    <option value="" title="Textarea">
-                        ${__('Textarea', 'easy-poll')}	
-                    </option>
-                </select>
                 <button type="button" class="ep-btn ep-btn-danger ep-btn-sm ep-ml-10 ep-remove-able">
                     <i class="dashicons dashicons-remove"></i>
                     ${__('Remove', 'easy-poll')}
