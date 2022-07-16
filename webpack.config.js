@@ -8,9 +8,9 @@ module.exports = (env) => {
 			frontend: "./assets/scripts/frontend.js",
 			backend: "./assets/scripts/backend.js",
             // css
-            common: './assets/scss/common-style.scss',
-            frontend: './assets/scss/frontend-style.scss',
-            backend: './assets/scss/backend-style.scss',
+            "common-style": './assets/scss/common-style.scss',
+            "frontend-style": './assets/scss/frontend-style.scss',
+            "backend-style": './assets/scss/backend-style.scss',
 		},
 		plugins: [
             // Extract css from js & make it separate

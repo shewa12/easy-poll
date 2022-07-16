@@ -5,36 +5,71 @@
  *
  * @since v1.0.0
  */
- const { __ } = wp.i18n;
- document.addEventListener('DOMContentLoaded', function () {
-     const addMore = document.getElementById('tutor-periscope-add-more-instructor');
-     const metaBox = document.getElementById('tutor-periscope-instructors-metabox');
- 
-     if (addMore) {
-         addMore.onclick = (e) => {
-             if (metaBox) {
-                 metaBox.insertAdjacentHTML(
-                     'beforeend',
-                     `<div class="tutor-periscope-each-instructor-box" style="display: flex; flex-direction: column; row-gap: 15px; margin-top: 15px">
- 
-                     <div style="display: flex; column-gap: 10px;">
-                         <textarea name="state_approver[]" rows="2" placeholder="${__('State Approver', 'tutor-periscope')}"></textarea>
-                         <span class="tutor-periscope-remove-instructor" style="color:tomato; cursor: pointer;">Remove</span>
-                     </div>
- 
-                 </div >`
-                 );
-             }
-         }
-     }
- 
-     // remove boxes
-     const periscopeMetaBox = document.getElementById('tutor-periscope-additional-data');
-     if (periscopeMetaBox) {
-         periscopeMetaBox.onclick = (e) => {
-             if (e.target.classList.contains('tutor-periscope-remove-instructor')) {
-                 e.target.closest('.tutor-periscope-each-instructor-box').remove();
-             }
-         }
-     }
- });
+import addDynamicField, {removeElement} from "../utilities/add-remove";
+const { __ } = wp.i18n;
+
+document.addEventListener("DOMContentLoaded", function () {
+	const addField = document.querySelector("#ep-field-add-more");
+	if (addField) {
+		addField.onclick = (event) => {
+            addPollField();
+		};
+	}
+
+	// remove element.
+	const wrapper = document.querySelector(".ep-poll-fields-holder");
+	if (wrapper) {
+		wrapper.onclick = (event) => {
+			event.preventDefault();
+			const target = event.target;
+			if (event.target.classList.contains("ep-remove-able")) {
+                removeElement(target);
+			} else {
+				return;
+			}
+		};
+	}
+
+    /**
+     * Add poll fields
+     * 
+     * It will create poll fields on the html wrapper
+     *
+     * @since v1.0.0
+     */
+    function addPollField() {
+        const html = `
+        <div class="ep-row ep-justify-between ep-pt-10 ep-remove-able-wrapper">
+            <div class="ep-form-group ep-col-8">
+                <input type="text" id="ep-field-label[]" name="ep-field-label" placeholder="Write field label...">
+            </div>
+            <div class="ep-form-group ep-row">
+                <select name="ep-field-type[]" id="ep-field-type">
+                    <option value="" title="Select Field Type">
+                        ${__('Select Field Type', 'easy-poll')}							
+                    </option>
+                    <option value="" title="Single Choice">
+                        ${__('Single Choice', 'easy-poll')}							
+                    </option>               
+                    <option value="" title="Double Choice">
+                        ${__('Double Choice', 'easy-poll')}							
+                    </option>              
+                    <option value="" title="Input Field">
+                        ${__('Input Field', 'easy-poll')}							
+                    </option>     
+                    <option value="" title="Textarea">
+                        ${__('Textarea', 'easy-poll')}	
+                    </option>
+                </select>
+                <button type="button" class="ep-btn ep-btn-danger ep-btn-sm ep-ml-10 ep-remove-able">
+                    <i class="dashicons dashicons-remove"></i>
+                    ${__('Remove', 'easy-poll')}
+                </button>
+            </div>
+        </div>
+         `;
+        const fieldsHolder = ".ep-poll-fields-holder";
+        //Add dynamic field.
+        addDynamicField(html, fieldsHolder);
+    }
+});
