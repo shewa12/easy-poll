@@ -58,9 +58,9 @@ class FormField implements FormInterface {
 				'selected' => 'single_choice' === $selected ? true : false,
 			),
 			array(
-				'label'    => __( 'Double Choice', 'easy-poll' ),
+				'label'    => __( 'Multiple Choice', 'easy-poll' ),
 				'value'    => 'double_choice',
-				'selected' => 'double_choice' === $selected ? true : false,
+				'selected' => 'multiple_choice' === $selected ? true : false,
 			),
 			array(
 				'label'    => __( 'Input Field', 'easy-poll' ),
