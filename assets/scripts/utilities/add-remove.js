@@ -3,10 +3,7 @@
  * 
  * @since v2.0.0
  */
- import ajaxRequest from "./ajax-request";
 
- const {__} = wp.i18n;
- 
  /**
   * Add field anywhere needed
   *

@@ -24,7 +24,6 @@
         } else {
             return await post.text();
         }
-        
     } else {
         return false;
     }

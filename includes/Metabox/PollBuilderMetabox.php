@@ -57,8 +57,7 @@ class PollBuilderMetabox extends MetaboxFactory {
 	 * @return void
 	 */
 	public function meta_box_view() {
-		$plugin_data = EasyPoll::plugin_data();
-		$template    = trailingslashit( $plugin_data['views'] . 'metabox' ) . 'poll-builder.php';
-		Utilities::load_template( $template );
+		$template    = 'metabox/poll-builder.php';
+		Utilities::load_views( $template );
 	}
 }

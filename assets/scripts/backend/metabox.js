@@ -72,4 +72,5 @@ document.addEventListener("DOMContentLoaded", function () {
         //Add dynamic field.
         addDynamicField(html, fieldsHolder);
     }
+
 });

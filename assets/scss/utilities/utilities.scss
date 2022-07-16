@@ -3,6 +3,12 @@
     input {
         width: 100%;
     }
+    a {
+        text-decoration: none;
+    }
+    li {
+        list-style: none;
+    }
 }
 // Flex utilities.
 .ep-row , .ep-d-flex {
@@ -17,6 +23,24 @@
 }
 .ep-justify-end {
     justify-content: flex-end;
+}
+.ep-align-center {
+    align-items: center;
+}
+.ep-align-start {
+    align-items: flex-start;
+}
+.ep-align-end {
+    align-items: flex-end;
+}
+.ep-gap-10 {
+    gap: 10px;
+}
+.ep-gap-5 {
+    gap: 5px;
+}
+.ep-gap-20 {
+    gap: 20px;
 }
 
 .ep-col-1 {
@@ -136,7 +160,7 @@ $borderRadius: 4px
     align-items: center;
     cursor: pointer;
     @include btn($white, $primary, $primary);
-    padding: 1rem 1.25rem;
+    padding: .75rem 1.25rem;
     font-size: 15px;
     &.ep-btn-secondary {
         @include btn($white, $secondary, $secondary);

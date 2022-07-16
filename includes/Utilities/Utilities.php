@@ -23,13 +23,15 @@ class Utilities {
 	/**
 	 * Load template file
 	 *
-	 * @param string $template  required template file path.
+	 * @param string $template  required template file relative path.
 	 * @param mixed  $data  data that will be available on the file.
 	 * @param bool   $once  if true file will be included once.
 	 *
 	 * @return void
 	 */
 	public static function load_template( string $template, $data = '', $once = false ) {
+		$plugin_data = EasyPoll::plugin_data();
+		$template = trailingslashit( $plugin_data['templates'] ) . $template;
 		if ( file_exists( $template ) ) {
 			if ( $once ) {
 				include_once $template;
@@ -41,7 +43,31 @@ class Utilities {
 		}
 	}
 
-		/**
+	/**
+	 * Load template file
+	 *
+	 * @param string $template  required views relative path,
+	 * path should be before views folder.
+	 * @param mixed  $data  data that will be available on the file.
+	 * @param bool   $once  if true file will be included once.
+	 *
+	 * @return void
+	 */
+	public static function load_views( string $template, $data = '', $once = false ) {
+		$plugin_data = EasyPoll::plugin_data();
+		$template = trailingslashit( $plugin_data['views'] ) . $template;
+		if ( file_exists( $template ) ) {
+			if ( $once ) {
+				include_once $template;
+			} else {
+				include $template;
+			}
+		} else {
+			echo esc_html( $template . ' file not found' );
+		}
+	}
+
+	/**
 	 * Create nonce field.
 	 *
 	 * @since v1.0.0
