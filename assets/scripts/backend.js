@@ -1,1 +1,2 @@
-console.log('form backend')
+import './backend/metabox';
+console.log('from backend')
