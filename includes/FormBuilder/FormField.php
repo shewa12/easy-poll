@@ -81,10 +81,11 @@ class FormField implements FormInterface {
 		);
 	}
 
-	public static  function load_single_multiple_choice_modal() {
+	public static  function load_single_multiple_choice_modal( string $modal_id ) {
 		// Load modal.
 		$plugin_data = EasyPoll::plugin_data();
 		$single_multiple_choice = array(
+			'modal_id' 		 => $modal_id,
 			'header_title'   => __('Add Question', 'easy-poll'),
 			'body_content'   => $plugin_data['views'] . '/metabox/single-multiple-choice-fields.php',
 			'footer_buttons' => array(

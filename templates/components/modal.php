@@ -6,6 +6,7 @@
  * method & pass the required params.
  * 
  * $args: array(
+ *  'modal_id' => 'unique modal id'
  *  'header_title' => '',
  *  'body_content'  => 'full path',
  *  'footer_buttons' => array(
@@ -31,14 +32,14 @@ if ( ! isset( $data ) ) {
 }
 ?>
 <!-- Modal -->
-<div class="ep-modal-wrapper" aria-hidden="true">
+<div class="ep-modal-wrapper" aria-hidden="true" id="<?php echo esc_attr( $data['modal_id'] ); ?>">
   <div class="ep-modal-dialog">
     <div class="ep-modal-content">
       <div class="ep-modal-header ep-row ep-justify-between ep-align-center">
           <h1>
             <?php echo esc_html( $data['header_title'] ); ?>
           </h1>
-          <a href="JavaScript:Void(0);" class="btn-close ep-close-modal" aria-hidden="true">
+          <a href="javascript:void(0);" class="btn-close ep-close-modal" aria-hidden="true">
             &times;
           </a>
       </div>

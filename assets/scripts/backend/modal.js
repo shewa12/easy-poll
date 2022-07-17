@@ -1,26 +1,30 @@
-// $('.openmodale').click(function (e) {
-//     e.preventDefault();
-//     $('.modale').addClass('opened');
-// });
-// $('.closemodale').click(function (e) {
-//     e.preventDefault();
-//     $('.modale').removeClass('opened');
-// });
-
+/**
+ * Handle model open & close
+ *
+ * @since v1.0.0
+ */
 document.addEventListener('DOMContentLoaded', function() {
-    const openModal = document.querySelector('.ep-modal-opener');
-    const closeModal = document.querySelector('.ep-close-modal');
-    if (openModal) {
-        openModal.onclick = () => {
-            console.log('hello')
-            const modal = document.querySelector('.ep-modal-wrapper');
-            modal.classList.add('opened');
-        }
+    const openButtons = document.querySelectorAll('.ep-modal-opener');
+    const closeButtons = document.querySelectorAll('.ep-close-modal');
+ 
+    if (openButtons.length) {
+        openButtons.forEach( (button) => {
+            button.onclick = () => {
+                const target = button.getAttribute('data-target');
+                console.log(target)
+                const targetModal = document.querySelector(target);
+                targetModal.classList.add('opened');
+            }
+        });
     }
-    if (closeModal) {
-        closeModal.onclick = () => {
-            const modal = document.querySelector('.ep-modal-wrapper');
-            modal.classList.remove('opened');
-        }
+    if (closeButtons.length) {
+        closeButtons.forEach((button) => {
+            button.onclick = () => {
+                const modals = document.querySelectorAll('.ep-modal-wrapper');
+                modals.forEach((modal) => {
+                    modal.classList.remove('opened');
+                });
+            }
+        });
     }
 });
