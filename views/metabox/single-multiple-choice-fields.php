@@ -38,8 +38,8 @@ $field_types  = $form_builder::field_types();
 			</div>
 		</div>
 	</div>
-	<button type="button" id="ep-field-add-more" class="ep-btn ep-btn-sm ep-mt-10">
+	<button type="button" id="ep-add-more-options" class="ep-btn ep-btn-sm ep-mt-10">
 		<i class="dashicons dashicons-insert"></i>
-		<?php esc_html_e( 'Add More', 'easy-poll' ); ?>
+		<?php esc_html_e( 'Add More Options', 'easy-poll' ); ?>
 	</button>
 </form>

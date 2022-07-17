@@ -16,14 +16,16 @@ use EasyPoll\FormBuilder\FormField;
 			<i class="dashicons dashicons-insert"></i>
 			<?php esc_html_e( 'Add Question, Single/Multiple Choice', 'easy-poll' ); ?>
 		</button>
-		<button type="button" class="ep-btn ep-btn-sm ep-btn-success ep-mt-10 ep-modal-opener" data-target="#input-textarea-modal">
+		<button type="button" class="ep-btn ep-btn-sm ep-btn-success ep-mt-10 ep-modal-opener" data-target="#ep-input-textarea-modal">
 			<i class="dashicons dashicons-insert"></i>
 			<?php esc_html_e( 'Add Question, Input/Textarea', 'easy-poll' ); ?>
 		</button>
 	</div>
 
 	<?php
+		// Load modals.
 		FormField::load_single_multiple_choice_modal( 'ep-single-multiple-choice-modal' );
+		FormField::load_input_textarea_modal( 'ep-input-textarea-modal' );
 	?>
 </div>
 <?php do_action( 'ep_after_poll_builder_meta_box', get_the_ID() ); ?>
