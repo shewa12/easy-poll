@@ -19,7 +19,7 @@ $field_types  = $form_builder::field_types();
 				<label for="ep-field-label">
 				<?php esc_html_e( 'Question Text', 'easy-poll' ); ?>
 				</label>
-				<input type="text" id="ep-field-label" class="ep-mt-10" name="ep-field-label" placeholder="<?php esc_html_e( 'Write field label...', 'easy-poll' ); ?>">
+				<input type="text" id="ep-field-label" class="ep-mt-10" name="ep-field-label[]" placeholder="<?php esc_html_e( 'Write question...', 'easy-poll' ); ?>">
 			</div>
 			<div class="ep-form-group">
 				<select name="ep-field-type[]" id="ep-field-type">
@@ -38,8 +38,8 @@ $field_types  = $form_builder::field_types();
 			</div>
 		</div>
 	</div>
-	<button type="button" id="ep-field-add-more" class="ep-btn ep-btn-sm ep-mt-10">
+	<button type="button" id="ep-add-more-question" class="ep-btn ep-btn-sm ep-mt-10">
 		<i class="dashicons dashicons-insert"></i>
-		<?php esc_html_e( 'Add More', 'easy-poll' ); ?>
+		<?php esc_html_e( 'Add More Question', 'easy-poll' ); ?>
 	</button>
 </form>

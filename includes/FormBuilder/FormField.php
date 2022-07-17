@@ -104,13 +104,13 @@ class FormField implements FormInterface {
 				array(
 					'text'  => __( 'Save & Close', 'easy-poll' ),
 					'id'    => '',
-					'class' => 'ep-btn',
+					'class' => 'ep-btn ep-btn-secondary',
 					'type'  => 'submit',
 				),
 				array(
-					'text'  => __( 'Save & Add more', 'easy-poll' ),
+					'text'  => __( 'Save', 'easy-poll' ),
 					'id'    => '',
-					'class' => 'ep-btn ep-btn-secondary',
+					'class' => 'ep-btn',
 					'type'  => 'submit',
 				),
 			),
