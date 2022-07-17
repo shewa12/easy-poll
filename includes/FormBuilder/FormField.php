@@ -12,7 +12,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+use EasyPoll;
 use EasyPoll\FormBuilder\FormInterface;
+use EasyPoll\Utilities\Utilities;
 
 class FormField implements FormInterface {
 
@@ -77,5 +79,29 @@ class FormField implements FormInterface {
 			'ep_field_types',
 			$field_types
 		);
+	}
+
+	public static  function load_single_multiple_choice_modal() {
+		// Load modal.
+		$plugin_data = EasyPoll::plugin_data();
+		$single_multiple_choice = array(
+			'header_title'   => __('Add Question', 'easy-poll'),
+			'body_content'   => $plugin_data['views'] . '/metabox/single-multiple-choice-fields.php',
+			'footer_buttons' => array(
+				array(
+					'text'  => __( 'Save & Close', 'easy-poll' ),
+					'id'    => '',
+					'class' => 'ep-btn',
+					'type'  => 'submit',
+				),
+				array(
+					'text'  => __( 'Save & Add more', 'easy-poll' ),
+					'id'    => '',
+					'class' => 'ep-btn ep-btn-secondary',
+					'type'  => 'submit',
+				),
+			),
+		);
+		Utilities::load_template( 'components/modal.php', $single_multiple_choice );
 	}
 }

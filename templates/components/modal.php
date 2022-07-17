@@ -1,64 +1,59 @@
 <?php
 /**
- * Modal for creating poll questions
+ * Reuse able modal
+ *
+ * Not for using directly, use through Utility loader
+ * method & pass the required params.
+ * 
+ * $args: array(
+ *  'header_title' => '',
+ *  'body_content'  => 'full path',
+ *  'footer_buttons' => array(
+ *      array(
+ *        'footer_buttons' => array(
+ *        'text' => '',
+ *        'id' => '',
+ *        'class' => '',
+ *        'type' => ''
+ *      )
+ *  )
+ * )
  *
  * @package EasyPoll\Templates
  * @since v1.0.0
  */
 
-use EasyPoll\FormBuilder\FormBuilder;
+use EasyPoll\Utilities\Utilities;
 
-// Create FormField obj from factory method.
-$form_builder = FormBuilder::create( 'FormField' );
-$field_types  = $form_builder::field_types();
+if ( ! isset( $data ) ) {
+  esc_html_e( 'Modal arguments required', 'easy-poll' );
+  return;
+}
 ?>
 <!-- Modal -->
 <div class="ep-modal-wrapper" aria-hidden="true">
   <div class="ep-modal-dialog">
     <div class="ep-modal-content">
       <div class="ep-modal-header ep-row ep-justify-between ep-align-center">
-        <h1>
-          <?php esc_html_e( 'Add Question', 'tutor-periscope' ); ?>
-        </h1>
-        <a href="JavaScript:Void(0);" class="btn-close ep-close-modal" aria-hidden="true">
-          &times;
-        </a>
+          <h1>
+            <?php echo esc_html( $data['header_title'] ); ?>
+          </h1>
+          <a href="JavaScript:Void(0);" class="btn-close ep-close-modal" aria-hidden="true">
+            &times;
+          </a>
       </div>
       <div class="ep-modal-body">
-        <form action="">
-          <div class="ep-poll-fields-holder">
-            <div class="ep-row ep-justify-between ep-pt-10 ep-align-end">
-            <div class="ep-form-group ep-col-10">
-              <label for="ep-field-label">
-                <?php esc_html_e( 'Question Text', 'easy-poll' ); ?>
-              </label>
-              <input type="text" id="ep-field-label" class="ep-mt-10" name="ep-field-label" placeholder="<?php esc_html_e( 'Write field label...', 'easy-poll' ); ?>">
-            </div>
-            <div class="ep-form-group">
-              <select name="ep-field-type[]" id="ep-field-type">
-                <?php foreach ( $field_types as $key => $field ) : ?>
-                  <option value="<?php esc_attr( $field['value'] ); ?>" title="<?php echo esc_html( $field['label'] ); ?>">
-                    <?php echo esc_html( $field['label'] ); ?>
-                  </option>
-                <?php endforeach; ?>
-              </select>
-            </div>
-          </div>
-          </div>
-          <button type="button" id="ep-field-add-more" class="ep-btn ep-btn-sm ep-mt-10">
-            <i class="dashicons dashicons-insert"></i>
-            <?php esc_html_e( 'Add More', 'easy-poll' ); ?>
-          </button>
-        </form>
+        <?php Utilities::load_file_from_custom_path( $data['body_content'] ); ?>
       </div>
       <div class="ep-modal-footer">
         <div class="ep-row ep-gap-10">
-          <button class="ep-btn">
-            <?php esc_html_e( 'Save & close', 'easy-poll' ); ?>
-          </button>
-          <button class="ep-btn ep-btn-secondary">
-            <?php esc_html_e( 'Save & add more', 'easy-poll' ); ?>
-          </button>
+            <?php if ( is_array( $data['footer_buttons' ] ) && count( $data['footer_buttons' ] ) ) : ?>
+              <?php foreach( $data['footer_buttons'] as $button ) : ?>
+                <button type="<?php echo esc_attr( $button['type'] ); ?>" class="<?php echo esc_attr( $button['class'] ) ?>" id="<?php echo esc_attr( $button['id'] ); ?>">
+                  <?php echo esc_html( $button['text'] ); ?>
+                </button>
+              <?php endforeach; ?>
+            <?php endif; ?>
         </div>
       </div>
     </div>

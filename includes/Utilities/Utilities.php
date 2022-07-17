@@ -66,6 +66,26 @@ class Utilities {
 			echo esc_html( $template . ' file not found' );
 		}
 	}
+	/**
+	 * Load custom file from any path provided
+	 *
+	 * @param string $template  provide full path of a file.
+	 * @param mixed  $data  data that will be available on the file.
+	 * @param bool   $once  if true file will be included once.
+	 *
+	 * @return void
+	 */
+	public static function load_file_from_custom_path( string $template, $data = '', $once = false ) {
+		if ( file_exists( $template ) ) {
+			if ( $once ) {
+				include_once $template;
+			} else {
+				include $template;
+			}
+		} else {
+			echo esc_html( $template . ' file not found' );
+		}
+	}
 
 	/**
 	 * Create nonce field.
