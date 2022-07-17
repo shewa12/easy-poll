@@ -25,9 +25,25 @@ document.addEventListener("DOMContentLoaded", function () {
 	}
 
 	// remove element.
-	const wrapper = document.querySelector(".ep-poll-fields-holder");
-	if (wrapper) {
-		wrapper.onclick = (event) => {
+	const fieldsWrapper = document.querySelector(".ep-poll-fields-holder");
+	const optionsWrapper = document.querySelector(".ep-poll-options-holder");
+
+    // Remove fields.
+	if (fieldsWrapper) {
+		fieldsWrapper.onclick = (event) => {
+			event.preventDefault();
+			const target = event.target;
+			if (event.target.classList.contains("ep-remove-able")) {
+                removeElement(target);
+			} else {
+				return;
+			}
+		};
+	}
+
+    // Remove options.
+	if (optionsWrapper) {
+		optionsWrapper.onclick = (event) => {
 			event.preventDefault();
 			const target = event.target;
 			if (event.target.classList.contains("ep-remove-able")) {

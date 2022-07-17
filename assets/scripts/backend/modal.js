@@ -11,7 +11,6 @@ document.addEventListener('DOMContentLoaded', function() {
         openButtons.forEach( (button) => {
             button.onclick = () => {
                 const target = button.getAttribute('data-target');
-                console.log(target)
                 const targetModal = document.querySelector(target);
                 targetModal.classList.add('opened');
             }
