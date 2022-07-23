@@ -17,6 +17,7 @@ use EasyPoll\Assets\Enqueue;
 use EasyPoll\CustomPosts\InitCustomPosts;
 use EasyPoll\Database\EasyPollFeedback;
 use EasyPoll\Database\EasyPollFields;
+use EasyPoll\Database\EasyPollOptions;
 use EasyPoll\FormBuilder\FormClient;
 use EasyPoll\Metabox\MetaboxInit;
 
@@ -126,6 +127,7 @@ if ( ! class_exists( 'EasyPoll' ) ) {
 			$tables = array(
 				EasyPollFields::class,
 				EasyPollFeedback::class,
+				EasyPollOptions::class,
 			);
 
 			foreach ( $tables as $table ) {
