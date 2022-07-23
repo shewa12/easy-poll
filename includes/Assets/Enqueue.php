@@ -51,35 +51,6 @@ class Enqueue {
 	}
 
 	/**
-	 * Blocks scripts & styles
-	 *
-	 * @return void
-	 */
-	public static function block_scripts_and_styles() {
-		$plugin_data = EasyPoll::plugin_data();
-		// Register block scripts and set translations.
-		wp_register_script(
-			'plugin-starter-blocks',
-			$plugin_data['plugin_url'] . 'dist/blocks.build.js',
-			array( 'wp-blocks', 'wp-i18n', 'wp-element', 'wp-editor' ),
-			filemtime( $plugin_data['plugin_path'] . 'dist/blocks.build.js' ),
-			true
-		);
-		wp_set_script_translations( 'plugin-starter-blocks', 'plugin-starter' );
-
-		// Register our block stylesheet.
-		wp_register_style(
-			'plugin-starter-blocks-css',
-			$plugin_data['plugin_url'] . 'dist/blocks.editor.build.css',
-			array(),
-			filemtime( $plugin_data['plugin_path'] . 'dist/blocks.editor.build.css' ),
-			'all'
-		);
-
-		wp_add_inline_script( 'plugin-starter-blocks', 'const awData = ' . json_encode( self::scripts_data() ), 'before' );
-	}
-
-	/**
 	 * Add inline data in scripts
 	 *
 	 * @return array
@@ -87,8 +58,9 @@ class Enqueue {
 	public static function scripts_data() {
 		$plugin_data = EasyPoll::plugin_data();
 		$data        = array(
-			'url'   => admin_url( 'admin-ajax.php' ),
-			'nonce' => wp_create_nonce( $plugin_data['nonce'] ),
+			'url'          => admin_url( 'admin-ajax.php' ),
+			'nonce'        => wp_create_nonce( $plugin_data['nonce'] ),
+			'nonce_action' => $plugin_data['nonce_action'],
 		);
 		return apply_filters( 'ep_inline_script_data', $data );
 	}

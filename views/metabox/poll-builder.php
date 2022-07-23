@@ -7,6 +7,7 @@
  */
 
 use EasyPoll\FormBuilder\FormField;
+use EasyPoll\Utilities\Utilities;
 
 ?>
 <?php do_action( 'ep_before_poll_builder_meta_box', get_the_ID() ); ?>
@@ -21,11 +22,16 @@ use EasyPoll\FormBuilder\FormField;
 			<?php esc_html_e( 'Add Question, Input/Textarea', 'easy-poll' ); ?>
 		</button>
 	</div>
-
-	<?php
-		// Load modals.
-		FormField::load_single_multiple_choice_modal( 'ep-single-multiple-choice-modal' );
-		FormField::load_input_textarea_modal( 'ep-input-textarea-modal' );
-	?>
+	<form action=""></form>
+	<form name="ep-modal-form" ep-ajax-modal>
+		<input type="hidden" name="action" value="ep_single_multiple_question_create">
+		<?php Utilities::create_nonce_field(); ?>
+		<?php FormField::load_single_multiple_choice_modal( 'ep-single-multiple-choice-modal' ); ?>
+	</form>
+	<form name="ep-modal-form" ep-ajax-modal>
+		<input type="hidden" name="action" value="ep_input_textarea_question_create">
+		<?php Utilities::create_nonce_field(); ?>
+		<?php FormField::load_input_textarea_modal( 'ep-input-textarea-modal' ); ?>
+	</form>
 </div>
 <?php do_action( 'ep_after_poll_builder_meta_box', get_the_ID() ); ?>

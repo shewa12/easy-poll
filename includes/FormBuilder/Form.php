@@ -1,38 +1,38 @@
 <?php
 /**
  * Form concrete class
- * 
+ *
  * @since v1.0.0
- * @package TutorPeriscope\FormBuilder
+ * @package EasyPoll\FormBuilder
  */
 
-namespace Tutor_Periscope\FormBuilder;
+namespace EasyPoll\FormBuilder;
 
 if ( ! defined( 'ABSPATH' ) ) {
-    exit;
+	exit;
 }
 
-use Tutor_Periscope\FormBuilder\FormInterface;
+use EasyPoll\FormBuilder\FormInterface;
 
 class Form implements FormInterface {
 
-    public function create( array $request ) {
+	public function create( array $request ) {
 
-    }
+	}
 
-    public function get_one( int $id ): object {
+	public function get_one( int $id ): object {
 
-    }
+	}
 
-    public function get_list(): array {
+	public function get_list(): array {
 
-    }
+	}
 
-    public function update( array $request, int $id): bool {
+	public function update( array $request, int $id ): bool {
 
-    }
+	}
 
-    public function delete( int $id ): bool {
+	public function delete( int $id ): bool {
 
-    }
+	}
 }

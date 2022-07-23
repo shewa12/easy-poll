@@ -17,6 +17,7 @@ use EasyPoll\Assets\Enqueue;
 use EasyPoll\CustomPosts\InitCustomPosts;
 use EasyPoll\Database\EasyPollFeedback;
 use EasyPoll\Database\EasyPollFields;
+use EasyPoll\FormBuilder\FormClient;
 use EasyPoll\Metabox\MetaboxInit;
 
 if ( ! class_exists( 'EasyPoll' ) ) {
@@ -92,7 +93,7 @@ if ( ! class_exists( 'EasyPoll' ) ) {
 			self::$plugin_data['assets']       = trailingslashit( plugin_dir_url( __FILE__ ) . 'assets' );
 			self::$plugin_data['base_name']    = plugin_basename( __FILE__ );
 			self::$plugin_data['nonce_action'] = 'easy-poll-nonce-action';
-			self::$plugin_data['nonce']        = 'easy-poll';
+			self::$plugin_data['nonce']        = 'easy-poll-nonce';
 			// set ENV DEV | PROD.
 			self::$plugin_data['env'] = 'DEV';
 			return self::$plugin_data;
@@ -160,6 +161,7 @@ if ( ! class_exists( 'EasyPoll' ) ) {
 			new InitCustomPosts();
 			new MetaboxInit();
 			new Enqueue();
+			new FormClient();
 		}
 	}
 	// trigger.

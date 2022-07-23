@@ -5,19 +5,12 @@
  * @returns json response on success or false
  */
  export default async function ajaxRequest(formData, jsonResponse = true) {
-    const loader = `<div id="tutor-periscope-loader-wrapper">
-        <div class="tutor-periscope-loading">
-        </div>
-    </div>`;
-    document.body.insertAdjacentHTML(
-        'beforeend',
-        loader
-    );
-    const post = await fetch(tp_data.url, {
+
+    const post = await fetch(epData.url, {
         method: 'POST',
         body: formData,
     });
-    document.getElementById('tutor-periscope-loader-wrapper').remove();
+
     if (post.ok) {
         if (jsonResponse) {
             return await post.json();

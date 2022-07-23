@@ -1,3 +1,5 @@
+import ajaxRequest from "../utilities/ajax-request";
+
 /**
  * Handle model open & close
  *
@@ -26,4 +28,16 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
+    // Handle modal form submit
+    const modalForms = document.querySelectorAll('form[name=ep-modal-form]');
+    modalForms.forEach((form) => {
+        if (form.hasAttribute('ep-ajax-modal')) {
+            form.onsubmit = async (event) => {
+                event.preventDefault();
+                const formData = new FormData(form);
+                const response = await ajaxRequest(formData);
+                console.log(response);
+            }
+        }
+    });
 });

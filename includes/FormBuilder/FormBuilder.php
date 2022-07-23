@@ -3,7 +3,7 @@
  * Form builder factory class
  * 
  * @since v1.0.0
- * @package TutorPeriscope\FormBuilder
+ * @package EasyPoll\FormBuilder
  */
 
 namespace EasyPoll\FormBuilder;

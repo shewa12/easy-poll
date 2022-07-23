@@ -3,7 +3,7 @@
  * Form field concrete class
  *
  * @since v1.0.0
- * @package TutorPeriscope\FormBuilder
+ * @package EasyPoll\FormBuilder
  */
 
 namespace EasyPoll\FormBuilder;
@@ -83,22 +83,22 @@ class FormField implements FormInterface {
 
 	/**
 	 * Load single/multiple choice modal
-	 * 
-	 * It will include modal where the method is called, once the 
+	 *
+	 * It will include modal where the method is called, once the
 	 * opener modal button trigger it would be visible.
 	 *
 	 * @since v1.0.0
 	 *
-	 * @param string $modal_id  unique modal id
+	 * @param string $modal_id  unique modal id.
 	 *
 	 * @return void
 	 */
-	public static  function load_single_multiple_choice_modal( string $modal_id ): void {
+	public static function load_single_multiple_choice_modal( string $modal_id ): void {
 		// Load modal.
-		$plugin_data = EasyPoll::plugin_data();
+		$plugin_data            = EasyPoll::plugin_data();
 		$single_multiple_choice = array(
-			'modal_id' 		 => $modal_id,
-			'header_title'   => __('Add Question', 'easy-poll'),
+			'modal_id'       => $modal_id,
+			'header_title'   => __( 'Add Question', 'easy-poll' ),
 			'body_content'   => $plugin_data['views'] . '/metabox/single-multiple-choice-fields.php',
 			'footer_buttons' => array(
 				array(
@@ -114,28 +114,29 @@ class FormField implements FormInterface {
 					'type'  => 'submit',
 				),
 			),
+			'ajax_action'    => 'ep_single_multiple_question_create',
 		);
 		Utilities::load_template( 'components/modal.php', $single_multiple_choice );
 	}
 
 	/**
 	 * Load input/textarea modal
-	 * 
-	 * It will include modal where the method is called, once the 
+	 *
+	 * It will include modal where the method is called, once the
 	 * opener modal button trigger it would be visible.
 	 *
 	 * @since v1.0.0
 	 *
-	 * @param string $modal_id  unique modal id
+	 * @param string $modal_id  unique modal id.
 	 *
 	 * @return void
 	 */
-	public static  function load_input_textarea_modal( string $modal_id ): void {
+	public static function load_input_textarea_modal( string $modal_id ): void {
 		// Load modal.
-		$plugin_data = EasyPoll::plugin_data();
-		$single_multiple_choice = array(
-			'modal_id' 		 => $modal_id,
-			'header_title'   => __('Add Question', 'easy-poll'),
+		$plugin_data            = EasyPoll::plugin_data();
+		$input_textarea = array(
+			'modal_id'       => $modal_id,
+			'header_title'   => __( 'Add Question', 'easy-poll' ),
 			'body_content'   => $plugin_data['views'] . '/metabox/input-textarea-fields.php',
 			'footer_buttons' => array(
 				array(
@@ -145,7 +146,8 @@ class FormField implements FormInterface {
 					'type'  => 'submit',
 				),
 			),
+			'ajax_action' => 'ep_input_textarea_question_create',
 		);
-		Utilities::load_template( 'components/modal.php', $single_multiple_choice );
+		Utilities::load_template( 'components/modal.php', $input_textarea );
 	}
 }
