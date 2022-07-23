@@ -13,13 +13,49 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 use EasyPoll;
+use EasyPoll\Database\EasyPollFields;
 use EasyPoll\FormBuilder\FormInterface;
+use EasyPoll\Helpers\QueryHelper;
 use EasyPoll\Utilities\Utilities;
 
+/**
+ * Manage form fields
+ */
 class FormField implements FormInterface {
 
-	public function create( array $request ) {
+	/**
+	 * Get table name
+	 *
+	 * @since v1.0.0
+	 *
+	 * @return string
+	 */
+	public function get_table() {
+		global $wpdb;
+		return $wpdb->prefix . EasyPollFields::get_table();
+	}
 
+	/**
+	 * Create field
+	 *
+	 * @param array $request  request to insert data.
+	 *
+	 * @return int   inserted row id
+	 */
+	public function create( array $request ) {
+		return QueryHelper::insert( $this->get_table(), $request );
+	}
+
+	/**
+	 * Create multiple field together
+	 *
+	 * @param array $request  request to insert data two
+	 * dimensional data.
+	 *
+	 * @return mixed  wpdb response true or int on success, false on failure
+	 */
+	public function create_multiple( array $request ) {
+		return QueryHelper::insert_multiple_rows( $this->get_table(), $request );
 	}
 
 	public function get_one( int $id ): object {

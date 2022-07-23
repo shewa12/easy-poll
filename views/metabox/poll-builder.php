@@ -25,11 +25,13 @@ use EasyPoll\Utilities\Utilities;
 	<form action=""></form>
 	<form name="ep-modal-form" ep-ajax-modal>
 		<input type="hidden" name="action" value="ep_single_multiple_question_create">
+		<input type="hidden" name="poll-id" value="<?php the_ID(); ?>">
 		<?php Utilities::create_nonce_field(); ?>
 		<?php FormField::load_single_multiple_choice_modal( 'ep-single-multiple-choice-modal' ); ?>
 	</form>
 	<form name="ep-modal-form" ep-ajax-modal>
 		<input type="hidden" name="action" value="ep_input_textarea_question_create">
+		<input type="hidden" name="poll-id" value="<?php the_ID(); ?>">
 		<?php Utilities::create_nonce_field(); ?>
 		<?php FormField::load_input_textarea_modal( 'ep-input-textarea-modal' ); ?>
 	</form>
