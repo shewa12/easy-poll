@@ -102,13 +102,13 @@ class FormField implements FormInterface {
 			'body_content'   => $plugin_data['views'] . '/metabox/single-multiple-choice-fields.php',
 			'footer_buttons' => array(
 				array(
-					'text'  => __( 'Save & Close', 'easy-poll' ),
+					'text'  => __( 'Save', 'easy-poll' ),
 					'id'    => '',
 					'class' => 'ep-btn ep-btn-secondary',
 					'type'  => 'submit',
 				),
 				array(
-					'text'  => __( 'Save', 'easy-poll' ),
+					'text'  => __( 'Save & Close', 'easy-poll' ),
 					'id'    => '',
 					'class' => 'ep-btn',
 					'type'  => 'submit',
