@@ -37,7 +37,8 @@ class FormClient {
 	 *
 	 * @since v1.0.0
 	 */
-	public function __construct() {
+	public function __construct( $init_hook = true ) {
+
 		global $wpdb;
 		// Initialize props.
 		$this->form_builder       = FormBuilder::create( 'Form' );
@@ -50,6 +51,13 @@ class FormClient {
 		$this->field_option_table = $wpdb->prefix . EasyPollOptions::get_table();
 		$this->feedback_table     = $wpdb->prefix . EasyPollFeedback::get_table();
 
+		/**
+		 * In Some cases, we may need to call method without
+		 * register hooks.
+		 */
+		if ( true !== $init_hook ) {
+			return;
+		}
 		// Register hooks.
 		add_action( 'wp_ajax_ep_single_multiple_question_create', array( $this, 'single_multiple_question_create' ) );
 
@@ -111,9 +119,9 @@ class FormClient {
 	public function input_textarea_question_create() {
 		Utilities::verify_nonce();
 
-		$post    = $_POST; //phpcs:ignore WordPress.Security.NonceVerification.Missing
-		$request = array();
-
+		$post     = $_POST; //phpcs:ignore WordPress.Security.NonceVerification.Missing
+		$request  = array();
+		$response = false;
 		foreach ( $post['ep-field-label'] as $key => $field ) {
 			if ( '' === $field ) {
 				continue;
@@ -126,13 +134,12 @@ class FormClient {
 			);
 			array_push( $request, $data );
 		}
-
-		if ( count( $request ) ) {
+		if ( count( $request ) > 1 ) {
 			$response = $this->form_field_builder->create_multiple( $request );
-			return $response ? wp_send_json_success( $response ) : wp_send_json_error( __( 'Field creation failed!', 'easy-poll' ) );
-		} else {
-			return wp_send_json_error( __( 'Field not exist!', 'easy-poll' ) );
+		} elseif ( count( $request ) && isset( $request[0] ) ) {
+			$response = $this->form_field_builder->create( $request[0] );
 		}
+		return $response ? wp_send_json_success( $response ) : wp_send_json_error( __( 'Field creation failed!', 'easy-poll' ) );
 	}
 
 	/**
@@ -154,7 +161,8 @@ class FormClient {
 			$wpdb->prepare(
 				"SELECT
 					field.*,
-					field_option.*,
+					GROUP_CONCAT(field_option.id SEPARATOR ',') AS option_ids,
+                    GROUP_CONCAT(field_option.option_label) AS option_labels,
 					feedback.id
 					FROM {$this->field_table} AS field
 
@@ -165,6 +173,7 @@ class FormClient {
 						ON feedback.field_id = field.id
 
 					WHERE field.poll_id = %d
+					GROUP BY field.id
 				",
 				$poll_id
 			)
