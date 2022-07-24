@@ -57,8 +57,9 @@ class EasyPollFeedback extends DatabaseTable {
 		    REFERENCES $field_table(id)
             ON DELETE CASCADE,
 
-		user_id INT(9) NOT NULL,
-        feedback TEXT,
+		user_id INT(9) NOT NULL DEFAULT 0,
+        feedback LONGTEXT,
+		user_ip VARCHAR(255),
         PRIMARY KEY  (id)
         )  ENGINE = INNODB
         $charset_collate;";

@@ -31,7 +31,7 @@ $field_types  = $form_builder::field_types();
 					continue;
 				}
 				?>
-				<option value="<?php esc_attr( $field['value'] ); ?>" title="<?php echo esc_html( $field['label'] ); ?>">
+				<option value="<?php echo esc_attr( $field['value'] ); ?>" title="<?php echo esc_html( $field['label'] ); ?>">
 				<?php echo esc_html( $field['label'] ); ?>
 				</option>
 			<?php endforeach; ?>
