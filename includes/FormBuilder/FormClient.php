@@ -163,7 +163,7 @@ class FormClient {
 					field.*,
 					GROUP_CONCAT(field_option.id SEPARATOR ',') AS option_ids,
                     GROUP_CONCAT(field_option.option_label) AS option_labels,
-					feedback.id
+					feedback.id AS feedback_id
 					FROM {$this->field_table} AS field
 
 					LEFT JOIN {$this->field_option_table} AS field_option

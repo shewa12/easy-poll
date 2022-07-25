@@ -6,6 +6,7 @@
  * @since v1.0.0
  */
 import addDynamicField, { removeElement } from "../utilities/add-remove";
+import ajaxRequest from "../utilities/ajax-request";
 const { __ } = wp.i18n;
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -107,5 +108,33 @@ document.addEventListener("DOMContentLoaded", function () {
 		const fieldsHolder = ".ep-poll-fields-holder";
 		//Add dynamic field.
 		addDynamicField(html, fieldsHolder);
+	}
+
+	/**
+	 * Event delegation for poll builder meta box
+	 * 
+	 * It will listen all click event inside poll builder
+	 * & will take action as required.
+	 *
+	 * @since v1.0.0
+	 */
+	const pollBuilder = document.getElementById('easy-poll-builder');
+	const deleteBtn = 'ep-field-delete';
+	if (pollBuilder) {
+		pollBuilder.onclick = async (event) => {
+			const target = event.target;
+			if (target.classList.contains(deleteBtn)) {
+				const formData = new FormData();
+				const fieldId = target.dataset.fieldId;
+				const warningMsg = target.dataset.warning;
+				formData.set(epData.nonce_action, epData.nonce);
+				formData.set('action', 'ep_field_delete');
+				formData.set('field_id', fieldId);
+				if (confirm(warningMsg)) {
+					const response = await ajaxRequest(formData, true, target);
+					removeElement(target);
+				}
+			}
+		}
 	}
 });

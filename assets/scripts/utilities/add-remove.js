@@ -24,14 +24,9 @@
   * A global remove-able function to remove field from 
   * anywhere. Just use class ep-remove-able, it will remove the closest div
   * of having class ep-remove-able-wrapper
-  * 
-  * If field should make ajax request before removing element then add
-  * attr like: data-tp-ajax={action: 'abc'}
-  * 
-  * So data-tp-ajax should contain valid object as value.
   *
   * Note: for dynamically added element it will not work.
-  * In that we can just removeElement function and pass
+  * In that case we can just use removeElement function and pass
   * HTML element like below:
   *
   * const a = document.querySelector('.b);
