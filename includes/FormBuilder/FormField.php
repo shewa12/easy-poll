@@ -140,13 +140,13 @@ class FormField implements FormInterface {
 				array(
 					'text'  => __( 'Save', 'easy-poll' ),
 					'id'    => '',
-					'class' => 'ep-btn ep-btn-secondary',
+					'class' => 'ep-btn ep-btn-secondary ep-field-save',
 					'type'  => 'submit',
 				),
 				array(
 					'text'  => __( 'Save & Close', 'easy-poll' ),
 					'id'    => '',
-					'class' => 'ep-btn',
+					'class' => 'ep-btn ep-field-save ep-save-and-close',
 					'type'  => 'submit',
 				),
 			),
@@ -178,7 +178,7 @@ class FormField implements FormInterface {
 				array(
 					'text'  => __( 'Save Questions', 'easy-poll' ),
 					'id'    => '',
-					'class' => 'ep-btn',
+					'class' => 'ep-btn ep-field-save',
 					'type'  => 'submit',
 				),
 			),
