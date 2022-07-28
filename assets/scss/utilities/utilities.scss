@@ -1,4 +1,6 @@
 // Default styles
+$prefix: ep;
+
 .ep-wrapper {
 	input {
 		width: 100%;
@@ -197,5 +199,58 @@ $white: #fff;
 		color: #fff !important;
 		border-color: #6c757d !important;
         cursor: default !important;
+	}
+}
+
+// Alert message
+$alertPrimaryBackground: #cfe2ff;
+$alertPrimaryColor: #084298;
+$alertPrimaryBorderColor: #b6d4fe;
+
+$alertWarningBackground: #fff3cd;
+$alertWarningColor: #664d03;
+$alertWarningBorderColor: #ffecb5;
+
+$alertDangerBackground: #f8d7da;
+$alertDangerColor: #842029;
+$alertDangerBorderColor: #f5c2c7;
+
+$alertSuccessBackground: #d1e7dd;
+$alertSuccessColor: #0f5132;
+$alertSuccessBorderColor: #badbcc;
+
+@mixin alert($alertBackground, $alertColor, $borderColor ) {
+	background-color: $alertBackground;
+	color: $alertColor;
+	border: 1px solid $borderColor;
+	padding: 10px 20px;
+	border-radius: 3px;
+}
+.ep-alert {
+	@include alert(
+		$alertPrimaryBackground,
+		$alertPrimaryColor,
+		$alertPrimaryBorderColor
+	);
+	&.ep-alert-warning {
+		@include alert(
+			$alertWarningBackground,
+			$alertWarningColor,
+			$alertWarningBorderColor
+		);
+	}
+	&.ep-alert-danger {
+		@include alert(
+			$alertDangerBackground,
+			$alertDangerColor,
+			$alertDangerBorderColor
+		);
+	}
+	&.ep-alert-success {
+		@include alert(
+			$alertSuccessBackground,
+			$alertSuccessColor,
+			$alertSuccessBorderColor
+		);
 	}
 }
