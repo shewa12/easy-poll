@@ -132,7 +132,13 @@ document.addEventListener("DOMContentLoaded", function () {
 				formData.set('field_id', fieldId);
 				if (confirm(warningMsg)) {
 					const response = await ajaxRequest(formData, true, target);
-					removeElement(target);
+					if (!response.success) {
+						if (response.data) {
+							alert(response.data);
+						}
+					} else {
+						removeElement(target);
+					}
 				}
 			}
 		}

@@ -70,8 +70,17 @@ class FormField implements FormInterface {
 
 	}
 
+	/**
+	 * Delete field id
+	 *
+	 * @since v1.0.0
+	 *
+	 * @param int $id  field id to delete.
+	 *
+	 * @return bool
+	 */
 	public function delete( int $id ): bool {
-
+		return QueryHelper::delete( $this->get_table(), array( 'id' => $id ) );
 	}
 
 	/**

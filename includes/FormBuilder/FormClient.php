@@ -62,6 +62,8 @@ class FormClient {
 		add_action( 'wp_ajax_ep_single_multiple_question_create', array( $this, 'single_multiple_question_create' ) );
 
 		add_action( 'wp_ajax_ep_input_textarea_question_create', array( $this, 'input_textarea_question_create' ) );
+
+		add_action( 'wp_ajax_ep_field_delete', array( $this, 'field_delete' ) );
 	}
 
 	/**
@@ -179,6 +181,19 @@ class FormClient {
 			)
 		);
 		return is_array( $results ) && count( $results ) ? $results : array();
+	}
+
+	/**
+	 * Delete form question
+	 *
+	 * @since v1.0.0
+	 *
+	 * @return void  send wp_json response
+	 */
+	public function field_delete() {
+		Utilities::verify_nonce();
+		$delete = $this->form_field_builder->delete( wp_unslash( $_POST['field_id'] ) ); //phpcs:ignore
+		$delete ? wp_send_json_success() : wp_send_json_error( __( 'Delete failed! Please try again.', 'easy-poll' ) );
 	}
 
 }
