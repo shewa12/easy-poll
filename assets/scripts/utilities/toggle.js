@@ -18,7 +18,6 @@
  */
 function toggle(selector, text = '', time = 3000, addClass = [], display = 'block') {
     const elem = document.querySelector(selector);
-    console.log(elem);
     if (elem) {
         elem.classList.add(...addClass);
         elem.innerHTML = text;

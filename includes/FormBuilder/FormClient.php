@@ -123,6 +123,7 @@ class FormClient {
 		}
 
 		// Field & options that is inserted in DB.
+		$request['field_id'] = $field_id;
 		$response_data = array(
 			'field'   => $request,
 			'options' => $options,
