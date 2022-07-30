@@ -59,6 +59,9 @@ if ( ! isset( $data ) ) {
 				  <?php endif; ?>
 				</div>
 			</div>
+			<div class="ep-alert ep-hidden">
+
+			</div>
 	  </div>
 	</div>
 </div>
