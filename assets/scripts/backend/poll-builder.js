@@ -6,8 +6,8 @@
  * @since v1.0.0
  */
 
-import toggle from "../utilities/toggle";
 import ajaxRequest from "../utilities/ajax-request";
+import manageResponse from "../utilities/manage-response";
 
 const {__} = wp.i18n;
 
@@ -39,33 +39,24 @@ saveButtons.forEach((button) => {
     }
 });
 
-// Handle input/textarea type question
 
-/**
- * Manage response after ajax request
- * 
- * Show & hide response message with the help of toggle
- * utility.
- * 
- * @see "../utilities/toggle";
- *
- * @param {*} response   ajax response, response obj
- * @param {*} selector elem to show response message, css selector.
- */
-function manageResponse(response,selector, successMsg, failMsg) {
-    if (response.success) {
-        toggle(
-            selector,
-            successMsg,
-            3000,
-            ["ep-alert-success"]
-        );
-    } else {
-        toggle(
-            selector,
-            failMsg,
-            3000,
-            ["ep-alert-success"]
-        );
+// Handle input/textarea type question
+const inputTextareaSaveButton = document.querySelector('.ep-input-textarea-question-save');
+if (inputTextareaSaveButton) {
+    inputTextareaSaveButton.onclick = async (event) => {
+        event.preventDefault();
+        const formData = new FormData(event.target.closest('form'));
+        const response = await ajaxRequest(formData, true, event.target);
+        const notifyElem = '#ep-input-textarea-snackbar';
+
+        // If operation success then reset form.
+        if (response.success) {
+            event.target.closest('form').reset();
+        }
+        const successMsg = __('Question created success fully', 'easy-poll');
+        const failMsg = __('Question created failed! Please try again', 'easy-poll');
+        manageResponse(response, notifyElem, successMsg, failMsg);
     }
 }
+
+

@@ -1,6 +1,3 @@
-import ajaxRequest from "../utilities/ajax-request";
-import toggle from "../utilities/toggle";
-
 /**
  * Handle model open & close
  *
