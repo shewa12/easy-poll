@@ -85,30 +85,50 @@ class FormClient {
 
 		$response      = false;
 		$error_message = __( 'Field creation failed!', 'easy-poll' );
-		// Get field id that is inserted.
-		$field_id = $this->form_field_builder->create( $request );
-		if ( $field_id ) {
-			$options = array();
-			// Prepare options.
-			foreach ( $post['ep-field-option'] as $option ) {
-				if ( '' === $option ) {
-					continue;
-				}
-				$data = array(
-					'field_id'     => $field_id,
-					'option_label' => $option,
-				);
-				array_push( $options, $data );
+
+		$options = array();
+		// Prepare options.
+		foreach ( $post['ep-field-option'] as $option ) {
+			if ( '' === $option ) {
+				continue;
 			}
-			// Insert field options.
-			if ( count( $options ) ) {
-				$response = $this->field_options->create_multiple( $options );
+			$data = array(
+				'field_id'     => '',
+				'option_label' => $option,
+			);
+			array_push( $options, $data );
+		}
+
+		if ( count( $options ) > 1 ) {
+			// Get field id that is inserted.
+			$field_id = $this->form_field_builder->create( $request );
+
+			// Map field id to options.
+			$map_options = array();
+
+			foreach ( $options as $option ) {
+				$option['field_id'] = $field_id;
+				array_push( $map_options, $option );
+			}
+
+			if ( $field_id ) {
+				// Insert field options.
+				$response = $this->field_options->create_multiple( $map_options );
 				if ( ! $response ) {
 					$error_message = __( 'Field options creation failed!', 'easy-poll' );
 				}
 			}
+		} else {
+			$error_message = __( 'Add two or more options', 'easy-poll' );
 		}
-		return $response ? wp_send_json_success( $response ) : wp_send_json_error( $error_message );
+
+		// Field & options that is inserted in DB.
+		$response_data = array(
+			'field'   => $request,
+			'options' => $options,
+		);
+
+		return $response ? wp_send_json_success( $response_data ) : wp_send_json_error( $error_message );
 	}
 
 	/**
@@ -141,7 +161,7 @@ class FormClient {
 		} elseif ( count( $request ) && isset( $request[0] ) ) {
 			$response = $this->form_field_builder->create( $request[0] );
 		}
-		return $response ? wp_send_json_success( $response ) : wp_send_json_error( __( 'Field creation failed!', 'easy-poll' ) );
+		return $response ? wp_send_json_success( $request ) : wp_send_json_error( __( 'Field creation failed!', 'easy-poll' ) );
 	}
 
 	/**

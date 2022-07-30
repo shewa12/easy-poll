@@ -31,7 +31,7 @@ import toggle from "./toggle";
             selector,
             failMsg,
             3000,
-            ["ep-alert-success"]
+            ["ep-alert-danger"]
         );
     }
 }

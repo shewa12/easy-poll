@@ -5,19 +5,19 @@
  */
 
  /**
-  * Add field anywhere needed
+  * Add HTML elem anywhere needed
   *
-  * @since v2.0.0
+  * @since v1.0.0
   *
-  * @param field   html field to add
+  * @param elem   html element to add
   * @param appendAbleElement  selector where it should append.
   * CSS Selector like: '.class #id' or html tag that is valid.
   *
   * @return void
   */
- export default function addDynamicField(field, appendAbleElement) {
+ export default function addDynamicField(elem, appendAbleElement) {
      document.querySelector(appendAbleElement)
-     .insertAdjacentHTML('beforeend', field);
+     .insertAdjacentHTML('beforeend', elem);
  }
  
  /**
