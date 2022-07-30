@@ -149,17 +149,18 @@ class FormField implements FormInterface {
 				array(
 					'text'  => __( 'Save', 'easy-poll' ),
 					'id'    => '',
-					'class' => 'ep-btn ep-btn-secondary ep-field-save',
+					'class' => 'ep-btn ep-btn-secondary ep-choice-question-save',
 					'type'  => 'submit',
 				),
 				array(
 					'text'  => __( 'Save & Close', 'easy-poll' ),
 					'id'    => '',
-					'class' => 'ep-btn ep-field-save ep-save-and-close',
+					'class' => 'ep-btn ep-choice-question-save ep-save-and-close',
 					'type'  => 'submit',
 				),
 			),
 			'ajax_action'    => 'ep_single_multiple_question_create',
+			'alert_id'       => 'ep-single-multiple-snackbar',
 		);
 		Utilities::load_template( 'components/modal.php', $single_multiple_choice );
 	}
@@ -178,7 +179,7 @@ class FormField implements FormInterface {
 	 */
 	public static function load_input_textarea_modal( string $modal_id ): void {
 		// Load modal.
-		$plugin_data            = EasyPoll::plugin_data();
+		$plugin_data    = EasyPoll::plugin_data();
 		$input_textarea = array(
 			'modal_id'       => $modal_id,
 			'header_title'   => __( 'Add Question', 'easy-poll' ),
@@ -187,11 +188,12 @@ class FormField implements FormInterface {
 				array(
 					'text'  => __( 'Save Questions', 'easy-poll' ),
 					'id'    => '',
-					'class' => 'ep-btn ep-field-save',
+					'class' => 'ep-btn ep-input-textarea-question-save',
 					'type'  => 'submit',
 				),
 			),
-			'ajax_action' => 'ep_input_textarea_question_create',
+			'ajax_action'    => 'ep_input_textarea_question_create',
+			'alert_id'       => 'ep-input-textarea-snackbar',
 		);
 		Utilities::load_template( 'components/modal.php', $input_textarea );
 	}

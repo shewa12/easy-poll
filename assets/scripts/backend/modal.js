@@ -1,4 +1,5 @@
 import ajaxRequest from "../utilities/ajax-request";
+import toggle from "../utilities/toggle";
 
 /**
  * Handle model open & close
@@ -28,34 +29,5 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
-    
-    /**
-     * Poll field single/multiple choice, input/text area
-     * form submit handler.
-     *
-     * @since v1.0.0
-     */
-    // const modalForms = document.querySelectorAll('.ep-field-save');
-    // modalForms.forEach((form) => {
-    //     if (form.hasAttribute('ep-ajax-modal')) {
-    //         form.onsubmit = async (event) => {
 
-    //             event.preventDefault();
-    //             console.log(                event.target);
-    //             return;
-    //             const formData = new FormData(form);
-    //             const response = await ajaxRequest(formData, true, event.target);
-    //             console.log(response);
-    //         }
-    //     }
-    // });
-    const saveButtons = document.querySelectorAll('.ep-field-save');
-    saveButtons.forEach((button) => {
-        button.onclick = async (event) => {
-            event.preventDefault();
-            const formData = new FormData(event.target.closest('form'));
-            const response = await ajaxRequest(formData, true, event.target);
-            console.log(response);
-        }
-    });
 });

@@ -6,19 +6,21 @@
  * method & pass the required params.
  *
  * $args: array(
- *  'modal_id' => 'unique modal id'
- *  'header_title' => '',
- *  'body_content'  => 'full path',
- *  'footer_buttons' => array(
+ *  'modal_id' => 'unique modal id' required
+ *  'header_title' => '', required
+ *  'body_content'  => 'full file path',  required
+ *  'footer_buttons' => array(   optional
  *      array(
  *        'footer_buttons' => array(
  *        'text' => '',
  *        'id' => '',
  *        'class' => '',
  *        'type' => '',
- *        'ajax_action' => '' // if set then ajax request will be send
  *      )
  *  )
+ *   'ajax_action' => '' // if set then ajax request will be send
+ *    'alert_id' => ''  // alert div to show response after form submit, dynamically
+ *                          inject text and show to the end user.
  * )
  *
  * @package EasyPoll\Templates
@@ -59,9 +61,12 @@ if ( ! isset( $data ) ) {
 				  <?php endif; ?>
 				</div>
 			</div>
-			<div class="ep-alert ep-hidden">
+			<!-- alert div to show response after form submit -->
+			<?php if ( isset( $data['alert_id'] ) ) : ?>
+			<div id="<?php echo esc_attr( $data['alert_id'] ); ?>" class="ep-alert ep-hidden">
 
 			</div>
+			<?php endif; ?>
 	  </div>
 	</div>
 </div>
