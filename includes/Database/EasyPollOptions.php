@@ -48,7 +48,7 @@ class EasyPollOptions extends DatabaseTable {
 
 		$charset_collate = $wpdb->get_charset_collate();
 		$table_name      = $wpdb->prefix . self::$table_name;
-		$field_table     = $wpdb->prefix . EasyPollOptions::get_table();
+		$field_table     = $wpdb->prefix . EasyPollFields::get_table();
 
 		$sql             = "CREATE TABLE $table_name (
         id INT(9) unsigned NOT NULL AUTO_INCREMENT,
