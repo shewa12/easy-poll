@@ -76,10 +76,10 @@ class FilterEasyPollColumns {
 	public static function custom_column_cb( string $column_name, int $post_id ) {
 		$post_type = get_post_type( $post_id );
 		if ( $post_type === self::$post_type ) {
-			// @TODO need to implement real logic.
 			if ( 'short_code' === $column_name ) {
-				echo "[easy-poll id={$post_id}]";
+				echo esc_html( "[{$post_type} id={$post_id}]" );
 			}
+			// @TODO need to implement real logic.
 			if ( 'total_submission' === $column_name ) {
 				echo '10';
 			}
