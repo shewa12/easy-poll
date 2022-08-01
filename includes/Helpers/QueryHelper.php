@@ -18,29 +18,46 @@ class QueryHelper {
 	/**
 	 * Get a row, wrapper method of wpdb::get_row
 	 *
-	 * @since v1.0.0
+	 * @since v2.0.0
 	 *
 	 * @see https://developer.wordpress.org/reference/classes/wpdb/#select-a-row
 	 *
 	 * @param string $table   table name.
-	 * @param array $where   key value pair, 1 dimensional array.
-	 * ex: array('id' => 10).
+	 * @param array  $where   key value pair, 1 dimensional array.
+	 *  ex: array('id' => 10).
 	 * @param string $output  return type.
 	 *
 	 * @return mixed   wpdb::get_row() response
 	 */
 	public static function get_one( string $table, array $where = array(), $output = 'OBJECT' ) {
 		global $wpdb;
-		$key    = sanitize_text_field( array_keys( $where )[0] );
-		$value  = sanitize_text_field( array_values( $where )[0] );
+		$where = array_map(
+			function( $value ) {
+				return sanitize_text_field( $value );
+			},
+			$where
+		);
+
+		$where_clause = '';
+		// Prepare where clause.
+		foreach ( $where as $key => $value ) {
+			if ( array_key_first( $where ) === $key ) {
+				$where_clause .= "WHERE $key = '$value' ";
+			} else {
+				$where_clause .= "AND $key = '$value' ";
+			}
+		}
+
 		$output = sanitize_text_field( $output );
+		// @codingStandardsIgnoreStart
 		return $wpdb->get_row(
 			"SELECT *
 				FROM {$table}
-				WHERE $key = '$value'
+				{$where_clause}
 			",
 			$output
 		);
+		// @codingStandardsIgnoreEnd
 	}
 
 	/**

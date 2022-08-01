@@ -12,6 +12,7 @@ use EasyPoll;
 use EasyPoll\Database\EasyPollFeedback;
 use EasyPoll\Database\EasyPollFields;
 use EasyPoll\Database\EasyPollOptions;
+use EasyPoll\Helpers\QueryHelper;
 use EasyPoll\Utilities\Utilities;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -213,8 +214,32 @@ class FormClient {
 	 */
 	public function field_delete() {
 		Utilities::verify_nonce();
-		$delete = $this->form_field_builder->delete( wp_unslash( $_POST['field_id'] ) ); //phpcs:ignore
-		$delete ? wp_send_json_success() : wp_send_json_error( __( 'Delete failed! Please try again.', 'easy-poll' ) );
+		$field_id = $_POST['field_id'] ?? '';
+		$field_label = $_POST['field_label'] ?? '';
+
+		/**
+		 * For dynamically added field, field id is not set. In this case
+		 * need to fetch field id by using field label.
+		 */
+		if ( '' === $field_id ) {
+			if ( '' !== $field_label ) {
+				$field = QueryHelper::get_one(
+					$this->form_field_builder->get_table(),
+					array( 'field_label' => $field_label )
+				);
+				if ( $field ) {
+					$field_id = $field->id;
+				}
+			}
+		}
+		if ( $field_id ) {
+			// @ep-action-hook.
+			do_action( 'easy_poll_before_delete_question', $field_id );
+			$delete = $this->form_field_builder->delete( wp_unslash( $field_id ) ); //phpcs:ignore
+			$delete ? wp_send_json_success() : wp_send_json_error( __( 'Delete failed! Please try again.', 'easy-poll' ) );
+		} else {
+			wp_send_json_error( __( 'Invalid question id! Please refresh the page.', 'easy-poll' ) );
+		}
 	}
 
 }

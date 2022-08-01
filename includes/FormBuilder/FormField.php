@@ -58,8 +58,16 @@ class FormField implements FormInterface {
 		return QueryHelper::insert_multiple_rows( $this->get_table(), $request );
 	}
 
+	/**
+	 * Get single form field by id
+	 *
+	 * @since v1.0.0
+	 *
+	 * @param int $id   field id.
+	 * @return object wpdb::get_row
+	 */
 	public function get_one( int $id ): object {
-
+		return QueryHelper::get_one( $this->get_table(), array( 'id' => $id ) );
 	}
 
 	public function get_list(): array {

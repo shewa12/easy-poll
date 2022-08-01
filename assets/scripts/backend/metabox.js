@@ -126,10 +126,15 @@ document.addEventListener("DOMContentLoaded", function () {
 			if (target.classList.contains(deleteBtn)) {
 				const formData = new FormData();
 				const fieldId = target.dataset.fieldId;
+				const fieldLabel = target.dataset.fieldLabel;
 				const warningMsg = target.dataset.warning;
 				formData.set(epData.nonce_action, epData.nonce);
 				formData.set('action', 'ep_field_delete');
-				formData.set('field_id', fieldId);
+				if (fieldId === undefined) {
+					formData.set('field_label', fieldLabel);
+				} else {
+					formData.set('field_id', fieldId);
+				}
 				if (confirm(warningMsg)) {
 					const response = await ajaxRequest(formData, true, target);
 					if (!response.success) {
