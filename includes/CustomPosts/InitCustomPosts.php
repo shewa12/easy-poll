@@ -45,5 +45,8 @@ class InitCustomPosts {
 				$type::post_args()
 			);
 		}
+
+		// Modify columns.
+		new FilterEasyPollColumns();
 	}
 }
