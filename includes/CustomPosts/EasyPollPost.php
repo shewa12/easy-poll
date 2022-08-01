@@ -15,7 +15,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-class EasyPollPost {
+/**
+ * Manage easy-poll CPT
+ */
+class EasyPollPost implements PostInterface {
 
 	/**
 	 * Post type
