@@ -6,11 +6,10 @@
  * @package EasyPoll\Metabox
  */
 
-use EasyPoll\FormBuilder\FormClient;
 use EasyPoll\FormBuilder\FormField;
 use EasyPoll\Utilities\Utilities;
 
-$fields = ( new FormClient( false ) )->get_poll_fields_with_option( get_the_ID() );
+$fields = FormField::get_poll_fields_with_option( get_the_ID() );
 ?>
 <?php do_action( 'ep_before_poll_builder_meta_box', get_the_ID() ); ?>
 <div class="ep-meta-box-wrapper ep-wrapper">

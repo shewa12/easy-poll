@@ -8,7 +8,6 @@
 
 namespace EasyPoll\FormBuilder;
 
-use EasyPoll;
 use EasyPoll\Database\EasyPollFeedback;
 use EasyPoll\Database\EasyPollFields;
 use EasyPoll\Database\EasyPollOptions;
@@ -164,45 +163,6 @@ class FormClient {
 			$response = $this->form_field_builder->create( $request[0] );
 		}
 		return $response ? wp_send_json_success( $request ) : wp_send_json_error( __( 'Field creation failed!', 'easy-poll' ) );
-	}
-
-	/**
-	 * Get fields data along with options & feedback id.
-	 *
-	 * It useful for poll fields listing. Feedback id is a indicator
-	 * here, to understand whether this field has data or not.
-	 *
-	 * @since v1.0.0
-	 *
-	 * @param int $poll_id  poll id, thats field will be fetched.
-	 *
-	 * @return array wpdb::result response
-	 */
-	public function get_poll_fields_with_option( int $poll_id ): array {
-		global $wpdb;
-		// phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared
-		$results = $wpdb->get_results(
-			$wpdb->prepare(
-				"SELECT
-					field.*,
-					GROUP_CONCAT(field_option.id SEPARATOR ',') AS option_ids,
-                    GROUP_CONCAT(field_option.option_label) AS option_labels,
-					feedback.id AS feedback_id
-					FROM {$this->field_table} AS field
-
-					LEFT JOIN {$this->field_option_table} AS field_option
-						ON field_option.field_id = field.id
-
-					LEFT JOIN {$this->feedback_table} AS feedback
-						ON feedback.field_id = field.id
-
-					WHERE field.poll_id = %d
-					GROUP BY field.id
-				",
-				$poll_id
-			)
-		);
-		return is_array( $results ) && count( $results ) ? $results : array();
 	}
 
 	/**
