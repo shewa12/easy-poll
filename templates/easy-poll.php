@@ -9,34 +9,19 @@
  * @package EasyPoll\Templates
  */
 
+use EasyPoll\FormBuilder\FormField;
+use EasyPoll\PollHandler\PollHandler;
+
 get_header();
 
 // @ep-action-hooks.
 do_action( 'easy-poll-before-poll-render', get_the_ID() );
+
+PollHandler::render_poll( get_the_ID() );
 ?>
-
-<div class="ep-poll-wrapper">
-	<h2>
-		<?php the_title(); ?>
-	</h2>
-
-	<?php if ( '' !== get_the_post_thumbnail() ) : ?>
-		<?php the_post_thumbnail(); ?>
-	<?php endif; ?>
-
-	<?php if ( '' !== get_the_content() ) : ?>
-		<div class="ep-poll-contents">
-			<?php the_content(); ?>
-		</div>
-	<?php endif; ?>
-
-	<div class="ep-poll-questions">
-
-	</div>
-</div>
 
 <?php
 // @ep-action-hooks.
 do_action( 'easy-poll-after-poll-render', get_the_ID() );
 get_footer();
-?>
+
