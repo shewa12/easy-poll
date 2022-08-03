@@ -1,20 +1,26 @@
 <?php
 /**
- * Plugin Name:     Evaluation Form
- * Plugin URI:      PLUGIN SITE HERE
- * Description:     PLUGIN DESCRIPTION HERE
- * Author:          YOUR NAME HERE
- * Author URI:      YOUR SITE HERE
+ * Plugin Name:     Easy Poll
+ * Plugin URI:      https://shewazone.com
+ * Description:     A simple plugin for creating polls, survey, user's feedback management system
+ * Author:          Shewa
+ * Author URI:      https://shewazone.com
  * Text Domain:     easy-poll
  * Domain Path:     /languages
- * Version:         0.1.0
+ * Version:         1.0.0
  *
  * @package         EasyPoll
  */
 
+use EasyPoll\Admin\Admin;
+use EasyPoll\Assets\Enqueue;
+use EasyPoll\CustomPosts\InitCustomPosts;
 use EasyPoll\Database\EasyPollFeedback;
 use EasyPoll\Database\EasyPollFields;
-use EasyPoll\Database\EasyPolls;
+use EasyPoll\Database\EasyPollOptions;
+use EasyPoll\FormBuilder\FormClient;
+use EasyPoll\Metabox\MetaboxInit;
+use EasyPoll\PollHandler\PollHandler;
 
 if ( ! class_exists( 'EasyPoll' ) ) {
 
@@ -81,13 +87,15 @@ if ( ! class_exists( 'EasyPoll' ) ) {
 			);
 			array_push( self::$plugin_data, $plugin_data );
 
-			self::$plugin_data['plugin_url']  = trailingslashit( plugin_dir_url( __FILE__ ) );
-			self::$plugin_data['plugin_path'] = trailingslashit( plugin_dir_path( __FILE__ ) );
-			self::$plugin_data['base_name']   = plugin_basename( __FILE__ );
-			self::$plugin_data['templates']   = trailingslashit( plugin_dir_path( __FILE__ ) . 'templates' );
-			self::$plugin_data['views']       = trailingslashit( plugin_dir_path( __FILE__ ) . 'views' );
-			self::$plugin_data['assets']      = trailingslashit( plugin_dir_url( __FILE__ ) . 'assets' );
-			self::$plugin_data['base_name']   = plugin_basename( __FILE__ );
+			self::$plugin_data['plugin_url']   = trailingslashit( plugin_dir_url( __FILE__ ) );
+			self::$plugin_data['plugin_path']  = trailingslashit( plugin_dir_path( __FILE__ ) );
+			self::$plugin_data['base_name']    = plugin_basename( __FILE__ );
+			self::$plugin_data['templates']    = trailingslashit( plugin_dir_path( __FILE__ ) . 'templates' );
+			self::$plugin_data['views']        = trailingslashit( plugin_dir_path( __FILE__ ) . 'views' );
+			self::$plugin_data['assets']       = trailingslashit( plugin_dir_url( __FILE__ ) . 'assets' );
+			self::$plugin_data['base_name']    = plugin_basename( __FILE__ );
+			self::$plugin_data['nonce_action'] = 'easy-poll-nonce-action';
+			self::$plugin_data['nonce']        = 'easy-poll-nonce';
 			// set ENV DEV | PROD.
 			self::$plugin_data['env'] = 'DEV';
 			return self::$plugin_data;
@@ -118,9 +126,9 @@ if ( ! class_exists( 'EasyPoll' ) ) {
 			 * @since v1.0.0
 			 */
 			$tables = array(
-				EasyPolls::class,
 				EasyPollFields::class,
-				EasyPollFeedback::class
+				EasyPollFeedback::class,
+				EasyPollOptions::class,
 			);
 
 			foreach ( $tables as $table ) {
@@ -147,12 +155,17 @@ if ( ! class_exists( 'EasyPoll' ) ) {
 		}
 
 		/**
-		 * Load packages
+		 * Load inital packages
 		 *
 		 * @return void
 		 */
 		public function load_packages() {
-
+			new Admin();
+			new InitCustomPosts();
+			new MetaboxInit();
+			new Enqueue();
+			new FormClient();
+			new PollHandler();
 		}
 	}
 	// trigger.

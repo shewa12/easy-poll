@@ -1,0 +1,26 @@
+@use './utilities/utilities.scss';
+
+.ep-poll-wrapper {
+    padding: 20px 0 20px;
+    &.ep-container {
+        margin: auto;
+    }
+    .ep-poll-questions {
+        margin-top: 50px;
+        input[type=text], textarea {
+            width: 100%;
+            border: 2px solid #ced4da;
+            border-radius: 3px;
+            &:focus {
+                border-color: #5468ffd8;
+            }
+        }
+        input[type=text] {
+            padding: .375rem .75rem;
+        }
+        .ep-poll-field-group {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+    }
+}
