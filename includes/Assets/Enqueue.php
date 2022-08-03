@@ -10,6 +10,7 @@
 namespace EasyPoll\Assets;
 
 use EasyPoll;
+use EasyPoll\CustomPosts\EasyPollPost;
 
 /**
  * Enqueue styles & scripts
@@ -23,8 +24,8 @@ class Enqueue {
 	 */
 	public function __construct() {
 		add_action( 'admin_enqueue_scripts', array( __CLASS__, 'load_admin_scripts' ) );
-		// frontend scripts.
-		// add_action( 'wp_enqueue_scripts', array( __CLASS__, 'load_front_end_scripts' ) );
+		// Frontend scripts.
+		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'load_front_end_scripts' ) );
 
 		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'script_text_domain' ) );
 	}
@@ -48,6 +49,20 @@ class Enqueue {
 			wp_add_inline_script( 'ep-backend-script', 'const epData = ' . json_encode( self::scripts_data() ), 'before' );
 		}
 
+	}
+
+	/**
+	 * Enqueue frontend scripts & styles
+	 *
+	 * @since v1.0.0
+	 *
+	 * @return void
+	 */
+	public static function load_front_end_scripts(): void {
+		$plugin_data = EasyPoll::plugin_data();
+		if ( get_post_type() === EasyPollPost::post_type() ) {
+			wp_enqueue_style( 'ep-frontend-style', $plugin_data['assets'] . 'bundles/frontend-style.min.css', array(), filemtime( $plugin_data['plugin_path'] . 'assets/bundles/frontend-style.min.css' ) );
+		}
 	}
 
 	/**

@@ -247,6 +247,7 @@ class FormField implements FormInterface {
 
 					WHERE field.poll_id = %d
 					GROUP BY field.id
+					ORDER BY field.id ASC
 				",
 				$poll_id
 			)
