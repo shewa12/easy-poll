@@ -62,6 +62,11 @@ class Enqueue {
 		$plugin_data = EasyPoll::plugin_data();
 		if ( get_post_type() === EasyPollPost::post_type() ) {
 			wp_enqueue_style( 'ep-frontend-style', $plugin_data['assets'] . 'bundles/frontend-style.min.css', array(), filemtime( $plugin_data['plugin_path'] . 'assets/bundles/frontend-style.min.css' ) );
+
+			wp_enqueue_script( 'ep-frontend-script', $plugin_data['assets'] . 'bundles/frontend.min.js', array( 'wp-i18n' ), filemtime( $plugin_data['plugin_path'] . 'assets/bundles/frontend.min.js' ), true );
+
+			// Add data to use in js files.
+			wp_add_inline_script( 'ep-frontend-script', 'const epData = ' . json_encode( self::scripts_data() ), 'before' );
 		}
 	}
 

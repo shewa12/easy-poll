@@ -12,6 +12,7 @@ namespace EasyPoll\PollHandler;
 
 use EasyPoll;
 use EasyPoll\CustomPosts\EasyPollPost;
+use EasyPoll\FormBuilder\Feedback;
 use EasyPoll\FormBuilder\FormField;
 use EasyPoll\Utilities\Utilities;
 
@@ -29,7 +30,7 @@ class PollHandler {
 	 */
 	public function __construct() {
 		add_filter( 'template_include', __CLASS__ . '::filter_template', 100 );
-		add_action( 'wp_ajax_poll_submit', __CLASS__ . '::poll_submit' );
+		add_action( 'wp_ajax_ep_poll_submit', __CLASS__ . '::poll_submit' );
 	}
 
 	/**
@@ -74,15 +75,33 @@ class PollHandler {
 
 	/**
 	 * Handle poll submission
-	 * 
+	 *
 	 * @since v1.0.0
-	 * 
-	 * @return wp_json response
+	 *
+	 * @return void wp_json response
 	 */
 	public static function poll_submit() {
 		// Verify nonce.
 		Utilities::verify_nonce();
-		$post = $_POST;
+		$post      = $_POST; // phpcs:disable WordPress.Security.NonceVerification.Missing
+		$field_ids = $post['ep-poll-field-id'];
+		$feedback  = array();
 
+		foreach ( $field_ids as $field_id ) {
+			$user_feedback = isset( $post[ 'question-' . $field_id ] ) ? $post[ 'question-' . $field_id ] : '';
+			// If multiple choice/array type then make string.
+			if ( is_array( $user_feedback ) ) {
+				$user_feedback = implode( ',', $user_feedback );
+			}
+			$data = array(
+				'field_id' => $field_id,
+				'user_id'  => get_current_user_id(),
+				'feedback' => $user_feedback,
+				'user_ip'  => $_SERVER['REMOTE_ADDR'],
+			);
+			array_push( $feedback, $data );
+		}
+		$save = Feedback::save_feedback( $feedback );
+		return $save ? wp_send_json_success() : wp_send_json_error();
 	}
 }
