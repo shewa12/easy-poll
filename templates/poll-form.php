@@ -20,13 +20,6 @@ $max_width            = wp_is_mobile() ? '92%' : '50%';
 $multiple_select_text = __( ' ( Select multiple if required ) ', 'easy-poll' );
 $thumbnail_size       = 'medium';
 
-if (isset( $_POST['submit'] )) {
-
-        echo '<pre>';
-        print_r( $_POST );
-        exit;
-
-}
 ?>
 <div class="<?php echo esc_attr( "ep-poll-wrapper {$is_container}" ); ?>" style="max-width: <?php echo esc_attr( $max_width ); ?>">
 	<h2>
