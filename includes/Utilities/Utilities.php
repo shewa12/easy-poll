@@ -31,7 +31,7 @@ class Utilities {
 	 */
 	public static function load_template( string $template, $data = '', $once = false ) {
 		$plugin_data = EasyPoll::plugin_data();
-		$template = trailingslashit( $plugin_data['templates'] ) . $template;
+		$template    = trailingslashit( $plugin_data['templates'] ) . $template;
 		if ( file_exists( $template ) ) {
 			if ( $once ) {
 				include_once $template;
@@ -55,7 +55,7 @@ class Utilities {
 	 */
 	public static function load_views( string $template, $data = '', $once = false ) {
 		$plugin_data = EasyPoll::plugin_data();
-		$template = trailingslashit( $plugin_data['views'] ) . $template;
+		$template    = trailingslashit( $plugin_data['views'] ) . $template;
 		if ( file_exists( $template ) ) {
 			if ( $once ) {
 				include_once $template;
@@ -111,5 +111,28 @@ class Utilities {
 		if ( isset( $_POST[ $plugin_data['nonce'] ] ) && ! wp_verify_nonce( $_POST[ $plugin_data['nonce'] ], $plugin_data['nonce_action'] ) ) {
 			die( __( 'Tutor periscope nonce verification failed', 'tutor-periscope' ) );
 		}
+	}
+
+	/**
+	 * Sanitize fields
+	 *
+	 * @since v1.0.0
+	 *
+	 * @param mixed $data string or array data to sanitize.
+	 *
+	 * @return mixed return input data after sanitize
+	 */
+	public static function sanitize( $data ) {
+		if ( is_array( $data ) ) {
+			$data = array_map(
+				function( $value ) {
+					return sanitize_text_field( $value );
+				},
+				$data
+			);
+		} else {
+			$data = sanitize_text_field( $data );
+		}
+		return $data;
 	}
 }

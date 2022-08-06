@@ -164,7 +164,8 @@ class Options {
 	 */
 	public static function settings_update(): void {
 		Utilities::verify_nonce();
-		update_option( self::OPTION_KEY, $_POST );
+		$post = Utilities::sanitize( $_POST ); //phpcs:ignore
+		update_option( self::OPTION_KEY, $post );
 		wp_send_json_success();
 	}
 }
