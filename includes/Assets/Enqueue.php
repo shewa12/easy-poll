@@ -38,9 +38,10 @@ class Enqueue {
 	public static function load_admin_scripts(): void {
 		$plugin_data = EasyPoll::plugin_data();
 		$post_type   = get_post_type();
+		$page        = $_GET['page'] ?? ''; //phpcs:ignore
 
 		// load styles & scripts only required page.
-		if ( 'easy-poll' === $post_type ) {
+		if ( 'easy-poll' === $post_type || 'ep-settings' === $page ) {
 			wp_enqueue_style( 'ep-backend-style', $plugin_data['assets'] . 'bundles/backend-style.min.css', array(), filemtime( $plugin_data['plugin_path'] . 'assets/bundles/backend-style.min.css' ) );
 
 			wp_enqueue_script( 'ep-backend-script', $plugin_data['assets'] . 'bundles/backend.min.js', array( 'wp-i18n' ), filemtime( $plugin_data['plugin_path'] . 'assets/bundles/backend.min.js' ), true );

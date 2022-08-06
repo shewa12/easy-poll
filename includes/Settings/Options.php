@@ -9,6 +9,8 @@
 
 namespace EasyPoll\Settings;
 
+use EasyPoll\Utilities\Utilities;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -17,6 +19,22 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Customization options
  */
 class Options {
+
+	/**
+	 * Option key name
+	 *
+	 * @var OPTION_KEY
+	 */
+	const OPTION_KEY = 'ep-settings';
+
+	/**
+	 * Register hooks
+	 *
+	 * @since v1.0.0
+	 */
+	public function __construct() {
+		add_action( 'wp_ajax_ep_settings_update', __CLASS__ . '::settings_update' );
+	}
 
 	/**
 	 * Get poll settings
@@ -133,7 +151,20 @@ class Options {
 		$combined_options = array_combine( $option_names, $option_values );
 
 		do_action( 'easy_poll_before_default_settings_save', $combined_options );
-		update_option( 'ep-settings', $combined_options );
+		update_option( self::OPTION_KEY, $combined_options );
 		do_action( 'easy_poll_after_default_settings_save', $combined_options );
+	}
+
+	/**
+	 * Update settings
+	 *
+	 * @since v1.0.0
+	 *
+	 * @return void  send wp json response
+	 */
+	public static function settings_update(): void {
+		Utilities::verify_nonce();
+		update_option( self::OPTION_KEY, $_POST );
+		wp_send_json_success();
 	}
 }

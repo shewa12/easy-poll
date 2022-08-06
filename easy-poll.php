@@ -22,6 +22,7 @@ use EasyPoll\FormBuilder\FormClient;
 use EasyPoll\Metabox\MetaboxInit;
 use EasyPoll\PollHandler\PollHandler;
 use EasyPoll\Settings\Options;
+use EasyPoll\Settings\Settings;
 
 if ( ! class_exists( 'EasyPoll' ) ) {
 
@@ -170,6 +171,7 @@ if ( ! class_exists( 'EasyPoll' ) ) {
 			new Enqueue();
 			new FormClient();
 			new PollHandler();
+			new Settings();
 		}
 	}
 	// trigger.
