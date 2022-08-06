@@ -13,7 +13,6 @@ namespace EasyPoll\PollHandler;
 use EasyPoll;
 use EasyPoll\CustomPosts\EasyPollPost;
 use EasyPoll\FormBuilder\Feedback;
-use EasyPoll\FormBuilder\FormField;
 use EasyPoll\Utilities\Utilities;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -25,6 +24,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class PollHandler {
 
+	const USER_POLL_SUBMITTED_KEY = 'ep-poll-submitted';
 	/**
 	 * Register hooks
 	 */
@@ -79,7 +79,7 @@ class PollHandler {
 	 *
 	 * @since v1.0.0
 	 *
-	 * @return void wp_json response
+	 * @return wp_json response
 	 */
 	public static function poll_submit() {
 		// Verify nonce.
@@ -98,7 +98,7 @@ class PollHandler {
 				'field_id' => $field_id,
 				'user_id'  => get_current_user_id(),
 				'feedback' => $user_feedback,
-				'user_ip'  => $_SERVER['REMOTE_ADDR'],
+				'user_ip'  => $_SERVER['REMOTE_ADDR'] ?? '',
 			);
 			array_push( $feedback, $data );
 		}

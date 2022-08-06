@@ -9,8 +9,11 @@
 
 namespace EasyPoll\FormBuilder;
 
+use EasyPoll\CustomPosts\EasyPollPost;
 use EasyPoll\Database\EasyPollFeedback;
+use EasyPoll\Database\EasyPollFields;
 use EasyPoll\Helpers\QueryHelper;
+use EasyPoll\Utilities\Utilities;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -52,5 +55,51 @@ class Feedback {
 		}
 
 		return $response ? true : false;
+	}
+
+	/**
+	 * Check whether current user already submitted poll or not
+	 *
+	 * @param int $poll_id  poll id to check.
+	 *
+	 * @return bool
+	 */
+	public static function is_user_already_submitted( $poll_id ): bool {
+		global $wpdb;
+
+		$poll_table     = $wpdb->posts;
+		$field_table    = $wpdb->prefix . EasyPollFields::get_table();
+		$feedback_table = $wpdb->prefix . EasyPollFeedback::get_table();
+
+		$poll_id   = Utilities::sanitize( $poll_id );
+		$user_id   = get_current_user_id();
+		$user_ip   = $_SERVER['REMOTE_ADDR'] ?? '';
+		$submitted = $wpdb->get_var(
+			$wpdb->prepare(
+				"SELECT
+						feedback.id
+					FROM {$feedback_table} AS feedback
+
+					INNER JOIN {$field_table} AS field
+						ON field.id = feedback.field_id
+
+					INNER JOIN {$poll_table} AS poll
+						ON poll.ID = field.poll_id
+						AND poll.post_type = %s
+						
+					WHERE poll.ID = %d 
+						AND (
+							feedback.user_id = %d
+							OR feedback.user_ip = %s
+						)
+						
+					",
+				EasyPollPost::post_type(),
+				$poll_id,
+				$user_id,
+				$user_ip
+			)
+		);
+		return (bool) $submitted;
 	}
 }

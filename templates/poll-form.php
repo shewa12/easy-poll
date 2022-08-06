@@ -7,6 +7,7 @@
  * @package EasyPoll\Templates
  */
 
+use EasyPoll\FormBuilder\Feedback;
 use EasyPoll\FormBuilder\FormField;
 use EasyPoll\Settings\Options;
 use EasyPoll\Utilities\Utilities;
@@ -25,7 +26,9 @@ $max_width = wp_is_mobile() ? '92%' : "{$max_width}%";
 $multiple_select_text = Options::get_option( 'ep-select-multiple-text' );
 $thumbnail_size       = Options::get_option( 'ep-thumbnail-size', 'medium' );
 
-$allow_guest = Options::get_option( 'ep-allow-guest', 'no' );
+$allow_guest       = Options::get_option( 'ep-allow-guest', 'no' );
+$already_submitted = Feedback::is_user_already_submitted( $poll_id );
+
 ?>
 <div class="<?php echo esc_attr( "ep-poll-wrapper {$is_container}" ); ?>" style="max-width: <?php echo esc_attr( $max_width ); ?>">
 	<?php
@@ -42,6 +45,24 @@ $allow_guest = Options::get_option( 'ep-allow-guest', 'no' );
 		);
 		//phpcs:ignore
 		echo apply_filters( 'easy_poll_guest_not_allowed_template', ob_get_clean() );
+		// Closing the above opened div.
+		echo '</div>'; //phpcs:ignore
+		return;
+	}
+
+	// Check if user already submitted poll.
+	if ( $already_submitted ) {
+		ob_start();
+		Utilities::load_template(
+			'components/alert.php',
+			array(
+				'class' => 'ep-alert ep-alert-danger',
+				'title' => __( 'Poll Already Submitted', 'easy-poll' ),
+				'desc'  => __( 'The Poll you are trying access is already submitted', 'easy-poll' ),
+			)
+		);
+		//phpcs:ignore
+		echo apply_filters( 'easy_poll_already_submitted_template', ob_get_clean() );
 		// Closing the above opened div.
 		echo '</div>'; //phpcs:ignore
 		return;
