@@ -68,7 +68,7 @@ class Options {
 					'label'       => __( 'Max Width', 'easy-poll' ),
 					'field_type'  => 'number',
 					'option_name' => 'ep-max-width',
-					'description' => __( 'Set max width for the large screen devices', 'easy-poll' ),
+					'description' => __( 'Set max-width in percentage for the large screen devices', 'easy-poll' ),
 					'default'     => 60,
 				),
 				array(
@@ -104,7 +104,7 @@ class Options {
 					'label'       => __( 'Select Multiple Hint', 'easy-poll' ),
 					'field_type'  => 'input',
 					'option_name' => 'ep-select-multiple-text',
-					'description' => __( 'Show a hint so that user can understand that they can select multiple', 'easy-poll' ),
+					'description' => __( 'Show a message so that users can understand that they can select multiple', 'easy-poll' ),
 					'default'     => __( 'Select multiple if required', 'easy-poll' ),
 				),
 				array(
@@ -128,7 +128,7 @@ class Options {
 							'label' => __( 'No', 'easy-poll' ),
 						),
 					),
-					'description' => __( 'If allowed, any (logged-in/guest) user will be able to see & submit the poll.', 'easy-poll' ),
+					'description' => __( 'If allowed, any (logged-in/guest) users will be able to see & submit the poll.', 'easy-poll' ),
 					'default'     => __( 'no', 'easy-poll' ),
 				),
 			),
