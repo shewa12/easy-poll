@@ -237,6 +237,7 @@ class FormField implements FormInterface {
 							id
 						FROM {$feedback_table}
 						WHERE field_id = field.id
+						LIMIT 1
 					)
 						AS feedback_id
 

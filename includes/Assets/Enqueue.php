@@ -11,6 +11,7 @@ namespace EasyPoll\Assets;
 
 use EasyPoll;
 use EasyPoll\CustomPosts\EasyPollPost;
+use EasyPoll\Settings\Options;
 
 /**
  * Enqueue styles & scripts
@@ -79,9 +80,11 @@ class Enqueue {
 	public static function scripts_data() {
 		$plugin_data = EasyPoll::plugin_data();
 		$data        = array(
-			'url'          => admin_url( 'admin-ajax.php' ),
-			'nonce'        => wp_create_nonce( $plugin_data['nonce'] ),
-			'nonce_action' => $plugin_data['nonce_action'],
+			'url'                 => admin_url( 'admin-ajax.php' ),
+			'nonce'               => wp_create_nonce( $plugin_data['nonce'] ),
+			'nonce_action'        => $plugin_data['nonce_action'],
+			'success_msg'         => Options::get_option( 'ep-success-message' ),
+			'poll_template_width' => Options::get_option( 'ep-max-width' ),
 		);
 		return apply_filters( 'ep_inline_script_data', $data );
 	}
