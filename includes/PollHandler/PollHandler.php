@@ -31,6 +31,7 @@ class PollHandler {
 	public function __construct() {
 		add_filter( 'template_include', __CLASS__ . '::filter_template', 100 );
 		add_action( 'wp_ajax_ep_poll_submit', __CLASS__ . '::poll_submit' );
+		add_action( 'wp_ajax_nopriv_ep_poll_submit', __CLASS__ . '::poll_submit' );
 	}
 
 	/**
