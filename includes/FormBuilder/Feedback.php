@@ -60,6 +60,8 @@ class Feedback {
 	/**
 	 * Check whether current user already submitted poll or not
 	 *
+	 * @since v1.0.0
+	 *
 	 * @param int $poll_id  poll id to check.
 	 *
 	 * @return bool
@@ -101,5 +103,47 @@ class Feedback {
 			)
 		);
 		return (bool) $submitted;
+	}
+
+	/**
+	 * Get total feedback of a poll
+	 *
+	 * @since v1.0.0
+	 *
+	 * @param int $poll_id  poll id to check.
+	 *
+	 * @return int  total submitted feedback
+	 */
+	public static function total_submission( int $poll_id ): int {
+		global $wpdb;
+
+		$poll_table     = $wpdb->posts;
+		$field_table    = $wpdb->prefix . EasyPollFields::get_table();
+		$feedback_table = $wpdb->prefix . EasyPollFeedback::get_table();
+
+		$poll_id   = Utilities::sanitize( $poll_id );
+
+		$total = $wpdb->get_var(
+			$wpdb->prepare(
+				"SELECT 
+					IFNULL(COUNT(DISTINCT feedback.user_id), COUNT(DISTINCT feedback.user_ip))
+				 	AS total
+
+				FROM {$feedback_table} AS feedback
+
+				INNER JOIN {$field_table} AS field
+					ON field.id = feedback.field_id
+					
+				INNER JOIN {$poll_table} AS poll
+					ON poll.ID = field.poll_id
+					AND poll.post_type = %s
+
+				WHERE poll.ID = %d
+				",
+				EasyPollPost::post_type(),
+				$poll_id
+			)
+		);
+		return (int) $total;
 	}
 }
