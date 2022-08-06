@@ -37,13 +37,13 @@ $options = Options::get_settings_options();
 						<?php endif; ?>
 
 						<?php if ( 'dropdown' === $option['field_type'] ) : ?>
-                            <select type="radio" name="<?php esc_html( $option['option_name'] ); ?>" class="regular-text" value="<?php echo esc_attr( $label['value'] ); ?>">
-                                <?php foreach ( $option['options'] as $label ) : ?>
-                                <option value="<?php echo esc_attr( $label['value'] ); ?>">
-                                    <?php echo esc_html( $label['label'] ); ?>
-                                </option>
-                                <?php endforeach; ?>
-                            </select>
+							<select type="radio" name="<?php esc_html( $option['option_name'] ); ?>" class="regular-text" value="<?php echo esc_attr( $label['value'] ); ?>">
+								<?php foreach ( $option['options'] as $label ) : ?>
+								<option value="<?php echo esc_attr( $label['value'] ); ?>">
+									<?php echo esc_html( $label['label'] ); ?>
+								</option>
+								<?php endforeach; ?>
+							</select>
 						<?php endif; ?>
 
 						<?php if ( 'textarea' === $option['field_type'] ) : ?>
@@ -58,10 +58,10 @@ $options = Options::get_settings_options();
 				</tr>
 			<?php endforeach; ?>
 		</table>
-        <p>
-            <button type="submit" name="submit" class="button button-primary">
-                <?php esc_html_e( 'Save Changes', 'easy-poll' ); ?>
-            </button>
-        </p>
+		<p>
+			<button type="submit" name="submit" class="button button-primary">
+				<?php esc_html_e( 'Save Changes', 'easy-poll' ); ?>
+			</button>
+		</p>
 	</form>
 </div>
