@@ -27,11 +27,6 @@ class FormClient {
 	protected $form_field_builder;
 	protected $field_options;
 
-	protected $poll_table;
-	protected $field_table;
-	protected $field_option_table;
-	protected $feedback_table;
-
 	/**
 	 * Init props & register hooks
 	 *
@@ -39,17 +34,10 @@ class FormClient {
 	 */
 	public function __construct( $init_hook = true ) {
 
-		global $wpdb;
 		// Initialize props.
 		$this->form_builder       = FormBuilder::create( 'Form' );
 		$this->form_field_builder = FormBuilder::create( 'FormField' );
 		$this->field_options      = FormBuilder::create( 'FieldOptions' );
-
-		// Initialize table props.
-		$this->poll_table         = $wpdb->posts;
-		$this->field_table        = $wpdb->prefix . EasyPollFields::get_table();
-		$this->field_option_table = $wpdb->prefix . EasyPollOptions::get_table();
-		$this->feedback_table     = $wpdb->prefix . EasyPollFeedback::get_table();
 
 		/**
 		 * In Some cases, we may need to call method without
@@ -124,7 +112,7 @@ class FormClient {
 
 		// Field & options that is inserted in DB.
 		$request['field_id'] = $field_id;
-		$response_data = array(
+		$response_data       = array(
 			'field'   => $request,
 			'options' => $options,
 		);
@@ -174,7 +162,7 @@ class FormClient {
 	 */
 	public function field_delete() {
 		Utilities::verify_nonce();
-		$field_id = $_POST['field_id'] ?? '';
+		$field_id    = $_POST['field_id'] ?? '';
 		$field_label = $_POST['field_label'] ?? '';
 
 		/**

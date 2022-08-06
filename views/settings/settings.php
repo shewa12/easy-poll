@@ -13,6 +13,7 @@ use EasyPoll\Settings\Options;
 do_action( 'easy_poll_before_settings_view' );
 
 $options = Options::get_settings_options();
+Options::save_default_settings();
 ?>
 <div class="wrap">
 	<form action="" method="post">

@@ -79,7 +79,7 @@ class Options {
 							'label' => __( 'Full', 'easy-poll' ),
 						),
 					),
-                    'description' => __( 'Poll thumbnail size', 'easy-poll' ),
+					'description' => __( 'Poll thumbnail size', 'easy-poll' ),
 					'default'     => 'medium',
 				),
 				array(
@@ -92,7 +92,7 @@ class Options {
 				array(
 					'label'       => __( 'Success Message', 'easy-poll' ),
 					'field_type'  => 'textarea',
-					'option_name' => 'ep-select-multiple-text',
+					'option_name' => 'ep-success-message',
 					'description' => __( 'Show a message after successful poll submission', 'easy-poll' ),
 					'default'     => __( 'Thank you for submitting poll', 'easy-poll' ),
 				),
@@ -115,5 +115,25 @@ class Options {
 				),
 			),
 		);
+	}
+
+	/**
+	 * Save default settings, it will be used for one time
+	 * on the plugin activation.
+	 *
+	 * @since v1.0.0
+	 *
+	 * @return void
+	 */
+	public static function save_default_settings() {
+		$options       = self::get_settings_options();
+		$option_names  = array_column( $options, 'option_name' );
+		$option_values = array_column( $options, 'default' );
+
+		$combined_options = array_combine( $option_names, $option_values );
+
+		do_action( 'easy_poll_before_default_settings_save', $combined_options );
+		update_option( 'ep-settings', $combined_options );
+		do_action( 'easy_poll_after_default_settings_save', $combined_options );
 	}
 }

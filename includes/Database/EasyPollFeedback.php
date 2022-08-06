@@ -49,7 +49,7 @@ class EasyPollFeedback extends DatabaseTable {
 
 		$charset_collate = $wpdb->get_charset_collate();
 		$table_name      = $wpdb->prefix . self::$table_name;
-		$sql             = "CREATE TABLE $table_name (
+		$sql             = "CREATE TABLE IF NOT EXISTS $table_name (
         id INT(9) unsigned NOT NULL AUTO_INCREMENT,
 		field_id INT(9) unsigned NOT NULL,
 
