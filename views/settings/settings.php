@@ -14,7 +14,11 @@ use EasyPoll\Utilities\Utilities;
 do_action( 'easy_poll_before_settings_view' );
 
 $options  = Options::get_settings_options();
-$settings = get_option( Options::OPTION_KEY );
+$settings = get_option( Options::OPTION_KEY, false );
+
+if ( ! $settings ) {
+	die( esc_html_e( 'Invalid settings, try re-install the plugin', 'easy-poll') );
+}
 ?>
 <div class="wrap">
 	<form action="" method="post" id="ep-setting-form">

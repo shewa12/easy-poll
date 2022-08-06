@@ -168,4 +168,23 @@ class Options {
 		update_option( self::OPTION_KEY, $post );
 		wp_send_json_success();
 	}
+
+	/**
+	 * Get option by key
+	 *
+	 * @since v1.0.0
+	 *
+	 * @param string $key  option key.
+	 *
+	 * @return mixed option value on success or false if
+	 * option not found
+	 */
+	public static function get_option( string $key ) {
+		$options = get_option( self::OPTION_KEY, false );
+		$value   = false;
+		if ( $options && isset( $options[ $key ] ) ) {
+			$value = $options[ $key ];
+		}
+		return $value;
+	}
 }
