@@ -175,16 +175,17 @@ class Options {
 	 * @since v1.0.0
 	 *
 	 * @param string $key  option key.
+	 * @param string $default default value if option not found.
 	 *
 	 * @return mixed option value on success or false if
 	 * option not found
 	 */
-	public static function get_option( string $key ) {
+	public static function get_option( string $key, string $default = '' ) {
 		$options = get_option( self::OPTION_KEY, false );
 		$value   = false;
 		if ( $options && isset( $options[ $key ] ) ) {
 			$value = $options[ $key ];
 		}
-		return $value;
+		return $value ? $value : $default;
 	}
 }

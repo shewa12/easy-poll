@@ -9,7 +9,6 @@
  * @package EasyPoll\Templates
  */
 
-use EasyPoll\FormBuilder\FormField;
 use EasyPoll\PollHandler\PollHandler;
 
 get_header();
