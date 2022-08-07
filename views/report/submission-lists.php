@@ -23,79 +23,54 @@ $submission_lists = $report->get_submission_list( $poll_id );
 	<?php if ( is_array( $submission_lists ) && count( $submission_lists ) ) : ?>
 
 		<?php foreach ( $submission_lists as $key => $list ) : ?>
-			<table class="wp-list-table widefat fixed striped table-view-list posts">
-				<div>
-					<span>
-						<?php esc_html_e( 'User Info: ', 'easy-poll' ); ?>
+		<div class="ep-card">
+			<div class="ep-card-header">
+				<h4>
+					User Name: Shewa, IP: 797945845
+				</h4>
+			</div>
+			<div class="ep-card-body">
+			<?php
+				$questions    = explode( '__', $list->questions );
+				$types        = explode( '__', $list->question_types );
+				$question_ids = explode( '__', $list->question_ids );
+				$builder      = FormBuilder::create( 'FieldOptions' );
+				$feedback     = explode( '__', $list->user_feedback );
+			?>
+			<?php foreach ( $questions as $k => $q ) : ?>
+				<?php
+				$q_type          = ucfirst( str_replace( '_', ' ', $types[ $k ] ) );
+				$question_id     = $question_ids[ $k ];
+				$single_feedback = $feedback[ $k ];
+				?>
+				<div class="ep-question-feedback-wrapper">
+					<div class="ep-questions-wrapper">
 						<strong>
-							<?php echo esc_html( $list->user_id ); ?>
+						<?php echo esc_html( "$q ({$q_type})" ); ?>
 						</strong>
-					</span>
+						<p>
+						<?php if ( 'single_choice' === $types[ $k ] || 'multiple_choice' === $types[ $k ] ) : ?>
+							
+							<?php esc_html_e( 'Options: ', 'easy-poll' ); ?>
+							<?php echo esc_html( $builder->get_options_by_field_id( $question_id ) ); ?>
+							
+						<?php endif; ?>
+						</p>
+					</div>
+					<!-- feedback  -->
+					<div class="ep-user-feedback-wrapper">
+						<p>
+							<strong>
+								<?php esc_html_e( 'User Feedback', 'easy-poll' ); ?>
+							</strong>
+							<?php echo esc_html( $single_feedback ); ?>
+						</p>
+					</div>
+					<!-- feedback end -->
 				</div>
-				<thead>
-						<th scope="col" class="manage-column">
-							<span>
-								<?php esc_html_e( 'Questions', 'easy-poll' ); ?>
-							</span>
-						</th>
-						<th scope="col" class="manage-column">
-							<span>
-								<?php esc_html_e( 'Question Types', 'easy-poll' ); ?>
-							</span>
-						</th>
-						<th scope="col" class="manage-column">
-							<span>
-								<?php esc_html_e( 'Options', 'easy-poll' ); ?>
-							</span>
-						</th>
-						<th scope="col" class="manage-column">
-							<span>
-								<?php esc_html_e( 'Feedback', 'easy-poll' ); ?>
-							</span>
-						</th>
-					</tr>
-				</thead>
-				<tbody id="the-list">
-					<tr>
-						<td>
-							<?php
-								$questions = explode( '__', $list->questions );
-							?>
-							<?php foreach ( $questions as $q ) : ?>
-								<li>
-									<?php echo esc_html( $q ); ?>
-								</li>
-							<?php endforeach; ?>
-						</td>
-						<td>
-							<?php
-								$types = explode( '__', $list->question_types );
-							?>
-							<?php foreach ( $types as $t ) : ?>
-								<li>
-									<?php echo esc_html( ucfirst( str_replace( '_', ' ', $t ) ) ); ?>
-								</li>
-							<?php endforeach; ?>                            
-						</td>
-						<td>
-							<?php
-								$options = FormBuilder::create( 'FieldOptions' );
-
-							?>
-						</td>
-						<td>
-							<?php
-								$feedback = explode( '__', $list->user_feedback );
-							?>
-							<?php foreach ( $feedback as $f ) : ?>
-								<li>
-									<?php echo esc_html( $f ); ?>
-								</li>
-							<?php endforeach; ?>                            
-						</td>
-					</tr>
-				</tbody>
-			</table>
+			<?php endforeach; ?> 
+			</div>
+		</div>
 		<?php endforeach; ?>
 
 	<?php else : ?>
