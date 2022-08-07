@@ -21,6 +21,7 @@ use EasyPoll\Database\EasyPollOptions;
 use EasyPoll\FormBuilder\FormClient;
 use EasyPoll\Metabox\MetaboxInit;
 use EasyPoll\PollHandler\PollHandler;
+use EasyPoll\Report\Report;
 use EasyPoll\Settings\Options;
 use EasyPoll\Settings\Settings;
 use EasyPoll\ShortCodes\ShortCodes;
@@ -174,6 +175,7 @@ if ( ! class_exists( 'EasyPoll' ) ) {
 			new PollHandler();
 			new Settings();
 			new ShortCodes();
+			new Report();
 		}
 	}
 	// trigger.
