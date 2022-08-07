@@ -13,9 +13,6 @@ use EasyPoll\Report\Report;
 $report  = new Report();
 $poll_id = $_GET['poll-id'] ?? 0; //phpcs:ignore
 
-if ( ! $poll_id ) {
-	die( esc_html_e( 'Invalid Poll id', 'easy-poll' ) );
-}
 $submission_lists = $report->get_submission_list( $poll_id );
 
 ?>
