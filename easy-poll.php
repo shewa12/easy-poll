@@ -23,6 +23,7 @@ use EasyPoll\Metabox\MetaboxInit;
 use EasyPoll\PollHandler\PollHandler;
 use EasyPoll\Settings\Options;
 use EasyPoll\Settings\Settings;
+use EasyPoll\ShortCodes\ShortCodes;
 
 if ( ! class_exists( 'EasyPoll' ) ) {
 
@@ -172,6 +173,7 @@ if ( ! class_exists( 'EasyPoll' ) ) {
 			new FormClient();
 			new PollHandler();
 			new Settings();
+			new ShortCodes();
 		}
 	}
 	// trigger.

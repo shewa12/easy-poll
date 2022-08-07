@@ -23,14 +23,14 @@ $is_container = 'yes' === $is_container ? 'ep-container' : '';
 $max_width = Options::get_option( 'ep-max-width', '50' );
 $max_width = wp_is_mobile() ? '92%' : "{$max_width}%";
 
+$allow_guest          = Options::get_option( 'ep-allow-guest', 'no' );
 $multiple_select_text = Options::get_option( 'ep-select-multiple-text' );
-$thumbnail_size       = Options::get_option( 'ep-thumbnail-size', 'medium' );
 
-$allow_guest       = Options::get_option( 'ep-allow-guest', 'no' );
 $already_submitted = Feedback::is_user_already_submitted( $poll_id );
-
 ?>
-<div class="<?php echo esc_attr( "ep-poll-wrapper {$is_container}" ); ?>" style="max-width: <?php echo esc_attr( $max_width ); ?>">
+
+<?php do_action( 'ep_before_poll_questions', $poll_id ); ?>
+<div class="ep-poll-wrapper">
 	<?php
 	// If guest not allowed & user not logged in then return.
 	if ( 'no' === $allow_guest && ! is_user_logged_in() ) {
@@ -68,20 +68,6 @@ $already_submitted = Feedback::is_user_already_submitted( $poll_id );
 		return;
 	}
 	?>
-	<h2>
-		<?php echo esc_html( get_the_title( $poll_id ) ); ?>
-	</h2>
-
-	<?php if ( '' !== get_the_post_thumbnail( $poll_id ) ) : ?>
-		<?php echo get_the_post_thumbnail( $poll_id, $thumbnail_size ); ?>
-	<?php endif; ?>
-
-	<?php if ( '' !== get_the_content( $poll_id ) ) : ?>
-		<div class="ep-poll-contents">
-			<?php echo wp_kses_post( get_the_content( $poll_id ) ); ?>
-		</div>
-	<?php endif; ?>
-	<?php do_action( 'ep_before_poll_questions', $poll_id ); ?>
 	<div class="ep-poll-questions">
 		<?php
 			$poll_questions = FormField::get_poll_fields_with_option( $poll_id );
@@ -130,7 +116,7 @@ $already_submitted = Feedback::is_user_already_submitted( $poll_id );
 						<!-- single-choice -->
 						<?php
 						if ( 'single_choice' === $field_type || 'multiple_choice' === $field_type ) :
-							$hint = 'multiple_choice' === $field_type ? $multiple_select_text : '';
+							$hint = 'multiple_choice' === $field_type ? ' ' .$multiple_select_text : '';
 							?>
 						
 						<div class="ep-poll-options">
@@ -172,3 +158,4 @@ $already_submitted = Feedback::is_user_already_submitted( $poll_id );
 		<?php endif; ?>
 	</div>
 </div>
+<?php do_action( 'ep_after_poll_question', $poll_id ); ?>
