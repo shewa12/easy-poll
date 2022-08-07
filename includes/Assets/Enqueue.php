@@ -42,7 +42,7 @@ class Enqueue {
 		$page        = $_GET['page'] ?? ''; //phpcs:ignore
 
 		// load styles & scripts only required page.
-		if ( 'easy-poll' === $post_type || 'ep-settings' === $page ) {
+		if ( 'easy-poll' === $post_type || 'ep-settings' === $page || 'ep-report' === $page ) {
 			wp_enqueue_style( 'ep-backend-style', $plugin_data['assets'] . 'bundles/backend-style.min.css', array(), filemtime( $plugin_data['plugin_path'] . 'assets/bundles/backend-style.min.css' ) );
 
 			wp_enqueue_script( 'ep-backend-script', $plugin_data['assets'] . 'bundles/backend.min.js', array( 'wp-i18n' ), filemtime( $plugin_data['plugin_path'] . 'assets/bundles/backend.min.js' ), true );

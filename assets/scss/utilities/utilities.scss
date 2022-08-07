@@ -266,3 +266,19 @@ $alertSuccessBorderColor: #badbcc;
 .ep-hidden {
 	display: none;
 }
+
+// Card style
+.ep-card {
+	display: flex;
+	flex-direction: column;
+	background-color: #fff;
+	border: 1px solid $alertPrimaryBackground;
+	.ep-card-collapse {
+		cursor: pointer;
+	}
+	.ep-card-header {
+		border-bottom: 1px solid $alertPrimaryBackground;
+		padding: 5px 10px;
+		background-color: $alertPrimaryBackground;
+	}
+}
