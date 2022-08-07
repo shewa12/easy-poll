@@ -68,6 +68,6 @@ class Report implements SubMenuInterface {
 	 * @return void
 	 */
 	public function view() {
-		Utilities::load_views( 'settings/settings.php' );
+		Utilities::load_views( 'report/submission-lists.php' );
 	}
 }

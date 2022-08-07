@@ -73,4 +73,26 @@ class FieldOptions implements FormInterface {
 
 	}
 
+	/**
+	 * Get all options as comma separated by field id
+	 *
+	 * @since v1.0.0
+	 *
+	 * @param int $field_id  poll field id.
+	 *
+	 * @return string  comma separated options or empty string;
+	 */
+	public function get_options_by_field_id( int $field_id ): string {
+		$options = '';
+		$lists   = QueryHelper::get_list(
+			$this->get_table(),
+			array( 'field_id' => $field_id )
+		);
+		if ( is_array( $lists ) && count( $lists ) ) {
+			$option_labels = array_column( $lists, 'option_label' );
+			$options       = implode( ',', $option_labels );
+		}
+		return $options;
+	}
+
 }

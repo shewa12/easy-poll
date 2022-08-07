@@ -78,14 +78,9 @@ class Report {
                     poll.ID,
                     poll.post_title,
                     GROUP_CONCAT(field.field_label SEPARATOR '__') AS questions,
+                    GROUP_CONCAT(field.id SEPARATOR '__') AS question_ids,
                     GROUP_CONCAT(field.field_type SEPARATOR '__') AS question_types,
-                    (
-                        SELECT 
-                            GROUP_CONCAT( option_label SEPARATOR '__')
-                            FROM {$this->option_table}
-                            WHERE field_id = field.id
-                    ) AS options,
-                    GROUP_CONCAT(pfeedback.feedback SEPARATOR '__') user_feedback,
+                    GROUP_CONCAT(pfeedback.feedback SEPARATOR '__') AS user_feedback,
                     pfeedback.user_id,
                     pfeedback.user_ip
                     
@@ -103,7 +98,7 @@ class Report {
 				$poll_id
 			)
 		);
-        // @codingStandardsIgnoreEnd
+        // @codingStandardsIgnore
 		return $results ? $results : array();
 	}
 }
