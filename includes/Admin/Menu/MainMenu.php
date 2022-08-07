@@ -141,6 +141,7 @@ class MainMenu {
 		// Available sub-menu.
 		$submenus = array(
 			'Settings',
+			'Report',
 		);
 		$submenus = apply_filters( 'tp_submenus', $submenus );
 		// Register sub-menu by using factory class.

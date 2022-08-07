@@ -83,8 +83,9 @@ class FilterEasyPollColumns {
 			}
 			if ( 'total_submission' === $column_name ) {
 				$total = Feedback::total_submission( $post_id );
+				$submission_url = add_query_arg( array( 'page' => 'submissions-list' ) );
 				if ( $total ) {
-					echo "<a href='' title='" . esc_attr( 'View Details', 'easy-poll' ) . "'>
+					echo "<a href='" . esc_url( $submission_url ) . "' title='" . esc_attr( 'View Details', 'easy-poll' ) . "'>
 					" . esc_html( $total ) . '
 					</a>';
 				} else {

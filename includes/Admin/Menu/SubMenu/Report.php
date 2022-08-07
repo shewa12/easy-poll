@@ -1,6 +1,6 @@
 <?php
 /**
- * Settings sub-menu
+ * Report sub menu
  *
  * @package EasyPoll\Admin\SubMenu
  *
@@ -14,7 +14,7 @@ use EasyPoll\Utilities\Utilities;
 /**
  * Polls sub menu
  */
-class Settings implements SubMenuInterface {
+class Report implements SubMenuInterface {
 
 	/**
 	 * Page title
@@ -24,7 +24,7 @@ class Settings implements SubMenuInterface {
 	 * @return string  page title
 	 */
 	public function page_title(): string {
-		return __( 'Settings', 'easy-poll' );
+		return __( 'Report', 'easy-poll' );
 	}
 
 	/**
@@ -35,7 +35,7 @@ class Settings implements SubMenuInterface {
 	 * @return string  menu title
 	 */
 	public function menu_title(): string {
-		return __( 'Settings', 'easy-poll' );
+		return __( 'Report', 'easy-poll' );
 	}
 
 	/**
@@ -57,7 +57,7 @@ class Settings implements SubMenuInterface {
 	 * @return string  slug
 	 */
 	public function slug(): string {
-		return 'ep-settings';
+		return 'ep-report';
 	}
 
 	/**
