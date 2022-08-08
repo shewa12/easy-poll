@@ -7,16 +7,47 @@
  * @package EasyPoll\Report
  */
 
+use EasyPoll\CustomPosts\EasyPollPost;
 use EasyPoll\FormBuilder\FormBuilder;
 use EasyPoll\Report\Report;
 
-$report  = new Report();
-$poll_id = $_GET['poll-id'] ?? 0; //phpcs:ignore
+$poll_id = (int) isset( $_GET['poll-id'] ) ? sanitize_text_field( $_GET['poll-id'] ) : 0;
 
+$report           = new Report();
 $submission_lists = $report->get_submission_list( $poll_id );
 
+
+$polls = EasyPollPost::get_polls();
 ?>
-<div class="wrap">
+<div class="wrap ep-d-flex ep-flex-column ep-gap-10">
+	<!-- form  -->
+	<form action="" id="ep-report-form">
+		<div class="alignleft actions bulkactions">
+			<label for="bulk-action-selector-top" class="screen-reader-text">
+				<?php esc_html_e( 'Select Poll', 'easy-poll' ); ?>
+			</label>
+			<select name="poll-id" id="bulk-action-selector-top">
+				<?php if ( $polls->have_posts() ) : ?>
+					<?php
+					while ( $polls->have_posts() ) :
+						$polls->the_post();
+						?>
+						<option value="<?php the_ID(); ?>" <?php selected( $poll_id, get_the_ID() )?>>
+							<?php the_title(); ?>
+						</option>
+					<?php endwhile; ?>
+				<?php else : ?>
+					<option value="">
+						<?php esc_html_e( 'Poll not available', 'easy-poll' ); ?>
+					</option>
+				<?php endif; ?>
+				<?php wp_reset_postdata(); ?>
+			</select>
+			<input type="submit" id="doaction" class="button action" value="<?php esc_attr_e( 'Apply', 'easy-poll' ); ?>">
+		</div>
+	</form>
+	<!-- form end -->
+
 	<?php if ( is_array( $submission_lists ) && count( $submission_lists ) ) : ?>
 		<div class="ep-submission-lists">
 			<?php foreach ( $submission_lists as $key => $list ) : ?>
@@ -25,7 +56,7 @@ $submission_lists = $report->get_submission_list( $poll_id );
 					<h4>
 						User Name: Shewa, IP: 797945845
 					</h4>
-                    <i class="dashicons dashicons-arrow-up-alt2 ep-card-collapse"></i>
+					<i class="dashicons dashicons-arrow-up-alt2 ep-card-collapse"></i>
 				</div>
 				<div class="ep-card-body">
 				<?php
@@ -44,17 +75,17 @@ $submission_lists = $report->get_submission_list( $poll_id );
 					<div class="ep-question-feedback-wrapper">
 						<div class="ep-questions-wrapper">
 							<strong>
-                                <?php esc_html_e( 'Q) ', 'easy-poll' ); ?>
+								<?php esc_html_e( 'Q) ', 'easy-poll' ); ?>
 							</strong>
-                            <span>
-                                <?php echo esc_html( "$q ({$q_type})" ); ?>
-                            </span>
+							<span>
+								<?php echo esc_html( "$q ({$q_type})" ); ?>
+							</span>
 							<p>
 							<?php if ( 'single_choice' === $types[ $k ] || 'multiple_choice' === $types[ $k ] ) : ?>
 								
 								<strong>
-                                <?php esc_html_e( 'Options: ', 'easy-poll' ); ?>
-                                </strong>
+								<?php esc_html_e( 'Options: ', 'easy-poll' ); ?>
+								</strong>
 								<?php echo esc_html( $builder->get_options_by_field_id( $question_id ) ); ?>
 								
 							<?php endif; ?>
@@ -77,11 +108,13 @@ $submission_lists = $report->get_submission_list( $poll_id );
 			<?php endforeach; ?>
 		</div>
 	<?php else : ?>
-		
+		<!-- check if user poll set id, not set means user just visiting page -->
+		<?php if ( $poll_id ) : ?>
 		<div class="">
 			<p>
 				<?php esc_html_e( 'No record available', 'easy-poll' ); ?>
 			</p>
 		</div>
+		<?php endif; ?>
 	<?php endif; ?>
 </div>
