@@ -90,16 +90,12 @@ class Feedback {
 						AND poll.post_type = %s
 						
 					WHERE poll.ID = %d 
-						AND (
-							feedback.user_id = %d
-							OR feedback.user_ip = %s
-						)
+						AND feedback.user_id = %d
 						
 					",
 				EasyPollPost::post_type(),
 				$poll_id,
-				$user_id,
-				$user_ip
+				$user_id
 			)
 		);
 		return (bool) $submitted;
