@@ -32,7 +32,7 @@ $polls = EasyPollPost::get_polls();
 					while ( $polls->have_posts() ) :
 						$polls->the_post();
 						?>
-						<option value="<?php the_ID(); ?>" <?php selected( $poll_id, get_the_ID() )?>>
+						<option value="<?php the_ID(); ?>" <?php selected( $poll_id, get_the_ID() ); ?>>
 							<?php the_title(); ?>
 						</option>
 					<?php endwhile; ?>
@@ -51,10 +51,19 @@ $polls = EasyPollPost::get_polls();
 	<?php if ( is_array( $submission_lists ) && count( $submission_lists ) ) : ?>
 		<div class="ep-submission-lists">
 			<?php foreach ( $submission_lists as $key => $list ) : ?>
+				<?php
+				$user      = get_userdata( $list->user_id );
+				$user_ip   = $list->user_ip;
+				$user_name = '';
+				if ( is_a( $user, 'WP_User' ) ) {
+					$user_name = '' === $user->display_name ? $user->display_name : $user->user_login;
+				}
+				?>
 			<div class="ep-card">
 				<div class="ep-card-header ep-d-flex ep-justify-between ep-align-center">
 					<h4>
-						User Name: Shewa, IP: 797945845
+						<?php echo esc_html__( 'User Name: ' . $user_name ); ?>
+						<?php echo esc_html__( 'User IP: ' . $user_ip ); ?>
 					</h4>
 					<i class="dashicons dashicons-arrow-up-alt2 ep-card-collapse"></i>
 				</div>

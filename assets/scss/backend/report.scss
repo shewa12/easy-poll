@@ -5,12 +5,15 @@
     align-items: flex-start;
     .ep-question-feedback-wrapper {
         display: flex;
-        justify-content: space-between;
+        justify-content: flex-start;
         align-items: center;
         column-gap: 50px;
         padding: 5px 10px;
         &:not(:last-child) {
             border-bottom: 1px solid #e3e3e3;
         }
+    }
+    .ep-card {
+        width: 100%;
     }
 }
