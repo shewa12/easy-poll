@@ -13,9 +13,13 @@ use EasyPoll\Report\Report;
 
 $poll_id = (int) isset( $_GET['poll-id'] ) ? sanitize_text_field( $_GET['poll-id'] ) : 0;
 
-$report           = new Report();
-$submission_lists = $report->get_submission_list( $poll_id );
+$report = new Report();
 
+$current_page     = isset( $_GET['paged'] ) ? (int) $_GET['paged'] : 1;
+$item_per_page    = 1;
+$offset           = ( $item_per_page * $current_page ) - $item_per_page;
+$submission_lists = $report->get_submission_list( $poll_id, $item_per_page, $offset );
+$total_count      = $report->count_submissions( $poll_id );
 
 $polls = EasyPollPost::get_polls();
 ?>
@@ -116,6 +120,26 @@ $polls = EasyPollPost::get_polls();
 			</div>
 			<?php endforeach; ?>
 		</div>
+		<!-- pagination start -->
+		<?php if ( $total_count ) : ?>
+			<div class="ep-submission-pagination ep-pagination">
+				<?php
+					$big = 999999999; // Need an unlikely integer.
+					$base = html_entity_decode( str_replace( $big, '%#%', esc_url( admin_url( $big ) . "admin.php?page=ep-report&poll-id={$poll_id}&paged=%#%" ) ) );
+
+					// phpcs:ignore
+					echo paginate_links(
+						array(
+							'base'    => $base,
+							'format'  => '?paged=%#%',
+							'current' => max( 1, $current_page ),
+							'total'   => $item_per_page ? ceil( $total_count / $item_per_page ) : 1,
+						)
+					);
+				?>
+			</div>
+		<?php endif; ?>
+		<!-- pagination end -->
 	<?php else : ?>
 		<!-- check if user poll set id, not set means user just visiting page -->
 		<?php if ( $poll_id ) : ?>
