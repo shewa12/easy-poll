@@ -15,5 +15,8 @@
     }
     .ep-card {
         width: 100%;
+        .ep-card-header {
+            cursor: pointer;
+        }
     }
 }
