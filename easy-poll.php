@@ -21,6 +21,10 @@ use EasyPoll\Database\EasyPollOptions;
 use EasyPoll\FormBuilder\FormClient;
 use EasyPoll\Metabox\MetaboxInit;
 use EasyPoll\PollHandler\PollHandler;
+use EasyPoll\Report\Report;
+use EasyPoll\Settings\Options;
+use EasyPoll\Settings\Settings;
+use EasyPoll\ShortCodes\ShortCodes;
 
 if ( ! class_exists( 'EasyPoll' ) ) {
 
@@ -134,6 +138,9 @@ if ( ! class_exists( 'EasyPoll' ) ) {
 			foreach ( $tables as $table ) {
 				$table::create_table();
 			}
+
+			// Save default settings options.
+			Options::save_default_settings();
 		}
 
 		/**
@@ -166,6 +173,9 @@ if ( ! class_exists( 'EasyPoll' ) ) {
 			new Enqueue();
 			new FormClient();
 			new PollHandler();
+			new Settings();
+			new ShortCodes();
+			new Report();
 		}
 	}
 	// trigger.

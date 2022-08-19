@@ -9,6 +9,8 @@
 
 namespace EasyPoll\CustomPosts;
 
+use EasyPoll\FormBuilder\Feedback;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	return;
 }
@@ -77,11 +79,18 @@ class FilterEasyPollColumns {
 		$post_type = get_post_type( $post_id );
 		if ( $post_type === self::$post_type ) {
 			if ( 'short_code' === $column_name ) {
-				echo esc_html( "[{$post_type} id={$post_id}]" );
+					echo esc_html( "[{$post_type} id={$post_id}]" );
 			}
-			// @TODO need to implement real logic.
 			if ( 'total_submission' === $column_name ) {
-				echo '10';
+				$total = Feedback::total_submission( $post_id );
+				$submission_url = admin_url( 'admin.php?page=ep-report&poll-id=' . $post_id );
+				if ( $total ) {
+					echo "<a href='" . esc_url( $submission_url ) . "' title='" . esc_attr( 'View Details', 'easy-poll' ) . "'>
+					" . esc_html( $total ) . '
+					</a>';
+				} else {
+					echo esc_html( $total );
+				}
 			}
 		}
 	}

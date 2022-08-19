@@ -19,7 +19,6 @@ saveButtons.forEach((button) => {
 		const formData = new FormData(event.target.closest("form"));
 		const response = await ajaxRequest(formData, true, event.target);
 		const notifyElem = "#ep-single-multiple-snackbar";
-		console.log(response.data);
 		// If operation success then reset form.
 		if (response.success) {
 			event.target.closest("form").reset();

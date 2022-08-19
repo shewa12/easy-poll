@@ -1,0 +1,22 @@
+.ep-submission-lists {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: flex-start;
+    .ep-question-feedback-wrapper {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        column-gap: 50px;
+        padding: 5px 10px;
+        &:not(:last-child) {
+            border-bottom: 1px solid #e3e3e3;
+        }
+    }
+    .ep-card {
+        width: 100%;
+        .ep-card-header {
+            cursor: pointer;
+        }
+    }
+}

@@ -140,8 +140,8 @@ class MainMenu {
 		do_action( 'tp_after_main_menu_register' );
 		// Available sub-menu.
 		$submenus = array(
-			// 'Polls',
-			// 'AddNewPoll',
+			'Settings',
+			'Report',
 		);
 		$submenus = apply_filters( 'tp_submenus', $submenus );
 		// Register sub-menu by using factory class.

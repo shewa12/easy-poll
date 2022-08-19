@@ -50,7 +50,7 @@ class EasyPollOptions extends DatabaseTable {
 		$table_name      = $wpdb->prefix . self::$table_name;
 		$field_table     = $wpdb->prefix . EasyPollFields::get_table();
 
-		$sql             = "CREATE TABLE $table_name (
+		$sql             = "CREATE TABLE IF NOT EXISTS $table_name (
         id INT(9) unsigned NOT NULL AUTO_INCREMENT,
 		field_id INT(9) unsigned NOT NULL,
 

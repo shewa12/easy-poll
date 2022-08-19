@@ -47,8 +47,8 @@ class EasyPollPost implements PostInterface {
 	 */
 	public static function post_args(): array {
 		return array(
-			'label'                => __( 'Poll', 'easy-poll' ),
-			'labels'               => array(
+			'label'           => __( 'Poll', 'easy-poll' ),
+			'labels'          => array(
 				'name'               => _x( 'Polls', 'post type general name', 'easy-poll' ),
 				'singular_name'      => _x( 'Poll', 'post type singular name', 'easy-poll' ),
 				'menu_name'          => _x( 'Polls', 'admin menu', 'easy-poll' ),
@@ -64,13 +64,33 @@ class EasyPollPost implements PostInterface {
 				'not_found'          => __( 'No Polls found.', 'easy-poll' ),
 				'not_found_in_trash' => __( 'No Polls found in Trash.', 'easy-poll' ),
 			),
-			'description'          => __( 'Easy poll custom post type', 'easy-poll' ),
-			'public'               => true,
-			'show_ui'              => true,
-			'show_in_menu'         => 'easy-poll',
-			'show_in_rest'         => true,
-			'capability_type'      => 'post',
-			'supports'             => array( 'title', 'editor', 'author', 'thumbnail' ),
+			'description'     => __( 'Easy poll custom post type', 'easy-poll' ),
+			'public'          => true,
+			'show_ui'         => true,
+			'show_in_menu'    => 'easy-poll',
+			'show_in_rest'    => true,
+			'capability_type' => 'post',
+			'supports'        => array( 'title', 'editor', 'author', 'thumbnail' ),
+		);
+	}
+
+	/**
+	 * Get Polls
+	 *
+	 * @since v1.0.0
+	 *
+	 * @param array $args  post args.
+	 *
+	 * @return mixed WP_Query response
+	 */
+	public static function get_polls( $args = array() ) {
+		$default_args = array(
+			'post_type' => self::POST_TYPE,
+			'nopaging'  => true,
+		);
+		$args         = wp_parse_args( $args, $default_args );
+		return new \WP_Query(
+			$args
 		);
 	}
 }

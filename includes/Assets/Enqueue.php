@@ -11,6 +11,7 @@ namespace EasyPoll\Assets;
 
 use EasyPoll;
 use EasyPoll\CustomPosts\EasyPollPost;
+use EasyPoll\Settings\Options;
 
 /**
  * Enqueue styles & scripts
@@ -38,9 +39,10 @@ class Enqueue {
 	public static function load_admin_scripts(): void {
 		$plugin_data = EasyPoll::plugin_data();
 		$post_type   = get_post_type();
+		$page        = $_GET['page'] ?? ''; //phpcs:ignore
 
 		// load styles & scripts only required page.
-		if ( 'easy-poll' === $post_type ) {
+		if ( 'easy-poll' === $post_type || 'ep-settings' === $page || 'ep-report' === $page ) {
 			wp_enqueue_style( 'ep-backend-style', $plugin_data['assets'] . 'bundles/backend-style.min.css', array(), filemtime( $plugin_data['plugin_path'] . 'assets/bundles/backend-style.min.css' ) );
 
 			wp_enqueue_script( 'ep-backend-script', $plugin_data['assets'] . 'bundles/backend.min.js', array( 'wp-i18n' ), filemtime( $plugin_data['plugin_path'] . 'assets/bundles/backend.min.js' ), true );
@@ -60,9 +62,18 @@ class Enqueue {
 	 */
 	public static function load_front_end_scripts(): void {
 		$plugin_data = EasyPoll::plugin_data();
-		if ( get_post_type() === EasyPollPost::post_type() ) {
-			wp_enqueue_style( 'ep-frontend-style', $plugin_data['assets'] . 'bundles/frontend-style.min.css', array(), filemtime( $plugin_data['plugin_path'] . 'assets/bundles/frontend-style.min.css' ) );
-		}
+
+		/**
+		 * Front end scripts & styles are not loading conditionally
+		 * because by short code poll could be use anywhere. In this
+		 * case we need scripts & styles everywhere to work.
+		 */
+		wp_enqueue_style( 'ep-frontend-style', $plugin_data['assets'] . 'bundles/frontend-style.min.css', array(), filemtime( $plugin_data['plugin_path'] . 'assets/bundles/frontend-style.min.css' ) );
+
+		wp_enqueue_script( 'ep-frontend-script', $plugin_data['assets'] . 'bundles/frontend.min.js', array( 'wp-i18n' ), filemtime( $plugin_data['plugin_path'] . 'assets/bundles/frontend.min.js' ), true );
+
+		// Add data to use in js files.
+		wp_add_inline_script( 'ep-frontend-script', 'const epData = ' . json_encode( self::scripts_data() ), 'before' );
 	}
 
 	/**
@@ -73,9 +84,11 @@ class Enqueue {
 	public static function scripts_data() {
 		$plugin_data = EasyPoll::plugin_data();
 		$data        = array(
-			'url'          => admin_url( 'admin-ajax.php' ),
-			'nonce'        => wp_create_nonce( $plugin_data['nonce'] ),
-			'nonce_action' => $plugin_data['nonce_action'],
+			'url'                 => admin_url( 'admin-ajax.php' ),
+			'nonce'               => wp_create_nonce( $plugin_data['nonce'] ),
+			'nonce_action'        => $plugin_data['nonce_action'],
+			'success_msg'         => Options::get_option( 'ep-success-message' ),
+			'poll_template_width' => Options::get_option( 'ep-max-width' ),
 		);
 		return apply_filters( 'ep_inline_script_data', $data );
 	}
