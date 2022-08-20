@@ -4,7 +4,6 @@ module.exports = (env) => {
 	return {
 		mode: env.mode,
 		entry: {
-			common: "./assets/scripts/common.js",
 			frontend: "./assets/scripts/frontend.js",
 			backend: "./assets/scripts/backend.js",
             // css

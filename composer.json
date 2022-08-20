@@ -1,0 +1,28 @@
+{
+    "name": "easy/poll",
+    "description": "Evaluation form for getting users feedback",
+    "autoload": {
+        "psr-4": {
+            "EasyPoll\\": "includes/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "EasyPoll\\Tests\\": "tests/"
+        }
+    },
+    "authors": [
+        {
+            "name": "shewa12",
+            "email": "shewa12kpi@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "wp-coding-standards/wpcs": "*",
+        "squizlabs/php_codesniffer": "*"
+    },
+    "require-dev": {
+        "phpcompatibility/phpcompatibility-wp": "^2.1"
+    }
+}
