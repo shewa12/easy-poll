@@ -158,7 +158,7 @@ if ( ! class_exists( 'EasyPoll' ) ) {
 		 * @return void
 		 */
 		public static function load_textdomain() {
-			load_plugin_textdomain( 'plugin-starter', false, dirname( plugin_basename( __FILE__ ) ) . '/assets/languages' );
+			load_plugin_textdomain( 'easy-poll', false, trailingslashit( plugin_dir_path( __FILE__ ) ) . 'languages/' );
 		}
 
 		/**

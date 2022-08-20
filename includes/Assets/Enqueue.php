@@ -10,7 +10,6 @@
 namespace EasyPoll\Assets;
 
 use EasyPoll;
-use EasyPoll\CustomPosts\EasyPollPost;
 use EasyPoll\Settings\Options;
 
 /**
@@ -28,7 +27,9 @@ class Enqueue {
 		// Frontend scripts.
 		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'load_front_end_scripts' ) );
 
-		add_action( 'wp_enqueue_scripts', array( __CLASS__, 'script_text_domain' ) );
+		// Set up script translation.
+		add_action( 'admin_enqueue_scripts', __CLASS__ . '::backend_translation' );
+		add_action( 'wp_enqueue_scripts', __CLASS__ . '::frontend_translation' );
 	}
 
 	/**
@@ -50,12 +51,6 @@ class Enqueue {
 			// add data to use in js files.
 			wp_add_inline_script( 'ep-backend-script', 'const epData = ' . json_encode( self::scripts_data() ), 'before' );
 		}
-
-		wp_set_script_translations(
-			'ep-backend-script',
-			'easy-poll',
-			$plugin_data['plugin_path'] . 'languages/'
-		);
 	}
 
 	/**
@@ -79,12 +74,6 @@ class Enqueue {
 
 		// Add data to use in js files.
 		wp_add_inline_script( 'ep-frontend-script', 'const epData = ' . json_encode( self::scripts_data() ), 'before' );
-
-		wp_set_script_translations(
-			'ep-frontend-script',
-			'easy-poll',
-			$plugin_data['plugin_path'] . 'languages/'
-		);
 	}
 
 	/**
@@ -109,9 +98,20 @@ class Enqueue {
 	 *
 	 * @return void
 	 */
-	public static function script_text_domain() {
+	public static function backend_translation() {
 		$plugin_data = EasyPoll::plugin_data();
 
-		wp_set_script_translations( 'ep-backend-scripts', 'ep-frontend-scripts', $plugin_data['plugin_path'] . 'languages/' );
+		wp_set_script_translations( 'ep-backend-scripts', $plugin_data['plugin_path'] . 'languages/' );
+	}
+
+	/**
+	 * Front end Script text domain
+	 *
+	 * @return void
+	 */
+	public static function frontend_translation() {
+		$plugin_data = EasyPoll::plugin_data();
+
+		wp_set_script_translations( 'ep-frontend-scripts', $plugin_data['plugin_path'] . 'languages/' );
 	}
 }
