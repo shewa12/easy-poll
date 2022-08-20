@@ -51,6 +51,11 @@ class Enqueue {
 			wp_add_inline_script( 'ep-backend-script', 'const epData = ' . json_encode( self::scripts_data() ), 'before' );
 		}
 
+		wp_set_script_translations(
+			'ep-backend-script',
+			'easy-poll',
+			$plugin_data['plugin_path'] . 'languages/'
+		);
 	}
 
 	/**
@@ -74,6 +79,12 @@ class Enqueue {
 
 		// Add data to use in js files.
 		wp_add_inline_script( 'ep-frontend-script', 'const epData = ' . json_encode( self::scripts_data() ), 'before' );
+
+		wp_set_script_translations(
+			'ep-frontend-script',
+			'easy-poll',
+			$plugin_data['plugin_path'] . 'languages/'
+		);
 	}
 
 	/**
