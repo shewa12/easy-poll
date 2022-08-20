@@ -13,4 +13,3 @@ assets/*
 vendor/
 .distignore
 .editorconfig
-composer.json
