@@ -6,7 +6,15 @@ A simple plugin for creating polls, survey or user's feedback management system
 
 - Minimum PHP 7.0
 - Minimum WordPress 5.3
+- Browser – Chrome, Firefox, Safari
 ## Installing Easy Poll
+
+### Prerequisite
+
+- PHP 7.0+
+- WordPress 5.3+
+- Composer
+- Node
 
 To install the plugin you can download from WordPress org or alternatively you can clone it from Github then follow below steps:
 
