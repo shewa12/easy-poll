@@ -1,5 +1,6 @@
 === Easy Poll - multi-purpose poll system ===
-Contributor: Shewa
+Contributors: shewa12
+Donate link: https://shewazone.com/donate
 Tags: Poll, survey, feedback, contact, form
 Requires at least: 5.3
 Tested up to: 6.0.1
@@ -10,7 +11,7 @@ License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
 === Description ===
 
-Easy Poll is a multi-purpose poll system maker plugin. Through this plugin, you can create as many polls, surveys,s or client feedback forms as you want.
+Easy Poll is a multi-purpose poll system maker plugin. Through this plugin, you can create as many polls, surveys or client feedback forms as you want.
 
 Easy poll support 4 different types of questions. These are: 
 
@@ -38,3 +39,33 @@ On the polls page there you can see short code, that you can use anywhere on the
 === Settings ===
 
 From the Settings sub-menu, you can some settings stuff like whether the guest users can submit polls or not, success message, etc.
+
+=== Frequently Asked Questions ===
+
+= On the front-end Poll showing 404 not found =
+
+Answer: Make your website permalink is set to post name. If not so, set it & update permalink.
+
+= How to see submissions list =
+
+Answer: From the Report sub-menu of Easy Poll main menu
+
+= Can I use Short Code on any posts or pages?
+
+Answer: Yes
+
+=== Screenshots ===
+
+1. Polls List: Showing available polls listing along with short code & total submission number.
+2. Input/Textarea Question: Create Input/Textarea type question.
+3. Settings: Available settings for the Poll
+4. Frontend: Showing how polls will be appeared to the end users.
+5. Single/Multiple Choice: Create Single/Multiple choice question.
+6. Report: Submission details.
+
+=== Changelog ===
+
+= 1.0.0 = 
+* Plugin released
+
+=== Upgrade Notice ===

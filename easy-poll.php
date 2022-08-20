@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name:     Easy Poll
- * Plugin URI:      https://shewazone.com
+ * Plugin URI:      https://shewazone.com/products/easy-poll
  * Description:     A simple plugin for creating polls, survey, user's feedback management system
  * Author:          Shewa
  * Author URI:      https://shewazone.com
@@ -86,6 +86,9 @@ if ( ! class_exists( 'EasyPoll' ) ) {
 		 * @return array  contains plugin meta data
 		 */
 		public static function plugin_data(): array {
+			if ( ! function_exists( 'get_plugin_data' ) ) {
+				require_once ABSPATH . 'wp-admin/includes/plugin.php';
+			}
 			$plugin_data = get_plugin_data(
 				__FILE__
 			);
