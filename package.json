@@ -6,7 +6,10 @@
   "scripts": {
     "build": "npx webpack --env mode=development",
     "prod": "npx webpack --env mode=production",
-    "watch": "webpack --watch --env mode=development"
+    "watch": "webpack --watch --env mode=development",
+    "zip": "webpack --config ./webpack.zip.js --mode production",
+    "make-pot": "wp i18n make-pot . languages/easy-poll.pot",
+    "plugin-build": "npm run build && npm run make-pot && npm run zip"
   },
   "devDependencies": {
     "css-loader": "^6.7.1",
@@ -15,7 +18,8 @@
     "sass": "^1.53.0",
     "sass-loader": "^13.0.2",
     "style-loader": "^3.3.1",
-    "webpack": "^5.73.0"
+    "webpack": "^5.73.0",
+    "zip-dir-webpack-plugin": "^4.1.2"
   },
   "description": "A simple plugin for creating polls, survey, user's feedback management system",
   "directories": {
@@ -31,6 +35,10 @@
   },
   "homepage": "https://github.com/shewa12/easy-poll#readme",
   "dependencies": {
-    "webpack-cli": "^4.10.0"
+    "copy-webpack-plugin": "^11.0.0",
+    "terser-webpack-plugin": "^5.3.5",
+    "webpack-cli": "^4.10.0",
+    "zip-file-webpack-plugin": "^1.2.0",
+    "zip-webpack-plugin": "^4.0.1"
   }
 }
