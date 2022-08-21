@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-08-20T10:44:07+00:00\n"
+"POT-Creation-Date: 2022-08-21T14:04:19+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.5.0\n"
 "X-Domain: easy-poll\n"
@@ -21,8 +21,7 @@ msgid "Easy Poll"
 msgstr ""
 
 #. Plugin URI of the plugin
-#. Author URI of the plugin
-msgid "https://shewazone.com"
+msgid "https://shewazone.com/products/easy-poll"
 msgstr ""
 
 #. Description of the plugin
@@ -31,6 +30,10 @@ msgstr ""
 
 #. Author of the plugin
 msgid "Shewa"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://shewazone.com"
 msgstr ""
 
 #: includes/Admin/Menu/SubMenu/AddNewPoll.php:27

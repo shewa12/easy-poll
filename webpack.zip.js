@@ -2,14 +2,13 @@ const path = require('path');
 const CopyPlugin = require('copy-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 var ZipPlugin = require('zip-webpack-plugin');
-
+const pluginVersion = require('./package.json').version;
 module.exports = (env) => {
     return {
         entry: { },
         output: {
-            //path: path.resolve(__dirname, `build`),
-            path: path.join(__dirname),
-            publicPath: '/',
+            path: path.join(__dirname, 'build'),
+            publicPath: '/build',
         },
         optimization: {
             minimizer: [new TerserPlugin({
@@ -21,7 +20,8 @@ module.exports = (env) => {
                 patterns: [
                     {
                         from: './**',
-                        to: './build',
+                        // default output path is build
+                        //to: './build',
                         globOptions: {
                             dot: true,
                             gitignore: false,
@@ -49,6 +49,7 @@ module.exports = (env) => {
                                 "**/assets/bundles/common-style.min.js",
                                 "**/assets/scripts/**",
                                 "**/assets/scss/**",
+                                "**/.git"
                             ],
                         },
                     },
@@ -56,9 +57,8 @@ module.exports = (env) => {
                 ],
             }),
             new ZipPlugin({
-                fromDir: './plugin',
                 path: './',
-                filename: `easy-poll.zip`,
+                filename: `easy-poll-v${pluginVersion}.zip`,
                 extension: 'zip',
                 fileOptions: {
                     mtime: new Date(),
