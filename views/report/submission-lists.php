@@ -15,7 +15,7 @@ $poll_id = (int) isset( $_GET['poll-id'] ) ? sanitize_text_field( $_GET['poll-id
 
 $report = new Report();
 
-$current_page     = isset( $_GET['paged'] ) ? (int) $_GET['paged'] : 1;
+$current_page     = isset( $_GET['paged'] ) ? (int) sanitize_text_field( $_GET['paged'] ) : 1;
 $item_per_page    = 20;
 $offset           = ( $item_per_page * $current_page ) - $item_per_page;
 $submission_lists = $report->get_submission_list( $poll_id, $item_per_page, $offset );

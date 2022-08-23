@@ -40,7 +40,7 @@ class Enqueue {
 	public static function load_admin_scripts(): void {
 		$plugin_data = EasyPoll::plugin_data();
 		$post_type   = get_post_type();
-		$page        = $_GET['page'] ?? ''; //phpcs:ignore
+		$page        = isset( $_GET['page'] ) ? sanitize_title( wp_unslash( $_GET['page'] ) ) : '';
 
 		// load styles & scripts only required page.
 		if ( 'easy-poll' === $post_type || 'ep-settings' === $page || 'ep-report' === $page ) {
