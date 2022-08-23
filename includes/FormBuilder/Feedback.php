@@ -50,7 +50,7 @@ class Feedback {
 			if ( count( $request ) > 1 ) {
 				$response = QueryHelper::insert_multiple_rows( $table, $request );
 			} else {
-				$response = QueryHelper::insert( $table, $request );
+				$response = QueryHelper::insert( $table, $request[0] );
 			}
 		}
 

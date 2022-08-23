@@ -58,7 +58,7 @@ module.exports = (env) => {
             }),
             new ZipPlugin({
                 path: './',
-                filename: `easy-poll-v${pluginVersion}.zip`,
+                filename: `easy-poll.zip`,
                 extension: 'zip',
                 fileOptions: {
                     mtime: new Date(),

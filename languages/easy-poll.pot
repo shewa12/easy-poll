@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-08-21T14:04:19+00:00\n"
+"POT-Creation-Date: 2022-08-23T16:26:09+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.5.0\n"
 "X-Domain: easy-poll\n"
@@ -145,24 +145,24 @@ msgstr ""
 msgid "Date"
 msgstr ""
 
-#: includes/FormBuilder/FormClient.php:75
-#: includes/FormBuilder/FormClient.php:153
+#: includes/FormBuilder/FormClient.php:74
+#: includes/FormBuilder/FormClient.php:166
 msgid "Field creation failed!"
 msgstr ""
 
-#: includes/FormBuilder/FormClient.php:106
+#: includes/FormBuilder/FormClient.php:112
 msgid "Field options creation failed!"
 msgstr ""
 
-#: includes/FormBuilder/FormClient.php:110
+#: includes/FormBuilder/FormClient.php:116
 msgid "Add two or more options"
 msgstr ""
 
-#: includes/FormBuilder/FormClient.php:187
+#: includes/FormBuilder/FormClient.php:200
 msgid "Delete failed! Please try again."
 msgstr ""
 
-#: includes/FormBuilder/FormClient.php:189
+#: includes/FormBuilder/FormClient.php:202
 msgid "Invalid question id! Please refresh the page."
 msgstr ""
 
