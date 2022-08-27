@@ -93,7 +93,7 @@ class PollHandler {
 		$feedback  = array();
 
 		foreach ( $field_ids as $field_id ) {
-			$user_feedback = isset( $_POST[ 'question-' . $field_id ] ) ? wp_unslash( $_POST[ 'question-' . $field_id ] ) : '';
+			$user_feedback = isset( $_POST[ 'question-' . $field_id ] ) ? wp_unslash( sanitize_text_field( $_POST[ 'question-' . $field_id ] ) ) : '';
 			// If multiple choice/array type then make string.
 			if ( is_array( $user_feedback ) ) {
 				$user_feedback = implode( ',', $user_feedback );
