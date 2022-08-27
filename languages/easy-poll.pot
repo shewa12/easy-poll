@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-08-24T15:42:07+00:00\n"
+"POT-Creation-Date: 2022-08-27T11:02:50+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.5.0\n"
 "X-Domain: easy-poll\n"
@@ -205,89 +205,89 @@ msgstr ""
 msgid "Save Questions"
 msgstr ""
 
-#: includes/Settings/Options.php:57
-#: includes/Settings/Options.php:124
+#: includes/Settings/Options.php:58
+#: includes/Settings/Options.php:125
 msgid "Yes"
 msgstr ""
 
-#: includes/Settings/Options.php:61
-#: includes/Settings/Options.php:128
+#: includes/Settings/Options.php:62
+#: includes/Settings/Options.php:129
 msgid "No"
 msgstr ""
 
-#: includes/Settings/Options.php:64
+#: includes/Settings/Options.php:65
 msgid "Adjust the front-end poll template width"
 msgstr ""
 
-#: includes/Settings/Options.php:68
+#: includes/Settings/Options.php:69
 msgid "Max Width"
 msgstr ""
 
-#: includes/Settings/Options.php:71
+#: includes/Settings/Options.php:72
 msgid "Set max-width in percentage for the large screen devices"
 msgstr ""
 
-#: includes/Settings/Options.php:75
+#: includes/Settings/Options.php:76
 msgid "Thumbnail Size"
 msgstr ""
 
-#: includes/Settings/Options.php:81
+#: includes/Settings/Options.php:82
 msgid "Thumbnail"
 msgstr ""
 
-#: includes/Settings/Options.php:85
+#: includes/Settings/Options.php:86
 msgid "Medium"
 msgstr ""
 
-#: includes/Settings/Options.php:89
+#: includes/Settings/Options.php:90
 msgid "Medium Large"
 msgstr ""
 
-#: includes/Settings/Options.php:93
+#: includes/Settings/Options.php:94
 msgid "Large"
 msgstr ""
 
-#: includes/Settings/Options.php:97
+#: includes/Settings/Options.php:98
 msgid "Full"
 msgstr ""
 
-#: includes/Settings/Options.php:100
+#: includes/Settings/Options.php:101
 msgid "Poll thumbnail size"
 msgstr ""
 
-#: includes/Settings/Options.php:104
+#: includes/Settings/Options.php:105
 msgid "Select Multiple Hint"
 msgstr ""
 
-#: includes/Settings/Options.php:107
+#: includes/Settings/Options.php:108
 msgid "Show a message so that users can understand that they can select multiple"
 msgstr ""
 
-#: includes/Settings/Options.php:108
+#: includes/Settings/Options.php:109
 msgid "Select multiple if required"
 msgstr ""
 
-#: includes/Settings/Options.php:111
+#: includes/Settings/Options.php:112
 msgid "Success Message"
 msgstr ""
 
-#: includes/Settings/Options.php:114
+#: includes/Settings/Options.php:115
 msgid "Show a message after successful poll submission"
 msgstr ""
 
-#: includes/Settings/Options.php:115
+#: includes/Settings/Options.php:116
 msgid "Thank you for submitting poll"
 msgstr ""
 
-#: includes/Settings/Options.php:118
+#: includes/Settings/Options.php:119
 msgid "Guest Submit"
 msgstr ""
 
-#: includes/Settings/Options.php:131
+#: includes/Settings/Options.php:132
 msgid "If allowed, any (logged-in/guest) users will be able to see & submit the poll."
 msgstr ""
 
-#: includes/Settings/Options.php:132
+#: includes/Settings/Options.php:133
 msgid "no"
 msgstr ""
 
