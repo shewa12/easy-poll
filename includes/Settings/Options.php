@@ -161,7 +161,7 @@ class Options {
 		 *
 		 * @since v1.0.1
 		 */
-		update_option( self::REQUIRE_PERMALINK_UPDATE, true );
+		update_option( self::REQUIRE_PERMALINK_UPDATE, 1 );
 	}
 
 	/**
