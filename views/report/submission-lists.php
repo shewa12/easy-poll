@@ -15,7 +15,7 @@ $poll_id = (int) isset( $_GET['poll-id'] ) ? sanitize_text_field( $_GET['poll-id
 
 $report = new Report();
 
-$current_page     = isset( $_GET['paged'] ) ? (int) $_GET['paged'] : 1;
+$current_page     = isset( $_GET['paged'] ) ? (int) sanitize_text_field( $_GET['paged'] ) : 1;
 $item_per_page    = 20;
 $offset           = ( $item_per_page * $current_page ) - $item_per_page;
 $submission_lists = $report->get_submission_list( $poll_id, $item_per_page, $offset );
@@ -66,8 +66,8 @@ $polls = EasyPollPost::get_polls();
 			<div class="ep-card">
 				<div class="ep-card-header ep-d-flex ep-justify-between ep-align-center ep-collapse" data-target="#card-<?php echo esc_attr( $key ); ?>">
 					<h4>
-						<?php echo esc_html__( 'User Name: ' . $user_name ); ?>
-						<?php echo esc_html__( 'User IP: ' . $user_ip ); ?>
+						<?php echo esc_html__( 'User Name: ', 'easy-poll' ) . esc_html( $user_name ); ?>
+						<?php echo esc_html__( 'User IP: ', 'easy-poll' ) . esc_html( $user_ip ); ?>
 					</h4>
 					<i class="dashicons dashicons-arrow-down-alt2"></i>
 				</div>

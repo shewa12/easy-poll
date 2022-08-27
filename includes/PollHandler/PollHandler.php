@@ -84,12 +84,16 @@ class PollHandler {
 	public static function poll_submit() {
 		// Verify nonce.
 		Utilities::verify_nonce();
-		$post      = $_POST; // phpcs:disable WordPress.Security.NonceVerification.Missing
-		$field_ids = $post['ep-poll-field-id'];
+		$field_ids = array_map(
+			function( $arr ) {
+				return (int) sanitize_text_field( $arr );
+			},
+			$_POST['ep-poll-field-id']
+		);
 		$feedback  = array();
 
 		foreach ( $field_ids as $field_id ) {
-			$user_feedback = isset( $post[ 'question-' . $field_id ] ) ? $post[ 'question-' . $field_id ] : '';
+			$user_feedback = isset( $_POST[ 'question-' . $field_id ] ) ? wp_unslash( sanitize_text_field( $_POST[ 'question-' . $field_id ] ) ) : '';
 			// If multiple choice/array type then make string.
 			if ( is_array( $user_feedback ) ) {
 				$user_feedback = implode( ',', $user_feedback );
@@ -98,7 +102,7 @@ class PollHandler {
 				'field_id' => $field_id,
 				'user_id'  => get_current_user_id(),
 				'feedback' => $user_feedback,
-				'user_ip'  => $_SERVER['REMOTE_ADDR'] ?? '',
+				'user_ip'  => isset( $_SERVER['REMOTE_ADDR'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ) ) : '',
 			);
 			array_push( $feedback, $data );
 		}

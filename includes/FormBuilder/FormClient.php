@@ -64,19 +64,25 @@ class FormClient {
 	public function single_multiple_question_create() {
 		Utilities::verify_nonce();
 
-		$post    = $_POST; //phpcs:ignore WordPress.Security.NonceVerification.Missing
 		$request = array(
-			'poll_id'     => $post['poll-id'],
-			'field_label' => $post['ep-field-label'],
-			'field_type'  => $post['ep-field-type'],
+			'poll_id'     => (int) sanitize_text_field( wp_unslash( $_POST['poll-id'] ) ),
+			'field_label' => sanitize_text_field( wp_unslash( $_POST['ep-field-label'] ) ),
+			'field_type'  => sanitize_text_field( wp_unslash( $_POST['ep-field-type'] ) ),
 		);
 
 		$response      = false;
 		$error_message = __( 'Field creation failed!', 'easy-poll' );
 
 		$options = array();
+
+		$post_field_options = array_map(
+			function( $option ) {
+				return sanitize_text_field( $option );
+			},
+			$_POST['ep-field-option']
+		);
 		// Prepare options.
-		foreach ( $post['ep-field-option'] as $option ) {
+		foreach ( $post_field_options as $option ) {
 			if ( '' === $option ) {
 				continue;
 			}
@@ -130,18 +136,25 @@ class FormClient {
 	public function input_textarea_question_create() {
 		Utilities::verify_nonce();
 
-		$post     = $_POST; //phpcs:ignore WordPress.Security.NonceVerification.Missing
 		$request  = array();
 		$response = false;
-		foreach ( $post['ep-field-label'] as $key => $field ) {
+
+		$post_field_labels = array_map(
+			function( $option ) {
+				return sanitize_text_field( $option );
+			},
+			$_POST['ep-field-label']
+		);
+
+		foreach ( $post_field_labels as $key => $field ) {
 			if ( '' === $field ) {
 				continue;
 			}
 
 			$data = array(
-				'poll_id'     => $post['poll-id'],
-				'field_label' => $field,
-				'field_type'  => $post['ep-field-type'][ $key ],
+				'poll_id'     => (int) sanitize_text_field( $_POST['poll-id'] ),
+				'field_label' => sanitize_text_field( $field ),
+				'field_type'  => sanitize_text_field( $_POST['ep-field-type'][ $key ] ),
 			);
 			array_push( $request, $data );
 		}
@@ -162,8 +175,8 @@ class FormClient {
 	 */
 	public function field_delete() {
 		Utilities::verify_nonce();
-		$field_id    = $_POST['field_id'] ?? '';
-		$field_label = $_POST['field_label'] ?? '';
+		$field_id    = isset( $_POST['field_id'] ) ? (int) sanitize_text_field( wp_unslash( $_POST['field_id'] ) ) : '';
+		$field_label = isset( $_POST['field_label'] ) ? sanitize_text_field( wp_unslash( $_POST['field_label'] ) ) : '';
 
 		/**
 		 * For dynamically added field, field id is not set. In this case

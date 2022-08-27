@@ -50,7 +50,7 @@ class Feedback {
 			if ( count( $request ) > 1 ) {
 				$response = QueryHelper::insert_multiple_rows( $table, $request );
 			} else {
-				$response = QueryHelper::insert( $table, $request );
+				$response = QueryHelper::insert( $table, $request[0] );
 			}
 		}
 
@@ -75,7 +75,7 @@ class Feedback {
 
 		$poll_id   = Utilities::sanitize( $poll_id );
 		$user_id   = get_current_user_id();
-		$user_ip   = $_SERVER['REMOTE_ADDR'] ?? '';
+		$user_ip   = isset( $_SERVER['REMOTE_ADDR'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ) ) : '';
 		$submitted = $wpdb->get_var(
 			$wpdb->prepare(
 				"SELECT

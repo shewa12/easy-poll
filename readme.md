@@ -16,11 +16,11 @@ A simple plugin for creating polls, survey or user's feedback management system
 - Composer
 - Node
 
-To install the plugin you can download from WordPress org or alternatively you can clone it from Github then follow below steps:
+To install the plugin you can download from [WordPress org](https://wordpress.org/plugins/easy-poll) or alternatively you can clone it from Github then follow below steps:
 
 1) Open terminal from plugin root directory
-2) Hit command: composer install
-3) Hit command: npm run build
+2) Hit command: `composer install`
+3) Hit command: `npm run build`
 
 Then activate the plugin and you are all set.
 
