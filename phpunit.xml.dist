@@ -8,9 +8,11 @@
 	convertWarningsToExceptions="true"
 	>
 	<testsuites>
-		<testsuite>
-			<directory prefix="test-" suffix=".php">./tests/</directory>
-			<exclude>./tests/test-sample.php</exclude>
+		<testsuite name="easy-poll-test">
+			<directory>
+				./tests/phpunit/EasyPollTest.php
+			</directory>
+			<exclude></exclude>
 		</testsuite>
 	</testsuites>
 </phpunit>
