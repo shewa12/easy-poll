@@ -7,12 +7,23 @@
 
 namespace EasyPoll\Tests\PHPUnit;
 
+use EasyPoll;
 use EasyPoll\Assets\Enqueue;
+use EasyPoll\Settings\Options;
 
 /**
  * Test methods
  */
 class EnqueueTest extends BaseTest {
+
+	/**
+	 * Set up option
+	 *
+	 * @return void
+	 */
+	public static function setUpBeforeClass():void {
+		Options::save_default_settings();
+	}
 
 	/**
 	 * Test script data array index that pass to JS
@@ -32,11 +43,27 @@ class EnqueueTest extends BaseTest {
 	 *
 	 * @return void
 	 */
-	public function test_scripts_data_url_value() {
+	public function test_scripts_data_value() {
+		$plugin_data  = EasyPoll::plugin_data();
 		$scripts_data = Enqueue::scripts_data();
-		$actual       = $scripts_data['url'];
-		$expected     = 'http://example.org/wp-admin/admin-ajax.php';
+		$actual_url   = $scripts_data['url'];
+		$expected_url = 'http://example.org/wp-admin/admin-ajax.php';
 
-		$this->assertSame( $expected, $actual );
+		$actual_nonce   = $scripts_data['nonce'];
+		$expected_nonce = wp_create_nonce( $plugin_data['nonce'] );
+
+		$this->assertSame( $actual_url, $expected_url );
+		$this->assertSame( $actual_nonce, $expected_nonce );
+		$this->assertSame( $plugin_data['nonce_action'], $scripts_data['nonce_action'] );
+
+		// Success message & template width testing.
+		$this->assertEquals( '60', $scripts_data['poll_template_width'] );
+		$this->assertSame( 'Thank you for submitting poll', $scripts_data['success_msg'] );
+
 	}
+
+	public static function tearDownAfterClass():void {
+		update_option( Options::OPTION_KEY, '' );
+	}
+
 }
