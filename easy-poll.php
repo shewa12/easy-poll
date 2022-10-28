@@ -94,8 +94,8 @@ if ( ! class_exists( 'EasyPoll' ) ) {
 			);
 			array_push( self::$plugin_data, $plugin_data );
 
-			self::$plugin_data['plugin_url']   = trailingslashit( plugin_dir_url( __FILE__ ) );
-			self::$plugin_data['plugin_path']  = trailingslashit( plugin_dir_path( __FILE__ ) );
+			self::$plugin_data['plugin_url']   = plugin_dir_url( __FILE__ );
+			self::$plugin_data['plugin_path']  = plugin_dir_path( __FILE__ );
 			self::$plugin_data['base_name']    = plugin_basename( __FILE__ );
 			self::$plugin_data['templates']    = trailingslashit( plugin_dir_path( __FILE__ ) . 'templates' );
 			self::$plugin_data['views']        = trailingslashit( plugin_dir_path( __FILE__ ) . 'views' );

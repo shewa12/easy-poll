@@ -32,11 +32,8 @@ class EasyPollTest extends BaseTest {
 
 	public function test_plugin_data() {
 		$actual = EasyPoll::plugin_data();
-
 		$this->assertIsArray( $actual );
+		$this->assertArrayHasKey( 'plugin_url', $actual );
 	}
 
-	public static function tearDownAfterClass(): void {
-		
-	}
 }

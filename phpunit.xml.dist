@@ -6,13 +6,16 @@
 	convertErrorsToExceptions="true"
 	convertNoticesToExceptions="true"
 	convertWarningsToExceptions="true"
+	convertDeprecationsToExceptions="true"
+	verbose="true"
+	testdox="true"
 	>
 	<testsuites>
 		<testsuite name="easy-poll-test">
-			<directory>
-				./tests/phpunit/EasyPollTest.php
-			</directory>
-			<exclude></exclude>
+			<directory>tests/PHPUnit/EasyPollTest.php</directory>
+		</testsuite>
+		<testsuite name="enqueue-class-test">
+			<directory>tests/PHPUnit/EnqueueTest.php</directory>
 		</testsuite>
 	</testsuites>
 </phpunit>
