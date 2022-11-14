@@ -11,11 +11,17 @@
 	testdox="true"
 	>
 	<testsuites>
-		<testsuite name="easy-poll-test">
+		<testsuite name="easy-poll">
 			<directory>tests/PHPUnit/EasyPollTest.php</directory>
 		</testsuite>
-		<testsuite name="enqueue-class-test">
+		<testsuite name="enqueue-class">
 			<directory>tests/PHPUnit/EnqueueTest.php</directory>
+		</testsuite>
+		<testsuite name="easy-poll-post-class">
+			<directory>tests/PHPUnit/EasyPollPostTest.php</directory>
+		</testsuite>
+		<testsuite name="easy-poll-feedback-class">
+			<directory>tests/PHPUnit/FeedbackTest.php</directory>
 		</testsuite>
 	</testsuites>
 </phpunit>
