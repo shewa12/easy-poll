@@ -47,12 +47,12 @@ class FeedbackTest extends BaseTest {
 		$this->assertSame( $expected, $actual );
 	}
 
-	// /**
-	//  * Check save functionalities
-	//  *
-	//  * @return void
-	//  */
-	// public function test_save_feedback() {
+	/**
+	 * Check save functionalities
+	 *
+	 * @return void
+	 */
+	public function test_save_feedback() {
 		
-	// }
+	}
 }
