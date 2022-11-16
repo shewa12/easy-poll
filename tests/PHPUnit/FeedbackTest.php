@@ -12,6 +12,7 @@ use EasyPoll\FormBuilder\Feedback;
 use EasyPoll\Tests\PHPUnit\BaseTest;
 use EasyPoll\Tests\Utilities\DatabaseTrait;
 use EasyPoll\Tests\Utilities\PollBuilderTrait;
+use EasyPoll\Tests\Utilities\WPFactoryWrapperTrait;
 
 /**
  * Test feedback class methods
@@ -23,6 +24,7 @@ class FeedbackTest extends BaseTest {
 	 */
 	use DatabaseTrait;
 	use PollBuilderTrait;
+	use WPFactoryWrapperTrait;
 
 	/**
 	 * Setup some stuff before any test execution
@@ -31,7 +33,6 @@ class FeedbackTest extends BaseTest {
 	 */
 	public static function setUpBeforeClass():void {
 		self::create_tables();
-		self::input_textarea_question_create();
 	}
 
 	/**
@@ -52,7 +53,20 @@ class FeedbackTest extends BaseTest {
 	 *
 	 * @return void
 	 */
-	public function test_save_feedback() {
-		
+	public function test_save_feedback_can_insert_multiple_rows() {
+		$fields  = self::get_poll_fields();
+		$request = array();
+		$user_id = self::create_and_get_user_id();
+
+		foreach ( $fields as $field ) {
+			$new_field = array(
+				'field_id' => $field->id,
+				'user_id'  => $user_id,
+				'feedback' => 'Dummy feedback',
+				'user_ip'  => '790809',
+			);
+			array_push( $request, $new_field );
+		}
+		$this->assertTrue( Feedback::save_feedback( $request ) );
 	}
 }

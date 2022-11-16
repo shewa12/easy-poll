@@ -6,6 +6,8 @@
  * @package EasyPoll\Tests
  */
 
+namespace EasyPoll\Tests\Utilities;
+
 trait WPFactoryWrapperTrait {
 
 	/**
@@ -15,7 +17,7 @@ trait WPFactoryWrapperTrait {
 	 *
 	 * @return int user id
 	 */
-	public static function create_and_get_user_id( array $args ):int {
+	public static function create_and_get_user_id( array $args = array() ):int {
 		$default_args = array(
 			'role' => 'subscriber',
 		);
@@ -31,7 +33,7 @@ trait WPFactoryWrapperTrait {
 	 *
 	 * @return mixed user object on success
 	 */
-	public static function create_and_get_user( array $args ):int {
+	public static function create_and_get_user( array $args = array() ):int {
 		$default_args = array(
 			'role' => 'subscriber',
 		);
