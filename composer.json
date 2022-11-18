@@ -25,7 +25,6 @@
     "require-dev": {
         "phpcompatibility/phpcompatibility-wp": "^2.1",
         "phpunit/phpunit": "^9",
-        "yoast/phpunit-polyfills": "^1.0",
-        "brain/monkey": "~2.0.0"
+        "yoast/phpunit-polyfills": "^1.0"
     }
 }
