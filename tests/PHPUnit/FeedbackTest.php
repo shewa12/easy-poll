@@ -69,4 +69,33 @@ class FeedbackTest extends BaseTest {
 		}
 		$this->assertTrue( Feedback::save_feedback( $request ) );
 	}
+
+	/**
+	 * Check save functionalities can
+	 *
+	 * @return void
+	 */
+	public function test_save_feedback_can_insert_single_rows() {
+		$fields    = self::get_poll_fields();
+		$user_id   = self::create_and_get_user_id();
+		$request[] = array(
+			'field_id' => $fields[0]->id,
+			'user_id'  => $user_id,
+			'feedback' => 'Dummy feedback single rows',
+			'user_ip'  => '790809',
+		);
+		$this->assertTrue( Feedback::save_feedback( $request ) );
+	}
+
+	/**
+	 * Test is_user_already_submitted_poll method
+	 *
+	 * @return void
+	 */
+	public function test_is_user_already_submitted_poll() {
+		$poll_id = self::create_poll_post();
+		$actual  = Feedback::is_user_already_submitted( $poll_id );
+
+		$this->assertTrue( $actual );
+	}
 }
