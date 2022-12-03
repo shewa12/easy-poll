@@ -69,4 +69,26 @@ class PostCallBack {
 			wp_json_encode( $meta_data )
 		);
 	}
+
+	/**
+	 * Get poll datetime
+	 *
+	 * @since 1.1.0
+	 *
+	 * @param int $poll_id poll post id.
+	 *
+	 * @return object
+	 */
+	public static function get_poll_datetime( int $poll_id ):object {
+		$datetime = json_decode( get_post_meta( $poll_id, self::POLL_DATETIME_META_KEY, true ) );
+		// If meta value empty then set default value.
+		if ( ! $datetime ) {
+			$datetime = array(
+				'start_datetime'  => '',
+				'expire_datetime' => '',
+				'timezone'        => '',
+			);
+		}
+		return (object) $datetime;
+	}
 }
