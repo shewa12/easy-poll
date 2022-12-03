@@ -9,8 +9,10 @@ namespace EasyPoll\Tests\Utilities;
 
 use EasyPoll;
 use EasyPoll\CustomPosts\EasyPollPost;
+use EasyPoll\Database\EasyPollFeedback;
 use EasyPoll\Database\EasyPollFields;
 use EasyPoll\FormBuilder\FormClient;
+use EasyPoll\Helpers\QueryHelper;
 
 trait PollBuilderTrait {
 
@@ -101,5 +103,113 @@ trait PollBuilderTrait {
 			'post_type'  => EasyPollPost::POST_TYPE,
 		);
 		return self::factory()->post->create( $post_args );
+	}
+
+	/**
+	 * Create poll if poll id is not provided
+	 * create fields against post and then submit
+	 * feedback
+	 *
+	 * @param int   $poll_id  poll post id.
+	 * @param array $fields 2 dimensional array containing fields col value.
+	 *
+	 * @return mixed false if failure, array on success
+	 */
+	public static function create_poll_questions_feedback( int $poll_id = 0, array $fields = array() ) {
+		$response = false;
+		if ( ! $poll_id ) {
+			$poll_id = self::create_poll_post();
+		}
+		if ( ! count( $fields ) || ! is_array( $fields[0] ) ) {
+			$fields = array(
+				array(
+					'poll_id'     => $poll_id,
+					'field_label' => 'Fake field ' . time(),
+					'field_type'  => 'input',
+				),
+				array(
+					'poll_id'     => $poll_id,
+					'field_label' => 'Fake field ' . time(),
+					'field_type'  => 'textarea',
+				),
+			);
+		}
+		$fields_insert_and_get = self::create_poll_fields( $fields );
+		if ( is_array( $fields_insert_and_get ) && count( $fields_insert_and_get ) ) {
+			// Insert feedback for these fields.
+			$feedback = array();
+			foreach ( $fields_insert_and_get as $field ) {
+				$feedback[] = array(
+					'field_id' => $field->id,
+					'user_id'  => get_current_user_id(),
+					'feedback' => 'Dummy feedback for field ID: ' . $field->id,
+					'user_ip'  => '1234',
+				);
+			}
+			// If multi dimensional feedback then insert.
+			if ( is_array( $feedback[0] ) ) {
+				$insert_feedback = self::insert_feedback( $feedback );
+				if ( $insert_feedback ) {
+					$response = array(
+						'poll_id'  => $poll_id,
+						'fields'   => $fields,
+						'feedback' => $feedback,
+					);
+				}
+			}
+		}
+		return $response;
+	}
+
+	/**
+	 * Create poll fields based on $fields args
+	 *
+	 * @param array $fields must be 2 dimensional array containing all
+	 * columns value.
+	 *
+	 * @return mixed false on failure, array of obj on success
+	 */
+	public static function create_poll_fields( array $fields ) {
+		global $wpdb;
+		$table = $wpdb->prefix . EasyPollFields::get_table();
+
+		// If fields are not multi-dimensional then return.
+		if ( ! is_array( $fields[0] ) ) {
+			return false;
+		}
+		$insert = QueryHelper::insert_multiple_rows( $table, $fields );
+		if ( $insert ) {
+			// Retrieve inserted rows.
+			$get_results = $wpdb->get_results(
+				$wpdb->prepare(
+					"SELECT *
+						FROM {$table}
+						WHERE 1 = %d
+						ORDER BY id DESC
+						LIMIT %d
+					",
+					1,
+					count( $fields )
+				)
+			);
+			return $get_results;
+		}
+		return false;
+	}
+
+	/**
+	 * Insert multiple feedback together
+	 *
+	 * @param array $feedback 2 dimensional array to insert feedback.
+	 *
+	 * @return bool
+	 */
+	public static function insert_feedback( array $feedback ): bool {
+		global $wpdb;
+		$feedback_table = $wpdb->prefix . EasyPollFeedback::get_table();
+		if ( ! is_array( $feedback[0] ) ) {
+			return false;
+		}
+		return QueryHelper::insert_multiple_rows( $feedback_table, $feedback );
 	}
 }

@@ -94,8 +94,22 @@ class FeedbackTest extends BaseTest {
 	 */
 	public function test_is_user_already_submitted_poll() {
 		$poll_id = self::create_poll_post();
-		$actual  = Feedback::is_user_already_submitted( $poll_id );
+		$mock    = self::create_poll_questions_feedback( $poll_id );
 
-		$this->assertTrue( $actual );
+		// Testing mock, it will mock poll creation with question & save feedback.
+		$this->assertIsArray( $mock );
+		$this->assertSame( array( 'poll_id', 'fields', 'feedback' ), array_keys( $mock ) );
+
+		$this->assertTrue( Feedback::is_user_already_submitted( $poll_id ) );
+	}
+
+	/**
+	 * Test total submission returns an integer
+	 *
+	 * @return void
+	 */
+	public function test_total_submission_return_integer() {
+		$poll_id = self::create_poll_post();
+		$this->assertIsInt( Feedback::total_submission( $poll_id ) );
 	}
 }

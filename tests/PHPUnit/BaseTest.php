@@ -11,6 +11,7 @@ namespace EasyPoll\Tests\PHPUnit;
 
 /**
  * Base class for all the test classes
+ *
  */
 class BaseTest extends \WP_UnitTestCase {
 

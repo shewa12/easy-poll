@@ -40,4 +40,23 @@ trait WPFactoryWrapperTrait {
 		$parse_args   = wp_parse_args( $args, $default_args );
 		return self::factory()->user->create_and_get( $parse_args );
 	}
+
+	/**
+	 * Create a post & get it's id
+	 *
+	 * @param array $args args to create post.
+	 *
+	 * @return int post id
+	 */
+	public static function create_and_get_post_id( array $args = array() ):int {
+		$default_args = array(
+			'post_title'  => 'Fake post ' . time(),
+			'post_type'   => 'post',
+			'post_status' => 'publish',
+		);
+		$parse_args   = wp_parse_args( $args, $default_args );
+		$post_id      = self::factory()->post->create( $parse_args );
+		return (int) $post_id;
+	}
+
 }
