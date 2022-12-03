@@ -13,6 +13,7 @@ use EasyPoll\Utilities\Utilities;
 $fields    = FormField::get_poll_fields_with_option( get_the_ID() );
 $timezones = Utilities::timezone_lists();
 $datetime  = PostCallBack::get_poll_datetime( get_the_ID() );
+
 ?>
 <?php do_action( 'ep_before_poll_builder_meta_box', get_the_ID() ); ?>
 <div class="ep-meta-box-wrapper ep-wrapper">

@@ -282,4 +282,46 @@ class Utilities {
 			'Pacific/Auckland'               => '(GMT+12:00) Auckland, Wellington',
 		);
 	}
+
+	/**
+	 * Get UTC time from any specific timezone date
+	 *
+	 * @since 1.1.0
+	 *
+	 * @param string $datetime  string date time.
+	 * @param string $timezone  timezone.
+	 * @param string $format    optional date format to get formatted date.
+	 *
+	 * @return string date time.
+	 */
+	public static function get_gmt_date_from_timezone_date( $datetime, $timezone, $format = '' ) {
+		if ( '' === $format ) {
+			$format = get_option( 'date_format' ) . ' ' . get_option( 'time_format' );
+		}
+		$datetime = date_create( $datetime, new \DateTimeZone( $timezone ) );
+		if ( false === $datetime ) {
+			return gmdate( $format, 0 );
+		}
+		return $datetime->setTimezone( new \DateTimeZone( 'UTC' ) )->format( $format );
+	}
+
+	/**
+	 * Undocumented function
+	 *
+	 * @since 1.1.0
+	 *
+	 * @param string $date date time.
+	 * @param string $format date format for return date.
+	 *
+	 * @return string
+	 */
+	public static function get_translated_date( string $date, $format = '' ) {
+		if ( ! $date ) {
+			return '';
+		}
+		if ( '' === $format ) {
+			$format = get_option( 'date_format ' ) . ' ' . get_option( 'time_format' );
+		}
+		return date_i18n( $format, strtotime( $date ) );
+	}
 }
