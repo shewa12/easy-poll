@@ -10,13 +10,21 @@ use EasyPoll\CustomPosts\PostCallBack;
 use EasyPoll\FormBuilder\FormField;
 use EasyPoll\Utilities\Utilities;
 
-$fields    = FormField::get_poll_fields_with_option( get_the_ID() );
-$timezones = Utilities::timezone_lists();
-$datetime  = PostCallBack::get_poll_datetime( get_the_ID() );
-
+$fields      = FormField::get_poll_fields_with_option( get_the_ID() );
+$timezones   = Utilities::timezone_lists();
+$datetime    = PostCallBack::get_poll_datetime( get_the_ID() );
+$plugin_data = EasyPoll::plugin_data();
 ?>
 <?php do_action( 'ep_before_poll_builder_meta_box', get_the_ID() ); ?>
 <div class="ep-meta-box-wrapper ep-wrapper">
+
+	<!-- show validation error -->
+	<?php
+		$error_template = $plugin_data['views'] . 'components/validation-error.php';
+		Utilities::load_file_from_custom_path( $error_template );
+	?>
+	<!-- show validation error end -->
+
 	<div class="ep-expire-date-wrapper ep-d-flex ep-align-center ep-gap-10 ep-mt-10">
 		<div class="ep-start-datetime ep-d-flex ep-flex-column">
 			<label for="ep-start-datetime" class="ep-col-1">

@@ -18,6 +18,7 @@ use EasyPoll\CustomPosts\InitCustomPosts;
 use EasyPoll\Database\EasyPollFeedback;
 use EasyPoll\Database\EasyPollFields;
 use EasyPoll\Database\EasyPollOptions;
+use EasyPoll\ErrorHandler\Init as ErrorHandlerInit;
 use EasyPoll\FormBuilder\FormClient;
 use EasyPoll\Metabox\MetaboxInit;
 use EasyPoll\PollHandler\PollHandler;
@@ -179,6 +180,7 @@ if ( ! class_exists( 'EasyPoll' ) ) {
 			new Settings();
 			new ShortCodes();
 			new Report();
+			new ErrorHandlerInit();
 		}
 	}
 	// trigger.

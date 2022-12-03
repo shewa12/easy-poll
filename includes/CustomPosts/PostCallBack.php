@@ -10,6 +10,8 @@
 
 namespace EasyPoll\CustomPosts;
 
+use EasyPoll\ErrorHandler\ErrorHandler;
+use EasyPoll\Utilities\Utilities;
 use WP_Post;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -53,9 +55,15 @@ class PostCallBack {
 	 * @return void
 	 */
 	public static function update_poll_start_expire_datetime( int $post_id ) {
-		$start_datetime  = sanitize_text_field( wp_unslash( $_POST['ep-start-datetime'] ) );
-		$expire_datetime = sanitize_text_field( wp_unslash( $_POST['ep-expire-datetime'] ) );
-		$timezone        = sanitize_text_field( wp_unslash( $_POST['ep-date-timezone'] ) );
+		$start_datetime  = Utilities::sanitize_post_field( 'ep-start-datetime' );
+		$expire_datetime = Utilities::sanitize_post_field( 'ep-expire-datetime' );
+		$timezone        = Utilities::sanitize_post_field( 'ep-date-timezone' );
+
+		// Return if time range is invalid.
+		if ( '' !== $start_datetime && strtotime( $start_datetime ) > strtotime( $expire_datetime ) ) {
+			ErrorHandler::set_errors( 'Start datetime can not be greater than expire datetime' );
+			return;
+		}
 
 		$meta_data = array(
 			'start_datetime'  => $start_datetime,
