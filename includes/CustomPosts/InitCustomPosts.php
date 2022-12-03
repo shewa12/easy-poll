@@ -25,6 +25,13 @@ class InitCustomPosts {
 	 */
 	public function __construct() {
 		add_action( 'init', __CLASS__ . '::init' );
+
+		/**
+		 * Register post callback class
+		 *
+		 * @since 1.1.0
+		 */
+		self::register_callback_class();
 	}
 
 	/**
@@ -48,5 +55,16 @@ class InitCustomPosts {
 
 		// Modify columns.
 		new FilterEasyPollColumns();
+	}
+
+	/**
+	 * Register post callback class
+	 *
+	 * @since 1.1.0
+	 *
+	 * @return void
+	 */
+	private static function register_callback_class() {
+		new PostCallBack();
 	}
 }

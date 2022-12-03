@@ -6,6 +6,9 @@ $prefix: ep;
 	input {
 		width: 100%;
 	}
+	input[type=datetime-local] {
+		width: 220px;
+	}
 	a {
 		text-decoration: none;
 	}
@@ -83,7 +86,7 @@ $prefix: ep;
 .#{$prefix}-col-11 {
 	flex-basis: 88%;
 }
-.#{$prefix}-col-2 {
+.#{$prefix}-col-12 {
 	flex-basis: 96%;
 }
 

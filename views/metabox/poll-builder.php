@@ -6,14 +6,45 @@
  * @package EasyPoll\Metabox
  */
 
+use EasyPoll\CustomPosts\PostCallBack;
 use EasyPoll\FormBuilder\FormField;
 use EasyPoll\Utilities\Utilities;
 
-$fields = FormField::get_poll_fields_with_option( get_the_ID() );
+$fields    = FormField::get_poll_fields_with_option( get_the_ID() );
+$timezones = Utilities::timezone_lists();
+$datetime  = json_decode( get_post_meta( get_the_ID(), PostCallBack::POLL_DATETIME_META_KEY, true ) );
+
 ?>
 <?php do_action( 'ep_before_poll_builder_meta_box', get_the_ID() ); ?>
 <div class="ep-meta-box-wrapper ep-wrapper">
-	<div class="ep-d-flex ep-gap-10">
+	<div class="ep-expire-date-wrapper ep-d-flex ep-align-center ep-gap-10 ep-mt-10">
+		<div class="ep-start-datetime ep-d-flex ep-flex-column">
+			<label for="ep-start-datetime" class="ep-col-1">
+				<?php esc_html_e( 'Start Date Time', 'easy-poll' ); ?>
+			</label>
+			<input type="datetime-local" name="ep-start-datetime" class="ep-mt-10" id="ep-start-datetime" value="<?php echo esc_attr( $datetime->start_datetime ); ?>"/>
+		</div>
+		<div class="ep-end-datetime ep-d-flex ep-flex-column">
+			<label for="ep-expire-datetime" class="ep-col-1">
+				<?php esc_html_e( 'Expire Date Time', 'easy-poll' ); ?>
+			</label>
+			<input type="datetime-local" name="ep-expire-datetime" class="ep-mt-10" id="ep-expire-datetime" value="<?php echo esc_attr( $datetime->expire_datetime ); ?>"/>
+		</div>
+		<div class="ep-date-timezone ep-d-flex ep-flex-column">
+			<label for="ep-date-timezone" class="ep-col-1">
+				<?php esc_html_e( 'Timezone', 'easy-poll' ); ?>
+			</label>
+			<select name="ep-date-timezone" class="ep-mt-10" id="ep-date-timezone" style="max-width: 250px;">
+				<?php foreach ( $timezones as $key => $timezone ) : ?>
+					<option value="<?php echo esc_html( $key ); ?>" <?php selected( $datetime->timezone, $key ); ?>>
+						<?php echo esc_html( $timezone ); ?>
+					</option>
+				<?php endforeach; ?>
+			</select>
+		</div>
+	</div>
+
+	<div class="ep-d-flex ep-gap-10 ep-mt-20">
 		<button type="button" class="ep-btn ep-btn-sm ep-mt-10 ep-modal-opener" data-target="#ep-single-multiple-choice-modal">
 			<i class="dashicons dashicons-insert"></i>
 			<?php esc_html_e( 'Add Question, Single/Multiple Choice', 'easy-poll' ); ?>
@@ -25,12 +56,12 @@ $fields = FormField::get_poll_fields_with_option( get_the_ID() );
 	</div>
 
 	<!-- field listing -->
-	<div class="ep-poll-fields-wrapper">
+	<div class="ep-poll-fields-wrapper ep-pt-10">
 		<?php if ( is_array( $fields ) && count( $fields ) ) : ?>
 			<?php $i = 0; ?>
-			<h4>
+			<h3>
 				<?php esc_html_e( 'Poll Questions', 'easy-poll' ); ?>
-			</h4>
+			</h3>
 			<?php foreach ( $fields as $value ) : ?>
 				<?php
 				$i++;
