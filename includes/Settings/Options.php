@@ -48,6 +48,13 @@ class Options {
 			'easy-poll-options',
 			array(
 				array(
+					'label'       => __( 'Poll Slug', 'easy-poll' ),
+					'field_type'  => 'input',
+					'option_name' => 'ep-poll-slug',
+					'description' => __( 'Customize default poll slug, refresh <strong>permalink</strong> after update the slug', 'easy-poll' ),
+					'default'     => __( 'easy-poll', 'easy-poll' ),
+				),
+				array(
 					'label'       => __( 'Container Width' ),
 					'field_type'  => 'radio',
 					'option_name' => 'ep-container-width',

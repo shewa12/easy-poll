@@ -145,6 +145,8 @@ if ( ! class_exists( 'EasyPoll' ) ) {
 
 			// Save default settings options.
 			Options::save_default_settings();
+
+			flush_rewrite_rules();
 		}
 
 		/**

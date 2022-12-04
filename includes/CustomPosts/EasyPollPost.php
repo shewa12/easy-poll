@@ -11,6 +11,8 @@
 
 namespace EasyPoll\CustomPosts;
 
+use EasyPoll\Settings\Options;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -46,6 +48,7 @@ class EasyPollPost implements PostInterface {
 	 * @return array  args of custom post
 	 */
 	public static function post_args(): array {
+		$poll_slug = Options::get_option( 'ep-poll-slug', 'easy-poll' );
 		return array(
 			'label'           => __( 'Poll', 'easy-poll' ),
 			'labels'          => array(
@@ -71,6 +74,10 @@ class EasyPollPost implements PostInterface {
 			'show_in_rest'    => true,
 			'capability_type' => 'post',
 			'supports'        => array( 'title', 'editor', 'author', 'thumbnail' ),
+			'rewrite'         => array(
+				'slug'       => $poll_slug,
+				'with_front' => true,
+			),
 		);
 	}
 
