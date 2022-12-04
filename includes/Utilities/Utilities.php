@@ -387,4 +387,35 @@ class Utilities {
 		}
 		return $default;
 	}
+
+	/**
+	 * Get allowed tags for using with wp_kses
+	 *
+	 * @since 1.1.0
+	 *
+	 * @param array $tags allowed tags.
+	 *
+	 * @return array
+	 */
+	public static function allowed_tags( array $tags = array() ):array {
+		$default      = array(
+			'strong' => true,
+			'b'      => true,
+			'italic' => true,
+			'a'      => array(
+				'href'  => true,
+				'class' => true,
+				'id'    => true,
+			),
+			'p'      => array(
+				'class' => true,
+				'id'    => true,
+			),
+			'span'   => array(
+				'class' => true,
+			),
+		);
+		$allowed_tags = wp_parse_args( $tags, $default );
+		return $allowed_tags;
+	}
 }
