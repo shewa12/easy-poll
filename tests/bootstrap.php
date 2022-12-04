@@ -5,8 +5,8 @@
  * @package Easy_Poll
  */
 
-//$_tests_dir = getenv( 'WP_TESTS_DIR' );
-$_tests_dir = "/Users/shewa/Documents/wp-phpunit-test/wordpress-tests-lib";
+$_tests_dir = getenv( 'WP_TESTS_DIR' );
+//$_tests_dir = "/Users/shewa/Documents/wp-phpunit-test/wordpress-tests-lib";
 //$_tests_dir = getenv( 'WP_TESTS_DIR' );
 
 if ( ! $_tests_dir ) {

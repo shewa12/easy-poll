@@ -81,7 +81,6 @@ if ( $already_submitted ) {
 }
 
 $poll_template_part = PollHandler::check_poll_status( $utc_start_time, $utc_expire_time );
-
 $poll_template_part = $plugin_data['templates'] . "poll-parts/{$poll_template_part}.php";
 if ( file_exists( $poll_template_part ) ) {
 	Utilities::load_file_from_custom_path(

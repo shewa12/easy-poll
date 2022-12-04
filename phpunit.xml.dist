@@ -12,17 +12,20 @@
 	>
 
 	<testsuites>
-		<testsuite name="easy-poll">
+		<testsuite name="ep">
 			<directory>tests/PHPUnit/EasyPollTest.php</directory>
 		</testsuite>
 		<testsuite name="enqueue-class">
 			<directory>tests/PHPUnit/EnqueueTest.php</directory>
 		</testsuite>
-		<testsuite name="easy-poll-post-class">
+		<testsuite name="ep-post-class">
 			<directory>tests/PHPUnit/EasyPollPostTest.php</directory>
 		</testsuite>
-		<testsuite name="easy-poll-feedback-class">
+		<testsuite name="ep-feedback-class">
 			<directory>tests/PHPUnit/FeedbackTest.php</directory>
+		</testsuite>
+		<testsuite name="ep-post-callback-class">
+			<directory>tests/PHPUnit/PostCallBackTest.php</directory>
 		</testsuite>
 	</testsuites>
 
