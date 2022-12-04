@@ -80,32 +80,7 @@ if ( $already_submitted ) {
 	return;
 }
 
-$poll_template_part = 'poll-body';
-
-// If poll start time not set then start right away.
-if ( false !== $utc_start_time ) {
-	// Check if poll expire date. False means expire date not set.
-	if ( false !== $utc_expire_time && ( time() >= strtotime( $utc_expire_time ) ) ) {
-		$poll_template_part = 'poll-expired';
-	} elseif ( time() < strtotime( $utc_start_time ) ) {
-		$poll_template_part = 'poll-upcoming';
-	}
-} else {
-	// If poll start datetime set.
-	if ( time() < strtotime( $utc_start_time ) ) {
-		$poll_template_part = 'poll-upcoming';
-	} else {
-		// Expire time not set.
-		if ( false === $utc_expire_time ) {
-			$poll_template_part = 'poll-body';
-		} elseif ( time() >= strtotime( $utc_expire_time ) ) {
-			$poll_template_part = 'poll-expired';
-		} elseif ( time() >= strtotime( $utc_start_time ) && time() < strtotime( $utc_expire_time ) ) {
-
-			$poll_template_part = 'poll-body';
-		}
-	}
-}
+$poll_template_part = PollHandler::check_poll_status( $utc_start_time, $utc_expire_time );
 
 $poll_template_part = $plugin_data['templates'] . "poll-parts/{$poll_template_part}.php";
 if ( file_exists( $poll_template_part ) ) {

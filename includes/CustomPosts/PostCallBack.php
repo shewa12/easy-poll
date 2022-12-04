@@ -60,7 +60,7 @@ class PostCallBack {
 		$timezone        = Utilities::sanitize_post_field( 'ep-date-timezone' );
 
 		// Return if time range is invalid.
-		if ( '' !== $start_datetime && strtotime( $start_datetime ) > strtotime( $expire_datetime ) ) {
+		if ( ( '' !== $start_datetime && '' !== $expire_datetime ) && strtotime( $start_datetime ) > strtotime( $expire_datetime ) ) {
 			ErrorHandler::set_errors( 'Start datetime can not be greater than expire datetime' );
 			return;
 		}
