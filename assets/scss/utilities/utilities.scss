@@ -297,3 +297,29 @@ $alertSuccessBorderColor: #badbcc;
 		margin: 0 3px;
 	}
 }
+
+// Badge
+@mixin badge ($bgColor){
+	background-color: $bgColor;
+	color: #fff;
+	padding: 5px;
+	border-radius: 5px;
+	font-size: 10px;
+	letter-spacing: 1px;
+}
+
+.ep-badge {
+	@include badge( $primary );
+	&.ep-badge-primary {
+		@include badge( $primary );
+	}
+	&.ep-badge-success {
+		@include badge( $success );
+	}
+	&.ep-badge-warning {
+		@include badge( $warning );
+	}
+	&.ep-badge-danger {
+		@include badge( $danger );
+	}
+}

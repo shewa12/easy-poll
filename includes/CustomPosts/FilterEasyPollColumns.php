@@ -108,7 +108,14 @@ class FilterEasyPollColumns {
 
 				$utc_expire_time = $poll_datetime->expire_datetime ? Utilities::get_gmt_date_from_timezone_date( $poll_datetime->expire_datetime, $poll_datetime->timezone ) : false;
 
-				echo esc_html( PollHandler::check_poll_status( $utc_start_time, $utc_expire_time ) );
+				$poll_status = PollHandler::check_poll_status( $utc_start_time, $utc_expire_time );
+				$poll_status = str_replace( 'poll-', '', $poll_status );
+				$status_class = ( 'upcoming' === $poll_status ? 'primary' : ( 'expired' === $poll_status ? 'danger' : 'success' ) );
+				?>
+				<span class="ep-badge ep-badge-<?php echo esc_attr( $status_class ); ?>">
+					<?php echo esc_html( strtoupper( $poll_status ) ); ?>
+				</span>
+				<?php
 			}
 		}
 	}
