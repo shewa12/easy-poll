@@ -56,6 +56,7 @@ class FilterEasyPollColumns {
 		$modify_columns['title']            = __( 'Title', 'easy-poll' );
 		$modify_columns['short_code']       = __( 'Short code', 'easy-poll' );
 		$modify_columns['poll_status']      = __( 'Poll Status', 'easy-poll' );
+		$modify_columns['expire_datetime']  = __( 'Expire at', 'easy-poll' );
 		$modify_columns['total_submission'] = __( 'Total Submission', 'easy-poll' );
 		$modify_columns['author']           = __( 'Author', 'easy-poll' );
 		$modify_columns['date']             = __( 'Date', 'easy-poll' );
@@ -116,6 +117,12 @@ class FilterEasyPollColumns {
 					<?php echo esc_html( strtoupper( $poll_status ) ); ?>
 				</span>
 				<?php
+			}
+
+			if ( 'expire_datetime' === $column_name ) {
+				$poll_datetime   = PostCallBack::get_poll_datetime( $post_id );
+				$expire_datetime = '' === $poll_datetime->expire_datetime ? __( 'No Expiry', 'easy-poll' ) : Utilities::get_translated_date( $poll_datetime->expire_datetime );
+				echo esc_html( $expire_datetime );
 			}
 		}
 	}

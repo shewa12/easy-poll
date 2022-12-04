@@ -312,7 +312,8 @@ class Utilities {
 	 * @since 1.1.0
 	 *
 	 * @param string $date date time.
-	 * @param string $format date format for return date.
+	 * @param string $format date format for return date. If not set
+	 * WordPress default datetime format will be used.
 	 *
 	 * @return string
 	 */
