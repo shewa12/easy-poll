@@ -24,8 +24,11 @@
 		<testsuite name="ep-feedback-class">
 			<directory>tests/PHPUnit/FeedbackTest.php</directory>
 		</testsuite>
-		<testsuite name="ep-post-callback-class">
+		<testsuite name="ep-poll-callback-class">
 			<directory>tests/PHPUnit/PostCallBackTest.php</directory>
+		</testsuite>
+		<testsuite name="ep-poll-handler-class">
+			<directory>tests/PHPUnit/PollHandlerTest.php</directory>
 		</testsuite>
 	</testsuites>
 

@@ -115,12 +115,18 @@ class PollHandler {
 	 *
 	 * @since 1.1.0
 	 *
-	 * @param mixed $start_datetime false|string.
-	 * @param mixed $expire_datetime false|string.
+	 * @param mixed $start_datetime false|string(y-m-d H:i:s).
+	 * @param mixed $expire_datetime false|string(y-m-d H:i:s).
 	 *
 	 * @return string poll status poll-active|poll-expired|poll-upcoming
 	 */
 	public static function check_poll_status( $start_datetime, $expire_datetime ): string {
+		if ( '' === $start_datetime ) {
+			$start_datetime = false;
+		}
+		if ( '' === $expire_datetime ) {
+			$expire_datetime = false;
+		}
 		$poll_status = 'poll-active';
 		// If poll start time not set then start right away.
 		if ( false !== $start_datetime ) {

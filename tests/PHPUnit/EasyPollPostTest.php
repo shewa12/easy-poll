@@ -8,6 +8,7 @@
 namespace EasyPoll\Tests\PHPUnit;
 
 use EasyPoll\CustomPosts\EasyPollPost;
+use EasyPoll\Settings\Options;
 use WP_Query;
 
 /**
@@ -47,7 +48,8 @@ class EasyPollPostTest extends BaseTest {
 	 * @return void
 	 */
 	public function test_post_args() {
-        $expected = array(
+		$poll_slug = Options::get_option( 'ep-poll-slug', 'easy-poll' );
+		$expected  = array(
 			'label'           => __( 'Poll', 'easy-poll' ),
 			'labels'          => array(
 				'name'               => _x( 'Polls', 'post type general name', 'easy-poll' ),
@@ -72,9 +74,13 @@ class EasyPollPostTest extends BaseTest {
 			'show_in_rest'    => true,
 			'capability_type' => 'post',
 			'supports'        => array( 'title', 'editor', 'author', 'thumbnail' ),
+			'rewrite'         => array(
+				'slug'       => $poll_slug,
+				'with_front' => true,
+			),
 		);
 
-        $this->assertSame( $expected, self::$easy_poll_post::post_args() );
+		$this->assertSame( $expected, self::$easy_poll_post::post_args() );
 	}
 
 	/**
@@ -83,7 +89,7 @@ class EasyPollPostTest extends BaseTest {
 	 * @return void
 	 */
 	public function test_get_polls_returns_instanceof_wp_query() {
-        $expected = \WP_Query::class;
-        $this->assertInstanceOf( $expected, self::$easy_poll_post::get_polls() );
+		$expected = \WP_Query::class;
+		$this->assertInstanceOf( $expected, self::$easy_poll_post::get_polls() );
 	}
 }
