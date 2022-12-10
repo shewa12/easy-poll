@@ -34,7 +34,7 @@ $plugin_data = EasyPoll::plugin_data();
 		</div>
 		<div class="ep-end-datetime ep-d-flex ep-flex-column">
 			<label for="ep-expire-datetime" class="ep-col-1">
-				<?php esc_html_e( 'Expire Date Time', 'easy-poll' ); ?>
+				<?php esc_html_e( 'Expiration Date Time', 'easy-poll' ); ?>
 			</label>
 			<input type="datetime-local" name="ep-expire-datetime" class="ep-mt-10" id="ep-expire-datetime" value="<?php echo esc_attr( $datetime->expire_datetime ); ?>"/>
 		</div>

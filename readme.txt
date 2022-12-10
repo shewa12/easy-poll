@@ -3,9 +3,9 @@ Contributors: shewa12
 Donate link: https://shewazone.com/donate
 Tags: Poll, survey, feedback, contact, form
 Requires at least: 5.3
-Tested up to: 6.0.1
+Tested up to: 6.1
 Requires PHP: 7.0
-Stable tag: 1.0.0
+Stable tag: 1.1.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -54,6 +54,10 @@ Answer: From the Report sub-menu of Easy Poll main menu
 
 Answer: Yes
 
+= Can I create a schedule poll
+
+Answer: Yes, you can set poll start & expiration date with any specific timezone
+
 === Screenshots ===
 
 1. Polls List: Showing available polls listing along with short code & total submission number.
@@ -67,5 +71,12 @@ Answer: Yes
 
 = 1.0.0 = 
 * Plugin released
+
+= 1.1.0 - 10 December, 2022 =
+New: Now poll could be created for any specific timezone with start & expire time
+New: Poll status & expire column added on the poll list page
+New: easy-poll default slug update option added on the settings page
+New: Textarea field added to add message that will be visible if user visit before poll start and after expire
+Fix: Javascript error showing on the console
 
 === Upgrade Notice ===

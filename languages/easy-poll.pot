@@ -2,16 +2,16 @@
 # This file is distributed under the same license as the Easy Poll plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Easy Poll 1.0.0\n"
+"Project-Id-Version: Easy Poll 1.1.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/easy-poll\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-08-24T15:42:07+00:00\n"
+"POT-Creation-Date: 2022-12-10T14:05:39+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.5.0\n"
+"X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: easy-poll\n"
 
 #. Plugin Name of the plugin
@@ -46,7 +46,8 @@ msgstr ""
 
 #: includes/Admin/Menu/SubMenu/Polls.php:29
 #: includes/Admin/Menu/SubMenu/Polls.php:40
-#: includes/CustomPosts/EasyPollPost.php:61
+#: includes/CustomPosts/EasyPollPost.php:64
+#: tests/PHPUnit/EasyPollPostTest.php:64
 msgid "Polls"
 msgstr ""
 
@@ -60,89 +61,116 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
-#: includes/CustomPosts/EasyPollPost.php:50
+#: includes/CustomPosts/EasyPollPost.php:53
+#: tests/PHPUnit/EasyPollPostTest.php:53
 msgid "Poll"
 msgstr ""
 
-#: includes/CustomPosts/EasyPollPost.php:52
+#: includes/CustomPosts/EasyPollPost.php:55
+#: tests/PHPUnit/EasyPollPostTest.php:55
 msgctxt "post type general name"
 msgid "Polls"
 msgstr ""
 
-#: includes/CustomPosts/EasyPollPost.php:53
+#: includes/CustomPosts/EasyPollPost.php:56
+#: tests/PHPUnit/EasyPollPostTest.php:56
 msgctxt "post type singular name"
 msgid "Poll"
 msgstr ""
 
-#: includes/CustomPosts/EasyPollPost.php:54
+#: includes/CustomPosts/EasyPollPost.php:57
+#: tests/PHPUnit/EasyPollPostTest.php:57
 msgctxt "admin menu"
 msgid "Polls"
 msgstr ""
 
-#: includes/CustomPosts/EasyPollPost.php:55
+#: includes/CustomPosts/EasyPollPost.php:58
+#: tests/PHPUnit/EasyPollPostTest.php:58
 msgctxt "add new on admin bar"
 msgid "Poll"
 msgstr ""
 
-#: includes/CustomPosts/EasyPollPost.php:56
+#: includes/CustomPosts/EasyPollPost.php:59
+#: tests/PHPUnit/EasyPollPostTest.php:59
 msgctxt "tutor Poll add"
 msgid "Add New"
 msgstr ""
 
-#: includes/CustomPosts/EasyPollPost.php:57
+#: includes/CustomPosts/EasyPollPost.php:60
+#: tests/PHPUnit/EasyPollPostTest.php:60
 msgid "Add New Poll"
 msgstr ""
 
-#: includes/CustomPosts/EasyPollPost.php:58
+#: includes/CustomPosts/EasyPollPost.php:61
+#: tests/PHPUnit/EasyPollPostTest.php:61
 msgid "New Poll"
 msgstr ""
 
-#: includes/CustomPosts/EasyPollPost.php:59
+#: includes/CustomPosts/EasyPollPost.php:62
+#: tests/PHPUnit/EasyPollPostTest.php:62
 msgid "Edit Poll"
 msgstr ""
 
-#: includes/CustomPosts/EasyPollPost.php:60
+#: includes/CustomPosts/EasyPollPost.php:63
+#: tests/PHPUnit/EasyPollPostTest.php:63
 msgid "View Poll"
 msgstr ""
 
-#: includes/CustomPosts/EasyPollPost.php:62
+#: includes/CustomPosts/EasyPollPost.php:65
+#: tests/PHPUnit/EasyPollPostTest.php:65
 msgid "Search Polls"
 msgstr ""
 
-#: includes/CustomPosts/EasyPollPost.php:63
+#: includes/CustomPosts/EasyPollPost.php:66
+#: tests/PHPUnit/EasyPollPostTest.php:66
 msgid "Parent Polls:"
 msgstr ""
 
-#: includes/CustomPosts/EasyPollPost.php:64
+#: includes/CustomPosts/EasyPollPost.php:67
+#: tests/PHPUnit/EasyPollPostTest.php:67
 msgid "No Polls found."
 msgstr ""
 
-#: includes/CustomPosts/EasyPollPost.php:65
+#: includes/CustomPosts/EasyPollPost.php:68
+#: tests/PHPUnit/EasyPollPostTest.php:68
 msgid "No Polls found in Trash."
 msgstr ""
 
-#: includes/CustomPosts/EasyPollPost.php:67
+#: includes/CustomPosts/EasyPollPost.php:70
+#: tests/PHPUnit/EasyPollPostTest.php:70
 msgid "Easy poll custom post type"
 msgstr ""
 
-#: includes/CustomPosts/FilterEasyPollColumns.php:54
+#: includes/CustomPosts/FilterEasyPollColumns.php:56
 msgid "Title"
 msgstr ""
 
-#: includes/CustomPosts/FilterEasyPollColumns.php:55
+#: includes/CustomPosts/FilterEasyPollColumns.php:57
 msgid "Short code"
 msgstr ""
 
-#: includes/CustomPosts/FilterEasyPollColumns.php:56
+#: includes/CustomPosts/FilterEasyPollColumns.php:58
+msgid "Poll Status"
+msgstr ""
+
+#: includes/CustomPosts/FilterEasyPollColumns.php:59
+msgid "Expire at"
+msgstr ""
+
+#: includes/CustomPosts/FilterEasyPollColumns.php:60
 msgid "Total Submission"
 msgstr ""
 
-#: includes/CustomPosts/FilterEasyPollColumns.php:57
+#: includes/CustomPosts/FilterEasyPollColumns.php:61
 msgid "Author"
 msgstr ""
 
-#: includes/CustomPosts/FilterEasyPollColumns.php:58
+#: includes/CustomPosts/FilterEasyPollColumns.php:62
 msgid "Date"
+msgstr ""
+
+#: includes/CustomPosts/FilterEasyPollColumns.php:124
+msgid "No Expiry"
 msgstr ""
 
 #: includes/FormBuilder/FormClient.php:74
@@ -205,90 +233,126 @@ msgstr ""
 msgid "Save Questions"
 msgstr ""
 
-#: includes/Settings/Options.php:57
-#: includes/Settings/Options.php:124
-msgid "Yes"
+#: includes/Settings/Options.php:51
+msgid "Poll Slug"
 msgstr ""
 
-#: includes/Settings/Options.php:61
-#: includes/Settings/Options.php:128
-msgid "No"
+#: includes/Settings/Options.php:54
+msgid "Customize default poll slug, refresh <strong>permalink</strong> after update the slug"
+msgstr ""
+
+#: includes/Settings/Options.php:55
+msgid "easy-poll"
 msgstr ""
 
 #: includes/Settings/Options.php:64
-msgid "Adjust the front-end poll template width"
+#: includes/Settings/Options.php:131
+msgid "Yes"
 msgstr ""
 
 #: includes/Settings/Options.php:68
-msgid "Max Width"
+#: includes/Settings/Options.php:135
+msgid "No"
 msgstr ""
 
 #: includes/Settings/Options.php:71
-msgid "Set max-width in percentage for the large screen devices"
+msgid "Adjust the front-end poll template width"
 msgstr ""
 
 #: includes/Settings/Options.php:75
+msgid "Max Width"
+msgstr ""
+
+#: includes/Settings/Options.php:78
+msgid "Set <strong>max-width</strong> in percentage for the large screen devices"
+msgstr ""
+
+#: includes/Settings/Options.php:82
 msgid "Thumbnail Size"
 msgstr ""
 
-#: includes/Settings/Options.php:81
+#: includes/Settings/Options.php:88
 msgid "Thumbnail"
 msgstr ""
 
-#: includes/Settings/Options.php:85
+#: includes/Settings/Options.php:92
 msgid "Medium"
 msgstr ""
 
-#: includes/Settings/Options.php:89
+#: includes/Settings/Options.php:96
 msgid "Medium Large"
 msgstr ""
 
-#: includes/Settings/Options.php:93
+#: includes/Settings/Options.php:100
 msgid "Large"
 msgstr ""
 
-#: includes/Settings/Options.php:97
+#: includes/Settings/Options.php:104
 msgid "Full"
 msgstr ""
 
-#: includes/Settings/Options.php:100
+#: includes/Settings/Options.php:107
 msgid "Poll thumbnail size"
 msgstr ""
 
-#: includes/Settings/Options.php:104
+#: includes/Settings/Options.php:111
 msgid "Select Multiple Hint"
 msgstr ""
 
-#: includes/Settings/Options.php:107
+#: includes/Settings/Options.php:114
 msgid "Show a message so that users can understand that they can select multiple"
 msgstr ""
 
-#: includes/Settings/Options.php:108
+#: includes/Settings/Options.php:115
 msgid "Select multiple if required"
 msgstr ""
 
-#: includes/Settings/Options.php:111
+#: includes/Settings/Options.php:118
 msgid "Success Message"
 msgstr ""
 
-#: includes/Settings/Options.php:114
+#: includes/Settings/Options.php:121
 msgid "Show a message after successful poll submission"
 msgstr ""
 
-#: includes/Settings/Options.php:115
+#: includes/Settings/Options.php:122
 msgid "Thank you for submitting poll"
 msgstr ""
 
-#: includes/Settings/Options.php:118
+#: includes/Settings/Options.php:125
 msgid "Guest Submit"
 msgstr ""
 
-#: includes/Settings/Options.php:131
-msgid "If allowed, any (logged-in/guest) users will be able to see & submit the poll."
+#: includes/Settings/Options.php:138
+msgid "If allowed, any <strong>(logged-in/guest)</strong> users will be able to see & submit the poll."
 msgstr ""
 
-#: includes/Settings/Options.php:132
+#: includes/Settings/Options.php:139
 msgid "no"
+msgstr ""
+
+#: includes/Settings/Options.php:142
+msgid "Upcoming Poll"
+msgstr ""
+
+#: includes/Settings/Options.php:145
+msgid "Write a message that will be visible if the user accesses an upcoming poll.\\n Keep <strong>{time}</strong> placeholder if you want to show the start time."
+msgstr ""
+
+#: includes/Settings/Options.php:146
+msgid "The Poll will be started at {time}"
+msgstr ""
+
+#: includes/Settings/Options.php:149
+msgid "Expire Poll"
+msgstr ""
+
+#: includes/Settings/Options.php:152
+msgid "Write a message that will be visible if the user accesses an expired poll.\\n Keep <strong>{time}</strong> placeholder if you want to show the expired time."
+msgstr ""
+
+#: includes/Settings/Options.php:153
+msgid "The Poll has expired at {time}"
 msgstr ""
 
 #: includes/Shortcodes/PollShortCode.php:70
@@ -303,24 +367,28 @@ msgstr ""
 msgid "Modal arguments required"
 msgstr ""
 
-#: templates/easy-poll.php:45
+#: templates/easy-poll.php:54
 #: templates/poll-form.php:42
 msgid "Permission Denied"
 msgstr ""
 
-#: templates/easy-poll.php:46
+#: templates/easy-poll.php:55
 #: templates/poll-form.php:43
 msgid "Guest are not allowed for participating the Poll. Please log-in to participate."
 msgstr ""
 
-#: templates/easy-poll.php:63
+#: templates/easy-poll.php:72
 #: templates/poll-form.php:60
 msgid "Poll Already Submitted"
 msgstr ""
 
-#: templates/easy-poll.php:64
+#: templates/easy-poll.php:73
 #: templates/poll-form.php:61
 msgid "The Poll you are trying access is already submitted"
+msgstr ""
+
+#: templates/easy-poll.php:96
+msgid " file not found"
 msgstr ""
 
 #: templates/poll-form.php:16
@@ -333,6 +401,18 @@ msgstr ""
 
 #: templates/poll-form.php:156
 msgid "Questions not available"
+msgstr ""
+
+#: templates/poll-parts/poll-expired.php:23
+msgid "Poll has been Expired"
+msgstr ""
+
+#: templates/poll-parts/poll-upcoming.php:23
+msgid "Poll has not been Started Yet"
+msgstr ""
+
+#: views/components/validation-error.php:18
+msgid "Validation Error"
 msgstr ""
 
 #: views/metabox/input-textarea-fields.php:20
@@ -349,27 +429,39 @@ msgstr ""
 msgid "Add More Question"
 msgstr ""
 
-#: views/metabox/poll-builder.php:19
+#: views/metabox/poll-builder.php:31
+msgid "Start Date Time"
+msgstr ""
+
+#: views/metabox/poll-builder.php:37
+msgid "Expire Date Time"
+msgstr ""
+
+#: views/metabox/poll-builder.php:43
+msgid "Timezone"
+msgstr ""
+
+#: views/metabox/poll-builder.php:58
 msgid "Add Question, Single/Multiple Choice"
 msgstr ""
 
-#: views/metabox/poll-builder.php:23
+#: views/metabox/poll-builder.php:62
 msgid "Add Question, Input/Textarea"
 msgstr ""
 
-#: views/metabox/poll-builder.php:32
+#: views/metabox/poll-builder.php:71
 msgid "Poll Questions"
 msgstr ""
 
-#: views/metabox/poll-builder.php:43
+#: views/metabox/poll-builder.php:82
 msgid "Do you want to delete this question?"
 msgstr ""
 
-#: views/metabox/poll-builder.php:43
+#: views/metabox/poll-builder.php:82
 msgid "Warning: Questions & their feedback will be deleted permanently!"
 msgstr ""
 
-#: views/metabox/poll-builder.php:55
+#: views/metabox/poll-builder.php:94
 #: assets/scripts/backend/poll-builder.js:54
 #: assets/scripts/backend/poll-builder.js:109
 msgid "Delete"
@@ -426,7 +518,7 @@ msgstr ""
 msgid "Invalid settings, try re-install the plugin"
 msgstr ""
 
-#: views/settings/settings.php:78
+#: views/settings/settings.php:91
 msgid "Save Changes"
 msgstr ""
 
@@ -443,11 +535,11 @@ msgstr ""
 msgid "Settings has not been changed!"
 msgstr ""
 
-#: assets/scripts/frontend.js:17
+#: assets/scripts/frontend.js:20
 msgid "Do you want to submit it? This cannot be reverted!"
 msgstr ""
 
-#: assets/scripts/frontend.js:38
+#: assets/scripts/frontend.js:41
 msgid "Something went wrong, please try again."
 msgstr ""
 
