@@ -9,7 +9,7 @@
     "watch": "webpack --watch --env mode=development",
     "zip": "webpack --config ./webpack.zip.js --mode production",
     "make-pot": "wp i18n make-pot . languages/easy-poll.pot",
-    "plugin-build": "npm run build && npm run make-pot && npm run zip"
+    "plugin-build": "composer install --no-dev && npm run build && npm run make-pot && npm run zip"
   },
   "devDependencies": {
     "css-loader": "^6.7.1",
