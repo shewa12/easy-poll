@@ -7,7 +7,7 @@
  * Author URI:      https://shewazone.com
  * Text Domain:     easy-poll
  * Domain Path:     /languages
- * Version:         1.0.0
+ * Version:         1.1.0
  *
  * @package         EasyPoll
  */
@@ -18,6 +18,7 @@ use EasyPoll\CustomPosts\InitCustomPosts;
 use EasyPoll\Database\EasyPollFeedback;
 use EasyPoll\Database\EasyPollFields;
 use EasyPoll\Database\EasyPollOptions;
+use EasyPoll\ErrorHandler\Init as ErrorHandlerInit;
 use EasyPoll\FormBuilder\FormClient;
 use EasyPoll\Metabox\MetaboxInit;
 use EasyPoll\PollHandler\PollHandler;
@@ -94,8 +95,8 @@ if ( ! class_exists( 'EasyPoll' ) ) {
 			);
 			array_push( self::$plugin_data, $plugin_data );
 
-			self::$plugin_data['plugin_url']   = trailingslashit( plugin_dir_url( __FILE__ ) );
-			self::$plugin_data['plugin_path']  = trailingslashit( plugin_dir_path( __FILE__ ) );
+			self::$plugin_data['plugin_url']   = plugin_dir_url( __FILE__ );
+			self::$plugin_data['plugin_path']  = plugin_dir_path( __FILE__ );
 			self::$plugin_data['base_name']    = plugin_basename( __FILE__ );
 			self::$plugin_data['templates']    = trailingslashit( plugin_dir_path( __FILE__ ) . 'templates' );
 			self::$plugin_data['views']        = trailingslashit( plugin_dir_path( __FILE__ ) . 'views' );
@@ -144,6 +145,8 @@ if ( ! class_exists( 'EasyPoll' ) ) {
 
 			// Save default settings options.
 			Options::save_default_settings();
+
+			flush_rewrite_rules();
 		}
 
 		/**
@@ -179,6 +182,7 @@ if ( ! class_exists( 'EasyPoll' ) ) {
 			new Settings();
 			new ShortCodes();
 			new Report();
+			new ErrorHandlerInit();
 		}
 	}
 	// trigger.

@@ -49,6 +49,13 @@ class Options {
 			'easy-poll-options',
 			array(
 				array(
+					'label'       => __( 'Poll Slug', 'easy-poll' ),
+					'field_type'  => 'input',
+					'option_name' => 'ep-poll-slug',
+					'description' => __( 'Customize default poll slug, refresh <strong>permalink</strong> after update the slug', 'easy-poll' ),
+					'default'     => __( 'easy-poll', 'easy-poll' ),
+				),
+				array(
 					'label'       => __( 'Container Width' ),
 					'field_type'  => 'radio',
 					'option_name' => 'ep-container-width',
@@ -69,7 +76,7 @@ class Options {
 					'label'       => __( 'Max Width', 'easy-poll' ),
 					'field_type'  => 'number',
 					'option_name' => 'ep-max-width',
-					'description' => __( 'Set max-width in percentage for the large screen devices', 'easy-poll' ),
+					'description' => __( 'Set <strong>max-width</strong> in percentage for the large screen devices', 'easy-poll' ),
 					'default'     => 60,
 				),
 				array(
@@ -129,8 +136,22 @@ class Options {
 							'label' => __( 'No', 'easy-poll' ),
 						),
 					),
-					'description' => __( 'If allowed, any (logged-in/guest) users will be able to see & submit the poll.', 'easy-poll' ),
+					'description' => __( 'If allowed, any <strong>(logged-in/guest)</strong> users will be able to see & submit the poll.', 'easy-poll' ),
 					'default'     => __( 'no', 'easy-poll' ),
+				),
+				array(
+					'label'       => __( 'Upcoming Poll', 'easy-poll' ),
+					'field_type'  => 'textarea',
+					'option_name' => 'ep-upcoming-poll-message',
+					'description' => __( 'Write a message that will be visible if the user accesses an upcoming poll.\n Keep <strong>{time}</strong> placeholder if you want to show the start time.', 'easy-poll' ),
+					'default'     => __( 'The Poll will be started at {time}', 'easy-poll' ),
+				),
+				array(
+					'label'       => __( 'Expire Poll', 'easy-poll' ),
+					'field_type'  => 'textarea',
+					'option_name' => 'ep-expired-poll-message',
+					'description' => __( 'Write a message that will be visible if the user accesses an expired poll.\n Keep <strong>{time}</strong> placeholder if you want to show the expired time.', 'easy-poll' ),
+					'default'     => __( 'The Poll has expired at {time}', 'easy-poll' ),
 				),
 			),
 		);

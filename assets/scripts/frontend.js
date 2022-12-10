@@ -12,6 +12,9 @@ window.addEventListener('DOMContentLoaded', function() {
     // Handle user's poll submission
     const pollForm = document.getElementById('ep-poll-form');
     const pollWrapper = document.querySelector('.ep-poll-wrapper');
+    if ( !pollForm) {
+        return;
+    }
     pollForm.onsubmit = async (e) => {
         e.preventDefault();
         let warningMsg = __('Do you want to submit it? This cannot be reverted!', 'easy-poll');

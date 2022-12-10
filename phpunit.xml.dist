@@ -6,11 +6,42 @@
 	convertErrorsToExceptions="true"
 	convertNoticesToExceptions="true"
 	convertWarningsToExceptions="true"
+	convertDeprecationsToExceptions="true"
+	verbose="true"
+	testdox="true"
 	>
+
 	<testsuites>
-		<testsuite>
-			<directory prefix="test-" suffix=".php">./tests/</directory>
-			<exclude>./tests/test-sample.php</exclude>
+		<testsuite name="ep">
+			<directory>tests/PHPUnit/EasyPollTest.php</directory>
+		</testsuite>
+		<testsuite name="enqueue-class">
+			<directory>tests/PHPUnit/EnqueueTest.php</directory>
+		</testsuite>
+		<testsuite name="ep-post-class">
+			<directory>tests/PHPUnit/EasyPollPostTest.php</directory>
+		</testsuite>
+		<testsuite name="ep-feedback-class">
+			<directory>tests/PHPUnit/FeedbackTest.php</directory>
+		</testsuite>
+		<testsuite name="ep-poll-callback-class">
+			<directory>tests/PHPUnit/PostCallBackTest.php</directory>
+		</testsuite>
+		<testsuite name="ep-poll-handler-class">
+			<directory>tests/PHPUnit/PollHandlerTest.php</directory>
 		</testsuite>
 	</testsuites>
+
+	<coverage>
+		<include>
+			<directory>tests/PHPUnit</directory>
+		</include>
+		<exclude>
+			<file>tests/PHPUnit/BaseTest.php</file>
+		</exclude>
+		<report>
+			<html outputDirectory="tests/CodeCoverage" lowUpperBound="50" highLowerBound="90"/>
+		</report>
+	</coverage>
+
 </phpunit>

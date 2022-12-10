@@ -9,6 +9,7 @@
  * @package EasyPoll\Templates
  */
 
+use EasyPoll\CustomPosts\PostCallBack;
 use EasyPoll\PollHandler\PollHandler;
 use EasyPoll\Settings\Options;
 use EasyPoll\FormBuilder\Feedback;
@@ -31,6 +32,14 @@ $thumbnail_size       = Options::get_option( 'ep-thumbnail-size', 'medium' );
 
 $allow_guest       = Options::get_option( 'ep-allow-guest', 'no' );
 $already_submitted = Feedback::is_user_already_submitted( $poll_id );
+
+$poll_datetime = PostCallBack::get_poll_datetime( $poll_id );
+
+$utc_start_time = $poll_datetime->start_datetime ? Utilities::get_gmt_date_from_timezone_date( $poll_datetime->start_datetime, $poll_datetime->timezone ) : false;
+
+$utc_expire_time = $poll_datetime->expire_datetime ? Utilities::get_gmt_date_from_timezone_date( $poll_datetime->expire_datetime, $poll_datetime->timezone ) : false;
+
+$plugin_data = EasyPoll::plugin_data();
 ?>
 
 <div class="<?php echo esc_attr( "ep-poll-wrapper {$is_container}" ); ?>" style="max-width: <?php echo esc_attr( $max_width ); ?>">
@@ -70,24 +79,24 @@ if ( $already_submitted ) {
 	echo '</div>'; //phpcs:ignore
 	return;
 }
+
+$poll_template_part = PollHandler::check_poll_status( $utc_start_time, $utc_expire_time );
+$poll_template_part = $plugin_data['templates'] . "poll-parts/{$poll_template_part}.php";
+if ( file_exists( $poll_template_part ) ) {
+	Utilities::load_file_from_custom_path(
+		$poll_template_part,
+		array(
+			'poll-id'         => $poll_id,
+			'thumbnail-size'  => $thumbnail_size,
+			'start_datetime'  => Utilities::get_translated_date( $poll_datetime->start_datetime ),
+			'expire_datetime' => Utilities::get_translated_date( $poll_datetime->expire_datetime ),
+		)
+	);
+} else {
+	echo esc_html( $poll_template_part ) . esc_html__( ' file not found', 'easy-poll' );
+}
 ?>
-	<h2>
-		<?php echo esc_html( get_the_title( $poll_id ) ); ?>
-	</h2>
 
-	<?php if ( '' !== get_the_post_thumbnail( $poll_id ) ) : ?>
-		<?php echo get_the_post_thumbnail( $poll_id, $thumbnail_size ); ?>
-	<?php endif; ?>
-
-	<?php if ( '' !== get_the_content( $poll_id ) ) : ?>
-		<div class="ep-poll-contents">
-			<?php echo wp_kses_post( get_the_content( $poll_id ) ); ?>
-		</div>
-	<?php endif; ?>
-
-	<!-- render poll  -->
-	<?php PollHandler::render_poll( get_the_ID() ); ?>
-	<!-- render poll  -->
 </div>
 
 <?php

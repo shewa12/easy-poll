@@ -109,4 +109,49 @@ class PollHandler {
 		$save = Feedback::save_feedback( $feedback );
 		return $save ? wp_send_json_success() : wp_send_json_error();
 	}
+
+	/**
+	 * Check poll status by the start & expire datetime
+	 *
+	 * @since 1.1.0
+	 *
+	 * @param mixed $start_datetime false|string(y-m-d H:i:s).
+	 * @param mixed $expire_datetime false|string(y-m-d H:i:s).
+	 *
+	 * @return string poll status poll-active|poll-expired|poll-upcoming
+	 */
+	public static function check_poll_status( $start_datetime, $expire_datetime ): string {
+		if ( '' === $start_datetime ) {
+			$start_datetime = false;
+		}
+		if ( '' === $expire_datetime ) {
+			$expire_datetime = false;
+		}
+		$poll_status = 'poll-active';
+		// If poll start time not set then start right away.
+		if ( false !== $start_datetime ) {
+			// Check if poll expire date. False means expire date not set.
+			if ( false !== $expire_datetime && ( time() >= strtotime( $expire_datetime ) ) ) {
+				$poll_status = 'poll-expired';
+			} elseif ( time() < strtotime( $start_datetime ) ) {
+				$poll_status = 'poll-upcoming';
+			}
+		} else {
+			// If poll start datetime set.
+			if ( time() < strtotime( $start_datetime ) ) {
+				$poll_status = 'poll-upcoming';
+			} else {
+				// Expire time not set.
+				if ( false === $expire_datetime ) {
+					$poll_status = 'poll-active';
+				} elseif ( time() >= strtotime( $expire_datetime ) ) {
+					$poll_status = 'poll-expired';
+				} elseif ( time() >= strtotime( $start_datetime ) && time() < strtotime( $expire_datetime ) ) {
+
+					$poll_status = 'poll-active';
+				}
+			}
+		}
+		return $poll_status;
+	}
 }

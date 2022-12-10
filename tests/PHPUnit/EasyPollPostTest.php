@@ -1,55 +1,55 @@
 <?php
 /**
- * Easy poll custom post type
+ * Test EasyPollPost class
  *
- * Register CPT for storing poll
- *
- * @package EasyPoll\CustomPosts
- *
- * @since v1.0.0
+ * @package EasyPoll\Tests
  */
 
-namespace EasyPoll\CustomPosts;
+namespace EasyPoll\Tests\PHPUnit;
 
+use EasyPoll\CustomPosts\EasyPollPost;
 use EasyPoll\Settings\Options;
-
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}
+use WP_Query;
 
 /**
- * Manage easy-poll CPT
+ * Test class methods
  */
-class EasyPollPost implements PostInterface {
+class EasyPollPostTest extends BaseTest {
 
 	/**
-	 * Post type
+	 * Instance of EasyPollPost
 	 *
-	 * @var POST_TYPE
+	 * @var object
 	 */
-	const POST_TYPE = 'easy-poll';
+	private static $easy_poll_post;
 
 	/**
-	 * Get post type
+	 * Run before any test executes
 	 *
-	 * @since v1.0.0
-	 *
-	 * @return string  post type of easy poll
+	 * @return void
 	 */
-	public static function post_type(): string {
-		return self::POST_TYPE;
+	public static function setUpBeforeClass():void {
+		self::$easy_poll_post = new EasyPollPost();
 	}
 
 	/**
-	 * Custom post arguments
+	 * Test post type
 	 *
-	 * @since v1.0.0
-	 *
-	 * @return array  args of custom post
+	 * @return void
 	 */
-	public static function post_args(): array {
+	public function test_post_type() {
+		$expected = 'easy-poll';
+		$this->assertSame( $expected, self::$easy_poll_post::post_type() );
+	}
+
+	/**
+	 * Test post type
+	 *
+	 * @return void
+	 */
+	public function test_post_args() {
 		$poll_slug = Options::get_option( 'ep-poll-slug', 'easy-poll' );
-		return array(
+		$expected  = array(
 			'label'           => __( 'Poll', 'easy-poll' ),
 			'labels'          => array(
 				'name'               => _x( 'Polls', 'post type general name', 'easy-poll' ),
@@ -79,25 +79,17 @@ class EasyPollPost implements PostInterface {
 				'with_front' => true,
 			),
 		);
+
+		$this->assertSame( $expected, self::$easy_poll_post::post_args() );
 	}
 
 	/**
-	 * Get Polls
+	 * Test post type
 	 *
-	 * @since v1.0.0
-	 *
-	 * @param array $args  post args.
-	 *
-	 * @return mixed WP_Query response
+	 * @return void
 	 */
-	public static function get_polls( $args = array() ) {
-		$default_args = array(
-			'post_type' => self::POST_TYPE,
-			'nopaging'  => true,
-		);
-		$args         = wp_parse_args( $args, $default_args );
-		return new \WP_Query(
-			$args
-		);
+	public function test_get_polls_returns_instanceof_wp_query() {
+		$expected = \WP_Query::class;
+		$this->assertInstanceOf( $expected, self::$easy_poll_post::get_polls() );
 	}
 }

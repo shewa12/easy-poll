@@ -17,7 +17,7 @@ $options  = Options::get_settings_options();
 $settings = get_option( Options::OPTION_KEY, false );
 
 if ( ! $settings ) {
-	die( esc_html_e( 'Invalid settings, try re-install the plugin', 'easy-poll') );
+	die( esc_html_e( 'Invalid settings, try re-install the plugin', 'easy-poll' ) );
 }
 ?>
 <div class="wrap">
@@ -65,10 +65,23 @@ if ( ! $settings ) {
 							<textarea type="radio" name="<?php echo esc_html( $option['option_name'] ); ?>" class="regular-text" value="<?php echo esc_attr( $label['value'] ); ?>"><?php echo esc_html( $option_value ); ?></textarea>
 						<?php endif; ?>
 
-						<p class="description">
-							<?php echo esc_html( $option['description'] ); ?>
-						</p>
-						
+						<div class="description">
+							<?php
+							$desc_lines = explode( '\n', $option['description'] );
+							foreach ( $desc_lines as $desc ) {
+								?>
+									<p class="description">
+									<?php
+									echo wp_kses(
+										$desc,
+										Utilities::allowed_tags()
+									);
+									?>
+									</p>
+									<?php
+							}
+							?>
+						</div>
 					</td>
 				</tr>
 			<?php endforeach; ?>

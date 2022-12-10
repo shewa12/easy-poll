@@ -10,6 +10,8 @@
 namespace EasyPoll\CustomPosts;
 
 use EasyPoll\FormBuilder\Feedback;
+use EasyPoll\PollHandler\PollHandler;
+use EasyPoll\Utilities\Utilities;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	return;
@@ -53,6 +55,8 @@ class FilterEasyPollColumns {
 		$modify_columns                     = array();
 		$modify_columns['title']            = __( 'Title', 'easy-poll' );
 		$modify_columns['short_code']       = __( 'Short code', 'easy-poll' );
+		$modify_columns['poll_status']      = __( 'Poll Status', 'easy-poll' );
+		$modify_columns['expire_datetime']  = __( 'Expire at', 'easy-poll' );
 		$modify_columns['total_submission'] = __( 'Total Submission', 'easy-poll' );
 		$modify_columns['author']           = __( 'Author', 'easy-poll' );
 		$modify_columns['date']             = __( 'Date', 'easy-poll' );
@@ -82,7 +86,7 @@ class FilterEasyPollColumns {
 					echo esc_html( "[{$post_type} id={$post_id}]" );
 			}
 			if ( 'total_submission' === $column_name ) {
-				$total = Feedback::total_submission( $post_id );
+				$total          = Feedback::total_submission( $post_id );
 				$submission_url = admin_url( 'admin.php?page=ep-report&poll-id=' . $post_id );
 				if ( $total ) {
 					echo "<a href='" . esc_url( $submission_url ) . "' title='" . esc_attr( 'View Details', 'easy-poll' ) . "'>
@@ -91,6 +95,34 @@ class FilterEasyPollColumns {
 				} else {
 					echo esc_html( $total );
 				}
+			}
+
+			/**
+			 * Show poll status
+			 *
+			 * @since 1.1.0
+			 */
+			if ( 'poll_status' === $column_name ) {
+				$poll_datetime = PostCallBack::get_poll_datetime( $post_id );
+
+				$utc_start_time = $poll_datetime->start_datetime ? Utilities::get_gmt_date_from_timezone_date( $poll_datetime->start_datetime, $poll_datetime->timezone ) : false;
+
+				$utc_expire_time = $poll_datetime->expire_datetime ? Utilities::get_gmt_date_from_timezone_date( $poll_datetime->expire_datetime, $poll_datetime->timezone ) : false;
+
+				$poll_status  = PollHandler::check_poll_status( $utc_start_time, $utc_expire_time );
+				$poll_status  = str_replace( 'poll-', '', $poll_status );
+				$status_class = ( 'upcoming' === $poll_status ? 'primary' : ( 'expired' === $poll_status ? 'danger' : 'success' ) );
+				?>
+				<span class="ep-badge ep-badge-<?php echo esc_attr( $status_class ); ?>">
+					<?php echo esc_html( strtoupper( $poll_status ) ); ?>
+				</span>
+				<?php
+			}
+
+			if ( 'expire_datetime' === $column_name ) {
+				$poll_datetime   = PostCallBack::get_poll_datetime( $post_id );
+				$expire_datetime = '' === $poll_datetime->expire_datetime ? __( 'No Expiry', 'easy-poll' ) : Utilities::get_translated_date( $poll_datetime->expire_datetime );
+				echo esc_html( $expire_datetime );
 			}
 		}
 	}
