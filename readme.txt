@@ -42,9 +42,13 @@ From the Settings sub-menu, you can some settings stuff like whether the guest u
 
 === Frequently Asked Questions ===
 
-= On the front-end Poll showing 404 not found =
+= Can I create multiple choice poll? 
 
-Answer: Make your website permalink is set to post name. If not so, set it & update permalink.
+Answer: Yes. Four type of poll can be created these are:
+Single Choice
+Multiple Choice
+Input type ( for tiny text )
+Textarea type ( for large text )
 
 = How to see submissions list =
 
@@ -54,9 +58,13 @@ Answer: From the Report sub-menu of Easy Poll main menu
 
 Answer: Yes
 
-= Can I create a schedule poll
+= Can I create a schedule poll?
 
 Answer: Yes, you can set poll start & expiration date with any specific timezone
+
+= On the front-end Poll showing 404 not found =
+
+Answer: Make your website permalink is set to post name. If not so, set it & update permalink.
 
 === Screenshots ===
 
