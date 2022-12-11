@@ -390,6 +390,26 @@ class Utilities {
 	}
 
 	/**
+	 * Sanitize get value through callable function
+	 *
+	 * @param string   $key required $_GET key.
+	 * @param callable $callback callable WP sanitize/esc func.
+	 * @param string   $default will be returned if key not set.
+	 *
+	 * @return string
+	 */
+	public static function sanitize_get_field( string $key, callable $callback = null, $default = '' ) {
+		if ( is_null( $callback ) ) {
+			$callback = 'sanitize_text_field';
+		}
+		//phpcs:ignore
+		if ( isset( $_GET[ $key ] ) ) {
+			return call_user_func( $callback, wp_unslash( $_GET[ $key ] ) ); //phpcs:ignore
+		}
+		return $default;
+	}
+
+	/**
 	 * Get allowed tags for using with wp_kses
 	 *
 	 * @since 1.1.0

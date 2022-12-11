@@ -69,8 +69,8 @@ class Report {
 	 */
 	public static function get_report_types(): array {
 		return array(
-			'summary' => __( 'Summary', 'easy-poll' ),
-			'list'    => __( 'List', 'easy-poll' ),
+			'poll-summary'          => __( 'Summary', 'easy-poll' ),
+			'poll-submission-lists' => __( 'Submission List', 'easy-poll' ),
 		);
 	}
 

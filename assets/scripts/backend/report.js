@@ -4,8 +4,6 @@
  * @since v1.0.0
  */
 
-import ajaxRequest from "../utilities/ajax-request";
-
 const { __ } = wp.i18n;
 window.addEventListener("DOMContentLoaded", function () {
 	const reportForm = document.getElementById("ep-report-form");
@@ -13,14 +11,28 @@ window.addEventListener("DOMContentLoaded", function () {
 		reportForm.onsubmit = async (e) => {
 			e.preventDefault();
 			const formData = new FormData(reportForm);
-			window.location = urlPrams("poll-id", formData.get("poll-id"));
+			const paramObj = {
+				"poll-id": formData.get("poll-id"),
+				"report-type": formData.get("ep-report-type"),
+			};
+			window.location = urlPrams(paramObj);
 		};
 	}
 
-	function urlPrams(type, val) {
+	/**
+	 * Set URL params
+	 *
+	 * @param {*} paramObj key & value pair of paramObj
+	 * For ex: {id: 2, name: 'abc'}
+	 *
+	 * @returns string new URL
+	 */
+	function urlPrams(paramObj) {
 		const url = new URL(window.location.href);
 		const params = url.searchParams;
-		params.set(type, val);
+		for (let [k, v] of Object.entries(paramObj)) {
+			params.set(k, v);
+		}
 		params.set("paged", 1);
 		return url;
 	}

@@ -128,6 +128,13 @@ $prefix: ep;
 	margin-bottom: 30px;
 }
 
+
+.#{$prefix}-p-10 {
+	padding: 10px;
+}
+.#{$prefix}-p-20 {
+	padding: 20px;
+}
 .#{$prefix}-pt-10 {
 	padding-top: 10px;
 }
@@ -151,6 +158,18 @@ $prefix: ep;
 }
 .#{$prefix}-pr-20 {
 	padding-right: 20px;
+}
+.#{$prefix}-px-10 {
+	padding: 0 10px;
+}
+.#{$prefix}-px-20 {
+	padding: 0 20px;
+}
+.#{$prefix}-py-10 {
+	padding: 10px 0;
+}
+.#{$prefix}-px-20 {
+	padding: 20x 0;
 }
 
 // Color vars
