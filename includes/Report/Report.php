@@ -63,6 +63,18 @@ class Report {
 	}
 
 	/**
+	 * Get report type
+	 *
+	 * @return array
+	 */
+	public static function get_report_types(): array {
+		return array(
+			'summary' => __( 'Summary', 'easy-poll' ),
+			'list'    => __( 'List', 'easy-poll' ),
+		);
+	}
+
+	/**
 	 * Get submission list by poll id
 	 *
 	 * @param int $poll_id  poll id required.

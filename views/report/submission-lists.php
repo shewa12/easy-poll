@@ -21,7 +21,8 @@ $offset           = ( $item_per_page * $current_page ) - $item_per_page;
 $submission_lists = $report->get_submission_list( $poll_id, $item_per_page, $offset );
 $total_count      = $report->count_submissions( $poll_id );
 
-$polls = EasyPollPost::get_polls();
+$polls        = EasyPollPost::get_polls();
+$report_types = Report::get_report_types();
 ?>
 <div class="wrap ep-d-flex ep-flex-column ep-gap-10">
 	<!-- form  -->
@@ -32,6 +33,9 @@ $polls = EasyPollPost::get_polls();
 			</label>
 			<select name="poll-id" id="bulk-action-selector-top">
 				<?php if ( $polls->have_posts() ) : ?>
+					<option value="">
+						<?php esc_html_e( 'Select a poll', 'easy-poll' ); ?>
+					</option>
 					<?php
 					while ( $polls->have_posts() ) :
 						$polls->the_post();
@@ -46,6 +50,13 @@ $polls = EasyPollPost::get_polls();
 					</option>
 				<?php endif; ?>
 				<?php wp_reset_postdata(); ?>
+			</select>
+			<select name="ep-report-type">
+				<?php foreach ( $report_types as $key => $value ) : ?>
+					<option value="<?php echo esc_attr( $key ); ?>">
+						<?php echo esc_html( $value ); ?>
+					</option>
+				<?php endforeach; ?>
 			</select>
 			<input type="submit" id="doaction" class="button action" value="<?php esc_attr_e( 'Apply', 'easy-poll' ); ?>">
 		</div>
@@ -124,7 +135,7 @@ $polls = EasyPollPost::get_polls();
 		<?php if ( $total_count ) : ?>
 			<div class="ep-submission-pagination ep-pagination">
 				<?php
-					$big = 999999999; // Need an unlikely integer.
+					$big  = 999999999; // Need an unlikely integer.
 					$base = html_entity_decode( str_replace( $big, '%#%', esc_url( admin_url( $big ) . "admin.php?page=ep-report&poll-id={$poll_id}&paged=%#%" ) ) );
 
 					// phpcs:ignore
