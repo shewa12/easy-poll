@@ -16,6 +16,7 @@ use EasyPoll\Utilities\Utilities;
 
 $poll_id      = (int) Utilities::sanitize_get_field( 'poll-id' );
 $report_type  = Utilities::sanitize_get_field( 'report-type' );
+$report_type  = '' === $report_type ? 'report-overview' : $report_type;
 $polls        = EasyPollPost::get_polls();
 $report_types = Report::get_report_types();
 
