@@ -51,6 +51,15 @@ class Enqueue {
 			// add data to use in js files.
 			wp_add_inline_script( 'ep-backend-script', 'const epData = ' . json_encode( self::scripts_data() ), 'before' );
 		}
+
+		/**
+		 * On the backend report page enqueue chart js
+		 *
+		 * @since 1.2.0
+		 */
+		if ( 'ep-report' === $page ) {
+			self::enqueue_chart_js();
+		}
 	}
 
 	/**
@@ -113,5 +122,32 @@ class Enqueue {
 		$plugin_data = EasyPoll::plugin_data();
 
 		wp_set_script_translations( 'ep-frontend-scripts', $plugin_data['plugin_path'] . 'languages/' );
+	}
+
+	/**
+	 * Enqueue chart js scripts
+	 *
+	 * @since 1.2.0
+	 *
+	 * @return void
+	 */
+	public static function enqueue_chart_js() {
+		$plugin_data = EasyPoll::plugin_data();
+		// Plugin min script.
+		wp_enqueue_script(
+			'ep-chart',
+			$plugin_data['assets'] . 'lib/chart/chart.js',
+			array(),
+			filemtime( $plugin_data['plugin_path'] . 'assets/lib/chart/chart.js' ),
+			true
+		);
+		// Chart config script.
+		wp_enqueue_script(
+			'ep-chart-config',
+			$plugin_data['assets'] . 'lib/chart/chart-config.js',
+			array(),
+			filemtime( $plugin_data['plugin_path'] . 'assets/lib/chart/chart-config.js' ),
+			true
+		);
 	}
 }
