@@ -15,21 +15,21 @@
 	<div class="ep-row">
 		<div class="ep-card ep-p-20  ep-col-4">
 			<p>
-				Active Polls
+				<?php esc_html_e( 'Active Polls', 'easy-poll' ); ?>
 			</p>
-			<strong>100</strong>
+			<strong class="ep-text-extra-large">100</strong>
 		</div>
 		<div class="ep-card ep-p-20  ep-col-4">
 			<p>
-				Upcoming Polls
+				<?php esc_html_e( 'Upcoming Polls', 'easy-poll' ); ?>
 			</p>
-			<strong>100</strong>
+			<strong class="ep-text-extra-large">100</strong>
 		</div>
 		<div class="ep-card ep-p-20 ep-col-4">
 			<p>
-				Active Polls
+			<?php esc_html_e( 'Expired Polls', 'easy-poll' ); ?>
 			</p>
-			<strong>100</strong>
+			<strong class="ep-text-extra-large">100</strong>
 		</div>
 	</div>
 	<!-- active polls chart  -->

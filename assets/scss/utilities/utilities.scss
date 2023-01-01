@@ -295,6 +295,18 @@ $alertSuccessBorderColor: #badbcc;
 	flex-direction: column;
 	background-color: #fff;
 	border: 1px solid $alertPrimaryBackground;
+	&.ep-card-primary {
+		background-color: $primary;
+	}
+	&.ep-card-success {
+		background-color: $success;
+	}
+	&.ep-card-warning {
+		background-color: $warning;
+	}
+	&.ep-card-danger {
+		background-color: $danger;
+	}
 	.ep-card-collapse {
 		cursor: pointer;
 	}
@@ -315,6 +327,20 @@ $alertSuccessBorderColor: #badbcc;
 		padding: 5px 8px;
 		margin: 0 3px;
 	}
+}
+
+// Text
+.ep-text-small {
+	font-weight: 300;
+	font-size: 12px;
+}
+.ep-text-large {
+	font-weight: 500;
+	font-size: 24px;
+}
+.ep-text-extra-large {
+	font-weight: 800;
+	font-size: 32px;
 }
 
 // Badge
