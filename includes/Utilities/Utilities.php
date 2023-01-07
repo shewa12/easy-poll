@@ -293,9 +293,13 @@ class Utilities {
 	 * @param string $timezone  timezone.
 	 * @param string $format    optional date format to get formatted date.
 	 *
-	 * @return string date time.
+	 * @return string date time| empty string.
 	 */
 	public static function get_gmt_date_from_timezone_date( $datetime, $timezone, $format = '' ) {
+		if ( ! trim( $datetime ) || ! trim( $timezone ) ) {
+			return '';
+		}
+
 		if ( '' === $format ) {
 			$format = get_option( 'date_format' ) . ' ' . get_option( 'time_format' );
 		}
