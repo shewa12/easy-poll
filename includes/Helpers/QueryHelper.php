@@ -7,6 +7,9 @@
 
 namespace EasyPoll\Helpers;
 
+use EasyPoll\CustomPosts\EasyPollPost;
+use WP_Query;
+
 /**
  * This class is for using from derived class.
  * Derived class must have $table_name property.
@@ -316,5 +319,23 @@ class QueryHelper {
 				1
 			)
 		);
+	}
+
+	/**
+	 * Get posts by wp_query
+	 *
+	 * @since 1.2.0
+	 * @param array $args post args.
+	 *
+	 * @return WP_Query
+	 */
+	public static function wp_query( array $args = array() ) {
+		$default_args = array(
+			'post_type'   => EasyPollPost::POST_TYPE,
+			'post_status' => 'publish',
+		);
+
+		$args = wp_parse_args( $args, $default_args );
+		return new WP_Query( $args );
 	}
 }

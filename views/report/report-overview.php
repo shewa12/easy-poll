@@ -7,6 +7,9 @@
  * @subpackage EasyPoll\ReportOverview
  */
 
+use EasyPoll\Report\Report;
+
+$statistics = Report::get_poll_statistics();
 ?>
 <div class="ep-card ep-p-10">
 	<h3>
@@ -17,19 +20,25 @@
 			<p>
 				<?php esc_html_e( 'Active Polls', 'easy-poll' ); ?>
 			</p>
-			<strong class="ep-text-extra-large">100</strong>
+			<strong class="ep-text-extra-large">
+				<?php echo esc_html( $statistics->active ); ?>
+			</strong>
 		</div>
 		<div class="ep-card ep-p-20  ep-col-4">
 			<p>
 				<?php esc_html_e( 'Upcoming Polls', 'easy-poll' ); ?>
 			</p>
-			<strong class="ep-text-extra-large">100</strong>
+			<strong class="ep-text-extra-large">
+				<?php echo esc_html( $statistics->upcoming ); ?>
+			</strong>
 		</div>
 		<div class="ep-card ep-p-20 ep-col-4">
 			<p>
 			<?php esc_html_e( 'Expired Polls', 'easy-poll' ); ?>
 			</p>
-			<strong class="ep-text-extra-large">100</strong>
+			<strong class="ep-text-extra-large">
+				<?php echo esc_html( $statistics->expired ); ?>
+			</strong>
 		</div>
 	</div>
 	<!-- active polls chart  -->

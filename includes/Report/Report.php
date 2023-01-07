@@ -9,9 +9,14 @@
 
 namespace EasyPoll\Report;
 
+use EasyPoll\CustomPosts\EasyPollPost;
+use EasyPoll\CustomPosts\PostCallBack;
 use EasyPoll\Database\EasyPollFeedback;
 use EasyPoll\Database\EasyPollFields;
 use EasyPoll\Database\EasyPollOptions;
+use EasyPoll\Helpers\QueryHelper;
+use EasyPoll\PollHandler\PollHandler;
+use WP_Query;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -159,5 +164,69 @@ class Report {
 		);
 		// @codingStandardsIgnoreEnd
 		return (int) count( $total_count );
+	}
+
+	/**
+	 * Get poll statistics
+	 *
+	 * @since 1.2.0
+	 *
+	 * @param bool $lists if true then it will provide lists
+	 * otherwise post counts.
+	 *
+	 * @return object
+	 */
+	public static function get_poll_statistics( bool $lists = false ): object {
+		$active_poll   = 0;
+		$expired_poll  = 0;
+		$upcoming_poll = 0;
+
+		$active_list   = array();
+		$upcoming_list = array();
+		$expired_list  = array();
+
+		$args = array(
+			'no_found_rows'          => true,
+			'update_post_term_cache' => false,
+			'posts_per_page'         => 1000,
+		);
+
+		// If lists false then fetch only ids.
+		if ( false === $lists ) {
+			$args['fields'] = 'ids';
+		}
+
+		$query = QueryHelper::wp_query( $args );
+		$posts = $query->get_posts();
+		foreach ( $posts as $post ) {
+			$datetime = PostCallBack::get_poll_datetime( is_object( $post ) ? $post->ID : $post );
+			$status   = PollHandler::check_poll_status( $datetime->start_datetime, $datetime->expire_datetime );
+
+			if ( 'poll-active' === $status ) {
+				$active_poll++;
+				array_push( $active_list, $post );
+			} elseif ( 'poll-expired' === $status ) {
+				$expired_poll++;
+				array_push( $expired_list, $post );
+			} else {
+				$upcoming_poll++;
+				array_push( $upcoming_list, $post );
+			}
+		}
+
+		if ( false === $lists ) {
+			$response = array(
+				'active'   => $active_poll,
+				'expired'  => $expired_poll,
+				'upcoming' => $upcoming_poll,
+			);
+		} else {
+			$response = array(
+				'active'   => $active_list,
+				'expired'  => $expired_list,
+				'upcoming' => $upcoming_list,
+			);
+		}
+		return (object) $response;
 	}
 }
