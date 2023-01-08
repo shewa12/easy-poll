@@ -105,12 +105,18 @@ class Utilities {
 	 *
 	 * @since v1.0.0
 	 *
-	 * @return void
+	 * @param bool $die whether to die or not.
+	 *
+	 * @return bool if die false otherwise it will die
 	 */
-	public static function verify_nonce() {
+	public static function verify_nonce( bool $die = true ) {
 		$plugin_data = EasyPoll::plugin_data();
 		if ( isset( $_POST[ $plugin_data['nonce'] ] ) && ! wp_verify_nonce( $_POST[ $plugin_data['nonce'] ], $plugin_data['nonce_action'] ) ) {
-			die( __( 'Tutor periscope nonce verification failed', 'tutor-periscope' ) );
+			if ( $die ) {
+				die( esc_html_e( 'Easy poll nonce verification failed', 'easy-poll' ) );
+			} else {
+				return false;
+			}
 		}
 	}
 

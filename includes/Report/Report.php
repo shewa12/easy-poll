@@ -14,8 +14,10 @@ use EasyPoll\CustomPosts\PostCallBack;
 use EasyPoll\Database\EasyPollFeedback;
 use EasyPoll\Database\EasyPollFields;
 use EasyPoll\Database\EasyPollOptions;
+use EasyPoll\FormBuilder\Feedback;
 use EasyPoll\Helpers\QueryHelper;
 use EasyPoll\PollHandler\PollHandler;
+use EasyPoll\Utilities\Utilities;
 use WP_Query;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -65,6 +67,8 @@ class Report {
 		$this->field_table    = $wpdb->prefix . EasyPollFields::get_table();
 		$this->option_table   = $wpdb->prefix . EasyPollOptions::get_table();
 		$this->feedback_table = $wpdb->prefix . EasyPollFeedback::get_table();
+
+		add_action( 'wp_ajax_ep_get_active_polls_report', __CLASS__ . '::get_active_polls_report' );
 	}
 
 	/**
@@ -228,5 +232,45 @@ class Report {
 			);
 		}
 		return (object) $response;
+	}
+
+	/**
+	 * Get active polls report
+	 *
+	 * @since 1.2.0
+	 *
+	 * @param integer $days report days. Report will be
+	 * generated as per mention days. Default is 7 days which
+	 * means report between (current_date - 7 days) AND current_date.
+	 *
+	 * @return array
+	 */
+	public static function active_polls_report( int $days = 7 ): array {
+		$get_polls    = self::get_poll_statistics( true );
+		$active_polls = $get_polls->active;
+
+		// Get total submission for each based on days.
+		foreach ( $active_polls as $poll ) {
+			$total_submission       = Feedback::total_submission( $poll->ID, 7 );
+			$poll->total_submission = $total_submission;
+		}
+		return is_array( $active_polls ) && count( $active_polls ) ? $active_polls : array();
+	}
+
+	/**
+	 * Get active polls request ajax handler
+	 *
+	 * @since 1.2.0
+	 *
+	 * @return void send wp_json response
+	 */
+	public static function get_active_polls_report() {
+		;
+		if ( false !== Utilities::verify_nonce( false ) ) {
+			$active_polls = self::active_polls_report();
+			wp_send_json_success( $active_polls );
+		} else {
+			wp_send_json_error( __( 'Nonce verification failed', 'easy-poll' ) );
+		}
 	}
 }
