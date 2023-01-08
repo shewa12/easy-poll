@@ -107,10 +107,12 @@ class Feedback {
 	 * @since v1.0.0
 	 *
 	 * @param int $poll_id  poll id to check.
+	 * @param int $days report for how many days. default
+	 * is 0 which means all time report.
 	 *
 	 * @return int  total submitted feedback
 	 */
-	public static function total_submission( int $poll_id ): int {
+	public static function total_submission( int $poll_id, int $days = 0 ): int {
 		global $wpdb;
 
 		$poll_table     = $wpdb->posts;
@@ -118,6 +120,11 @@ class Feedback {
 		$feedback_table = $wpdb->prefix . EasyPollFeedback::get_table();
 
 		$poll_id   = Utilities::sanitize( $poll_id );
+
+		$days_clause = '';
+		if ( $days ) {
+			$days_clause = "AND DATE(feedback.created_at) BETWEEN (DATE_SUB( CURDATE(), INTERVAL $days DAY )) AND CURDATE()";
+		}
 
 		$total = $wpdb->get_var(
 			$wpdb->prepare(
@@ -135,6 +142,7 @@ class Feedback {
 					AND poll.post_type = %s
 
 				WHERE poll.ID = %d
+				{$days_clause}
 				",
 				EasyPollPost::post_type(),
 				$poll_id

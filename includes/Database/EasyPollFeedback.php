@@ -60,6 +60,7 @@ class EasyPollFeedback extends DatabaseTable {
 		user_id INT(9) NOT NULL DEFAULT 0,
         feedback LONGTEXT,
 		user_ip VARCHAR(255),
+		created_at TIMESTAMP default CURRENT_TIMESTAMP,
         PRIMARY KEY  (id)
         )  ENGINE = INNODB
         $charset_collate;";
