@@ -48,6 +48,7 @@ $statistics = Report::get_poll_statistics();
 		</h3>
 	</div>
 	<div class="ep-row">
+		<div id="ep-loading-msg"></div>
 		<canvas id="ep-active-polls-chart"></canvas>
 	</div>
 	<!-- active polls chart end -->

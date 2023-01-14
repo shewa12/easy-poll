@@ -5,10 +5,17 @@ document.addEventListener('DOMContentLoaded', async function() {
     formData.set(epData.nonce_action, epData.nonce);
     formData.set('action', 'ep_get_active_polls_report');
 
+    // Show loading message
+    const loadingWrapper = document.getElementById('ep-loading-msg');
+    loadingWrapper.innerHTML = 'Generating report...';
+
     const post = await fetch(epData.url, {
         method: 'POST',
         body: formData,
     });
+
+    loadingWrapper.innerHTML = '';
+
     if (post.ok) {
         const response = await post.json();
         const {success, data} = response;
