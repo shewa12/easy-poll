@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', async function() {
                                     if (label.length > 10) {
                                         label = label.substring(0, 12) + '...';
                                     }
-                                    return `Poll: ${label}`;
+                                    return label;
                                 }
                             },
                         }
