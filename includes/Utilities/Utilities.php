@@ -48,7 +48,7 @@ class Utilities {
 	 * Load template file
 	 *
 	 * @param string $template  required views relative path,
-	 * path should be before views folder.
+	 * path should be after views folder. Ex: components/admin-header.php.
 	 * @param mixed  $data  data that will be available on the file.
 	 * @param bool   $once  if true file will be included once.
 	 *

@@ -19,6 +19,17 @@ $settings = get_option( Options::OPTION_KEY, false );
 if ( ! $settings ) {
 	die( esc_html_e( 'Invalid settings, try re-install the plugin', 'easy-poll' ) );
 }
+
+$plugin_data = EasyPoll::plugin_data();
+$page_header = $plugin_data['views'] . 'components/admin-header.php';
+
+// Loading page header.
+Utilities::load_views(
+	'components/admin-header.php',
+	array(
+		'page-title' => __( 'Settings', 'easy-poll' ),
+	)
+);
 ?>
 <div class="wrap">
 	<form action="" method="post" id="ep-setting-form">

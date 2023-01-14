@@ -20,7 +20,18 @@ $report_type  = '' === $report_type ? 'report-overview' : $report_type;
 $polls        = EasyPollPost::get_polls();
 $report_types = Report::get_report_types();
 
+$plugin_data = EasyPoll::plugin_data();
+$page_header = $plugin_data['views'] . 'components/admin-header.php';
+
+// Loading page header.
+Utilities::load_views(
+	'components/admin-header.php',
+	array(
+		'page-title' => __( 'Report', 'easy-poll' ), 
+	)
+);
 ?>
+
 <div class="wrap ep-d-flex ep-flex-column ep-gap-10">
 	<!-- form  -->
 	<form action="" method="get" id="ep-report-form">
@@ -62,7 +73,6 @@ $report_types = Report::get_report_types();
 
 	<!-- load report view based on report type -->
 	<?php
-	$plugin_data = EasyPoll::plugin_data();
 	$report_view = $plugin_data['views'] . 'report/' . $report_type . '.php';
 
 	if ( file_exists( $report_view ) ) {
