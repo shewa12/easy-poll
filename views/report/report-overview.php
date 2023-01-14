@@ -18,7 +18,7 @@ $statistics = Report::get_poll_statistics();
 	<div class="ep-row">
 		<div class="ep-card ep-p-20  ep-col-4">
 			<p>
-				<?php esc_html_e( 'Active Polls', 'easy-poll' ); ?>
+				<?php esc_html_e( 'Active', 'easy-poll' ); ?>
 			</p>
 			<strong class="ep-text-extra-large">
 				<?php echo esc_html( $statistics->active ); ?>
@@ -26,7 +26,7 @@ $statistics = Report::get_poll_statistics();
 		</div>
 		<div class="ep-card ep-p-20  ep-col-4">
 			<p>
-				<?php esc_html_e( 'Upcoming Polls', 'easy-poll' ); ?>
+				<?php esc_html_e( 'Upcoming', 'easy-poll' ); ?>
 			</p>
 			<strong class="ep-text-extra-large">
 				<?php echo esc_html( $statistics->upcoming ); ?>
@@ -34,7 +34,7 @@ $statistics = Report::get_poll_statistics();
 		</div>
 		<div class="ep-card ep-p-20 ep-col-4">
 			<p>
-			<?php esc_html_e( 'Expired Polls', 'easy-poll' ); ?>
+			<?php esc_html_e( 'Expired', 'easy-poll' ); ?>
 			</p>
 			<strong class="ep-text-extra-large">
 				<?php echo esc_html( $statistics->expired ); ?>

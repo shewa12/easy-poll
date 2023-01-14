@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', async function() {
                     labels: labels,
                     datasets: [
                         {
-                            label: "Poll Bars",
+                            label: "Polls",
                             data: votes,
                             borderWidth: 1,
                         },
