@@ -368,3 +368,39 @@ $alertSuccessBorderColor: #badbcc;
 		@include badge( $danger );
 	}
 }
+
+// progress bar
+.ep-progress-bar {
+	width: 100%;
+	min-height: 20px;
+	background-color: #ddd;
+	border-radius: 10px;
+	position: relative;
+	.ep-progress {
+		height: 100%;
+		background-color: $primary;
+		border-radius: 10px;
+		border-top-right-radius: 0;
+		border-bottom-right-radius: 0;
+		border-top-left-radius: 10px;
+		border-bottom-left-radius: 10px;
+		display: flex;
+		align-items: center;
+	}
+	.ep-progress-text {
+		position: absolute;
+		top: 5px;
+		left: 10%;
+		color: #fff;
+		font-size: 14px;
+		line-height: 10px;
+		white-space: normal; /* allow text to wrap to next line */
+		overflow: visible; /* show text that overflows the container */
+		min-height: 20px; /* set minimum height to match the container */
+		width: 100%; 
+	}
+}
+  
+
+
+  

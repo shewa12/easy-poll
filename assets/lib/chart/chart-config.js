@@ -16,7 +16,6 @@ document.addEventListener('DOMContentLoaded', async function() {
         if (success) {
             const labels = [];
             const votes = [];
-            console.log(labels);
             for(poll of data) {
                 labels.push(poll.post_title)
                 votes.push(poll.total_submission)

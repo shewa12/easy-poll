@@ -273,4 +273,50 @@ class Report {
 			wp_send_json_error( __( 'Nonce verification failed', 'easy-poll' ) );
 		}
 	}
+
+	/**
+	 * Get poll percentage statistics for single
+	 * type question
+	 *
+	 * @since 1.2.0
+	 *
+	 * @param integer $poll_id poll id.
+	 *
+	 * @return object wpdb::get_results() response
+	 */
+	public function get_poll_percentage_statistics( int $poll_id ) {
+		global $wpdb;
+		$poll_id   = Utilities::sanitize( $poll_id );
+		$cache_key = 'ep-poll-percentage-statistics-' . $poll_id;
+
+		$query = $wpdb->prepare(
+			"SELECT options.option_label,
+				question.field_label,
+				COUNT(userFeedback.feedback) AS total_answers, 
+				ROUND((COUNT(userFeedback.feedback) / 
+					(SELECT COUNT(*) FROM {$this->feedback_table}
+					WHERE field_id = question.id)) * 100) AS percentage
+
+				FROM {$this->field_table} AS question
+
+				LEFT JOIN {$this->option_table} AS options 
+					ON question.id = options.field_id
+
+				LEFT JOIN {$this->feedback_table} AS userFeedback 
+				   ON TRIM(userFeedback.feedback) = TRIM(options.option_label)
+
+				WHERE question.poll_id = %d 
+					AND question.field_type = 'single_choice'
+				GROUP BY options.option_label, question.id
+			",
+			$poll_id
+		);
+
+		$results = wp_cache_get( $cache_key );
+		if ( false === $results ) {
+			wp_cache_set( $cache_key, $wpdb->get_results( $query ) );
+			$results = wp_cache_get( $cache_key );
+		}
+		return $results;
+	}
 }

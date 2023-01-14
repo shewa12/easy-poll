@@ -1,13 +1,8 @@
 body {
-    background-color: rebeccapurple;
-    p {
-        color: aliceblue;
-    }
-    .header {
-        nav {
-            li {
-                color: antiquewhite;
-            }
+    .ep-progress-bar-wrapper {
+        @media screen and (max-width: 1024px) {
+            width: 100%;
         }
+        width: 60%;
     }
 }

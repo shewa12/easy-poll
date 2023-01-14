@@ -60,6 +60,8 @@ class Enqueue {
 		if ( 'ep-report' === $page ) {
 			self::enqueue_chart_js();
 		}
+
+		self::common_scripts();
 	}
 
 	/**
@@ -83,6 +85,8 @@ class Enqueue {
 
 		// Add data to use in js files.
 		wp_add_inline_script( 'ep-frontend-script', 'const epData = ' . json_encode( self::scripts_data() ), 'before' );
+
+		self::common_scripts();
 	}
 
 	/**
@@ -149,5 +153,18 @@ class Enqueue {
 			filemtime( $plugin_data['plugin_path'] . 'assets/lib/chart/chart-config.js' ),
 			true
 		);
+	}
+
+	/**
+	 * Enqueue common scripts & styles
+	 *
+	 * @since 1.2.0
+	 *
+	 * @return void
+	 */
+	public static function common_scripts() {
+		$plugin_data = EasyPoll::plugin_data();
+
+		wp_enqueue_style( 'ep-common-style', $plugin_data['assets'] . 'bundles/common-style.min.css', array(), filemtime( $plugin_data['plugin_path'] . 'assets/bundles/common-style.min.css' ) );
 	}
 }
