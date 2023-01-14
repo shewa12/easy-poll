@@ -16,10 +16,12 @@ document.addEventListener('DOMContentLoaded', async function() {
         if (success) {
             const labels = [];
             const votes = [];
+            console.log(labels);
             for(poll of data) {
                 labels.push(poll.post_title)
                 votes.push(poll.total_submission)
             }
+
             new Chart(ctx, {
                 type: "bar",
                 data: {
@@ -35,11 +37,25 @@ document.addEventListener('DOMContentLoaded', async function() {
                 options: {
                     scales: {
                         y: {
-                            beginAtZero: true,
+
+                            beginAtZero: true
                         },
-                    },
-                },
+                        x: {
+                            ticks:{
+                                callback: function(i) {
+                                    let label = labels[i];
+                                    if (label.length > 10) {
+                                        label = label.substring(0, 12) + '...';
+                                    }
+                                    return `Poll: ${label}`;
+                                }
+                            },
+                        }
+                    }
+                }
+                
             });
+            
         } else {
             alert(data);
         }
