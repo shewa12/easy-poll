@@ -26,7 +26,7 @@
 		</div>
 		<div class="ep-percentage ep-pl-10">
 			<strong style="font-size: 16px;">
-				<?php echo esc_html( $statistic->percentage . '%' ); ?>
+				<?php echo esc_html( (int) $statistic->percentage . '%' ); ?>
 			</strong>
 		</div>
 	</div>
