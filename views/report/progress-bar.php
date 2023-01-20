@@ -18,14 +18,14 @@
 	$progress = (int) $statistic->percentage;
 	?>
 	<div class="ep-d-flex ep-progress-bar-wrapper">
-		<div class="ep-progress-bar ep-mb-10">
+		<div class="ep-col-10 ep-progress-bar ep-mb-10">
 			<div class="ep-progress ep-progress-<?php echo esc_attr( $progress ); ?>" style="width: <?php echo (int) esc_attr( $progress ) . '%'; ?>">
 			</div>
 			<span class="ep-progress-text">
 				<?php echo esc_html( $statistic->option_label ); ?>
 			</span>
 		</div>
-		<div class="ep-percentage ep-pl-10">
+		<div class="ep-col-2 ep-percentage ep-pl-10">
 			<strong style="font-size: 16px;">
 				<?php echo esc_html( (int) $statistic->percentage . '%' ); ?>
 			</strong>

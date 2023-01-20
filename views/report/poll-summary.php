@@ -14,17 +14,20 @@ $poll_id     = Utilities::sanitize_get_field( 'poll-id' );
 $report      = new Report();
 $statistics  = $report->get_poll_percentage_statistics( $poll_id );
 $plugin_data = EasyPoll::plugin_data();
+
 ?>
 <div class="ep-card ep-px-20 ep-pb-20">
 
 	<?php if ( is_array( $statistics ) && count( $statistics ) ) : ?>
 		<?php
+			$question_index = 0;
 			$questions = array_unique( array_column( $statistics, 'field_label' ) );
 		foreach ( $questions as $key => $question ) :
+			$question_index++;
 			?>
 		<div>
 			<h3>
-				<?php echo esc_html( 'Q.' . $key + 1 . ') ' ) . esc_html( $question ); ?>
+				<?php echo esc_html( 'Q.' . $question_index . ') ' ) . esc_html( $question ); ?>
 			</h3>
 			<?php
 			$progress_bar_template = $plugin_data['views'] . 'report/progress-bar.php';
