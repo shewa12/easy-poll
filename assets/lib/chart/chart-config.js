@@ -41,6 +41,7 @@ document.addEventListener('DOMContentLoaded', async function() {
                     ],
                 },
                 options: {
+                    barThickness: 50,
                     scales: {
                         y: {
 
