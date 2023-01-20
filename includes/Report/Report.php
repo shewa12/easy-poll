@@ -203,8 +203,12 @@ class Report {
 		$query = QueryHelper::wp_query( $args );
 		$posts = $query->get_posts();
 		foreach ( $posts as $post ) {
-			$datetime = PostCallBack::get_poll_datetime( is_object( $post ) ? $post->ID : $post );
-			$status   = PollHandler::check_poll_status( $datetime->start_datetime, $datetime->expire_datetime );
+			$datetime       = PostCallBack::get_poll_datetime( is_object( $post ) ? $post->ID : $post );
+			$utc_start_time = $datetime->start_datetime ? Utilities::get_gmt_date_from_timezone_date( $datetime->start_datetime, $datetime->timezone ) : false;
+
+			$utc_expire_time = $datetime->expire_datetime ? Utilities::get_gmt_date_from_timezone_date( $datetime->expire_datetime, $datetime->timezone ) : false;
+
+			$status = PollHandler::check_poll_status( $utc_start_time, $utc_expire_time );
 
 			if ( 'poll-active' === $status ) {
 				$active_poll++;
