@@ -386,6 +386,10 @@ $alertSuccessBorderColor: #badbcc;
 		border-bottom-left-radius: 10px;
 		display: flex;
 		align-items: center;
+		&.ep-progress-100 {
+			border-top-right-radius: 10px !important;
+			border-bottom-right-radius: 10px !important;
+		}
 	}
 	.ep-progress-text {
 		position: absolute;
