@@ -11,6 +11,7 @@ namespace EasyPoll\Assets;
 
 use EasyPoll;
 use EasyPoll\Settings\Options;
+use EasyPoll\Utilities\Utilities;
 
 /**
  * Enqueue styles & scripts
@@ -30,6 +31,9 @@ class Enqueue {
 		// Set up script translation.
 		add_action( 'admin_enqueue_scripts', __CLASS__ . '::backend_translation' );
 		add_action( 'wp_enqueue_scripts', __CLASS__ . '::frontend_translation' );
+
+		// Remove admin notices.
+		add_action( 'admin_init', __CLASS__ . '::remove_all_notices' );
 	}
 
 	/**
@@ -167,4 +171,19 @@ class Enqueue {
 
 		wp_enqueue_style( 'ep-common-style', $plugin_data['assets'] . 'bundles/common-style.min.css', array(), filemtime( $plugin_data['plugin_path'] . 'assets/bundles/common-style.min.css' ) );
 	}
+
+	/**
+	 * Remove all admin notices
+	 *
+	 * @since 1.2.0
+	 *
+	 * @return void
+	 */
+	public static function remove_all_notices() {
+		$current_page = Utilities::sanitize_get_field( 'page' );
+		if ( 'ep-report' === $current_page || 'ep-settings' === $current_page ) {
+			remove_all_actions( 'admin_notices' );
+		}
+	}
+
 }
