@@ -1,9 +1,9 @@
 === Easy Poll - multi-purpose poll system ===
 Contributors: shewa12
-Donate link: https://shewazone.com/donate
+Donate link: https://www.buymeacoffee.com/shewa
 Tags: Poll, survey, feedback, contact, form
 Requires at least: 5.3
-Tested up to: 6.1
+Tested up to: 6.1.2
 Requires PHP: 7.0
 Stable tag: 1.2.0
 License: GPLv3

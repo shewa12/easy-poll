@@ -34,6 +34,7 @@ class Enqueue {
 
 		// Remove admin notices.
 		add_action( 'admin_init', __CLASS__ . '::remove_all_notices' );
+		add_filter( 'admin_footer_text', __CLASS__ . '::admin_footer_text' );
 	}
 
 	/**
@@ -186,4 +187,21 @@ class Enqueue {
 		}
 	}
 
+	/**
+	 * Modify admin footer text
+	 *
+	 * @since 1.2.0
+	 *
+	 * @param string $text default text.
+	 *
+	 * @return string
+	 */
+	public static function admin_footer_text( $text ) {
+		$current_page = Utilities::sanitize_get_field( 'page' );
+		$post_type    = Utilities::sanitize_get_field( 'post_type' );
+		if ( 'ep-report' === $current_page || 'ep-settings' === $current_page || 'easy-poll' === $post_type ) {
+			$text = 'If you like <strong>Easy Poll</strong>. Please consider <a href="https://www.buymeacoffee.com/shewa" target="_blank">donating</a> to support the future development and maintenance of this plugin.';
+		}
+		return $text;
+	}
 }
