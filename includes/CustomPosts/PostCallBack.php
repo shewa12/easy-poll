@@ -53,6 +53,15 @@ class PostCallBack {
 	const POLL_DATETIME_TZ = 'ep-poll-datetime-tz';
 
 	/**
+	 * Show poll summary meta key
+	 *
+	 * @since 1.2.0
+	 *
+	 * @var string
+	 */
+	const SHOW_POLL_SUMMARY_KEY = 'ep-show-poll-summary';
+
+	/**
 	 * Register hooks
 	 *
 	 * @since 1.1.0
@@ -85,6 +94,10 @@ class PostCallBack {
 		update_post_meta( $post_id, self::POLL_START_DATETIME, $start_datetime );
 		update_post_meta( $post_id, self::POLL_EXPIRE_DATETIME, $expire_datetime );
 		update_post_meta( $post_id, self::POLL_DATETIME_TZ, $timezone );
+
+		// Show poll summary to users after submit.
+		$show = (int) isset( $_POST['ep-show-poll-summary'] );
+		update_post_meta( $post_id, self::SHOW_POLL_SUMMARY_KEY, $show );
 	}
 
 	/**

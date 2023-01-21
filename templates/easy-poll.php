@@ -64,20 +64,38 @@ if ( 'no' === $allow_guest && ! is_user_logged_in() ) {
 
 	// Check if user already submitted poll.
 if ( $already_submitted ) {
-	ob_start();
-	Utilities::load_template(
-		'components/alert.php',
-		array(
-			'class' => 'ep-alert ep-alert-danger',
-			'title' => __( 'Poll Already Submitted', 'easy-poll' ),
-			'desc'  => __( 'The Poll you are trying access is already submitted', 'easy-poll' ),
-		)
-	);
-	//phpcs:ignore
-	echo apply_filters( 'easy_poll_already_submitted_template', ob_get_clean() );
-	// Closing the above opened div.
-	echo '</div>'; //phpcs:ignore
-	return;
+
+	/**
+	 * If poll show summary is option enabled then
+	 * show summary
+	 *
+	 * @since 1.2.0
+	 */
+	$is_enabled_summary = get_post_meta( $poll_id, PostCallBack::SHOW_POLL_SUMMARY_KEY, true );
+	if ( $is_enabled_summary ) {
+		$summary_template = $plugin_data['views'] . 'report/poll-summary.php';
+		if ( file_exists( $summary_template ) ) {
+			include $summary_template;
+		} else {
+			echo esc_html( "{$summary_template} is not available" );
+		}
+		return;
+	} else {
+		ob_start();
+		Utilities::load_template(
+			'components/alert.php',
+			array(
+				'class' => 'ep-alert ep-alert-danger',
+				'title' => __( 'Poll Already Submitted', 'easy-poll' ),
+				'desc'  => __( 'The Poll you are trying access is already submitted', 'easy-poll' ),
+			)
+		);
+		//phpcs:ignore
+		echo apply_filters( 'easy_poll_already_submitted_template', ob_get_clean() );
+		// Closing the above opened div.
+		echo '</div>'; //phpcs:ignore
+		return;
+	}
 }
 
 $poll_template_part = PollHandler::check_poll_status( $utc_start_time, $utc_expire_time );

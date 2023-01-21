@@ -7,7 +7,7 @@
     }
     .ep-poll-questions {
         margin-top: 30px;
-        input[type=text], textarea {
+        input[type="text"], textarea {
             width: 100%;
             border: 2px solid #ced4da;
             border-radius: 3px;
@@ -15,7 +15,7 @@
                 border-color: #5468ffd8;
             }
         }
-        input[type=text] {
+        input[type="text"] {
             padding: .375rem .75rem;
         }
         .ep-poll-field-group {
