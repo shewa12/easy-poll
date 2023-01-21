@@ -5,7 +5,7 @@ Tags: Poll, survey, feedback, contact, form
 Requires at least: 5.3
 Tested up to: 6.1
 Requires PHP: 7.0
-Stable tag: 1.1.0
+Stable tag: 1.2.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -62,6 +62,14 @@ Answer: Yes
 
 Answer: Yes, you can set poll start & expiration date with any specific timezone
 
+= Can Users will be able to see the submission summary after submitting the poll?
+
+Answer: Yes, on the poll-builder there is an option to show a poll summary after submitting the poll.
+
+= Can Admin will be able to see poll submission statistics?
+
+Answer: Yes, on the report page there are statistics on active polls. You can also see the poll summary of single-type questions. 
+
 = On the front-end Poll showing 404 not found =
 
 Answer: Make your website permalink is set to post name. If not so, set it & update permalink.
@@ -86,5 +94,10 @@ New: Poll status & expire column added on the poll list page
 New: easy-poll default slug update option added on the settings page
 New: Textarea field added to add message that will be visible if user visit before poll start and after expire
 Fix: Javascript error showing on the console
+
+= 1.2.0 - 22 January, 2023 =
+New: Now Admin can see Active poll statistics report on the backend
+New: Now Admin can see the poll summary percentage of single-type questions
+New: Now Users can see the poll summary percentage of single-type questions after submitting the poll
 
 === Upgrade Notice ===
