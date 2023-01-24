@@ -82,6 +82,8 @@ Answer: Make your website permalink is set to post name. If not so, set it & upd
 4. Frontend: Showing how polls will be appeared to the end users.
 5. Single/Multiple Choice: Create Single/Multiple choice question.
 6. Report: Submission details.
+7. Users submitted poll summary statistics percentage
+8. Bar Chart of active polls
 
 === Changelog ===
 
