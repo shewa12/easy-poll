@@ -12,6 +12,7 @@ namespace EasyPoll\PollHandler;
 
 use EasyPoll;
 use EasyPoll\CustomPosts\EasyPollPost;
+use EasyPoll\CustomPosts\PostCallBack;
 use EasyPoll\FormBuilder\Feedback;
 use EasyPoll\Utilities\Utilities;
 
@@ -90,6 +91,7 @@ class PollHandler {
 			},
 			$_POST['ep-poll-field-id']
 		);
+		$poll_id   = Utilities::sanitize_post_field( 'ep-poll-id' );
 		$feedback  = array();
 
 		foreach ( $field_ids as $field_id ) {
@@ -106,8 +108,10 @@ class PollHandler {
 			);
 			array_push( $feedback, $data );
 		}
-		$save = Feedback::save_feedback( $feedback );
-		return $save ? wp_send_json_success() : wp_send_json_error();
+		$show_poll_summary = (bool) get_post_meta( $poll_id, PostCallBack::SHOW_POLL_SUMMARY_KEY, true );
+		$save              = Feedback::save_feedback( $feedback );
+		$response          = array( 'show_poll_summary' => $show_poll_summary );
+		return $save ? wp_send_json_success( $response ) : wp_send_json_error();
 	}
 
 	/**

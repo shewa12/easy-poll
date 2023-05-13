@@ -9,9 +9,16 @@
 
 namespace EasyPoll\Report;
 
+use EasyPoll\CustomPosts\EasyPollPost;
+use EasyPoll\CustomPosts\PostCallBack;
 use EasyPoll\Database\EasyPollFeedback;
 use EasyPoll\Database\EasyPollFields;
 use EasyPoll\Database\EasyPollOptions;
+use EasyPoll\FormBuilder\Feedback;
+use EasyPoll\Helpers\QueryHelper;
+use EasyPoll\PollHandler\PollHandler;
+use EasyPoll\Utilities\Utilities;
+use WP_Query;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -60,6 +67,20 @@ class Report {
 		$this->field_table    = $wpdb->prefix . EasyPollFields::get_table();
 		$this->option_table   = $wpdb->prefix . EasyPollOptions::get_table();
 		$this->feedback_table = $wpdb->prefix . EasyPollFeedback::get_table();
+
+		add_action( 'wp_ajax_ep_get_active_polls_report', __CLASS__ . '::get_active_polls_report' );
+	}
+
+	/**
+	 * Get report type
+	 *
+	 * @return array
+	 */
+	public static function get_report_types(): array {
+		return array(
+			'poll-summary'          => __( 'Summary', 'easy-poll' ),
+			'poll-submission-lists' => __( 'Submission List', 'easy-poll' ),
+		);
 	}
 
 	/**
@@ -147,5 +168,159 @@ class Report {
 		);
 		// @codingStandardsIgnoreEnd
 		return (int) count( $total_count );
+	}
+
+	/**
+	 * Get poll statistics
+	 *
+	 * @since 1.2.0
+	 *
+	 * @param bool $lists if true then it will provide lists
+	 * otherwise post counts.
+	 *
+	 * @return object
+	 */
+	public static function get_poll_statistics( bool $lists = false ): object {
+		$active_poll   = 0;
+		$expired_poll  = 0;
+		$upcoming_poll = 0;
+
+		$active_list   = array();
+		$upcoming_list = array();
+		$expired_list  = array();
+
+		$args = array(
+			'no_found_rows'          => true,
+			'update_post_term_cache' => false,
+			'posts_per_page'         => 1000,
+		);
+
+		// If lists false then fetch only ids.
+		if ( false === $lists ) {
+			$args['fields'] = 'ids';
+		}
+
+		$query = QueryHelper::wp_query( $args );
+		$posts = $query->get_posts();
+		foreach ( $posts as $post ) {
+			$datetime       = PostCallBack::get_poll_datetime( is_object( $post ) ? $post->ID : $post );
+			$utc_start_time = $datetime->start_datetime ? Utilities::get_gmt_date_from_timezone_date( $datetime->start_datetime, $datetime->timezone ) : false;
+
+			$utc_expire_time = $datetime->expire_datetime ? Utilities::get_gmt_date_from_timezone_date( $datetime->expire_datetime, $datetime->timezone ) : false;
+
+			$status = PollHandler::check_poll_status( $utc_start_time, $utc_expire_time );
+
+			if ( 'poll-active' === $status ) {
+				$active_poll++;
+				array_push( $active_list, $post );
+			} elseif ( 'poll-expired' === $status ) {
+				$expired_poll++;
+				array_push( $expired_list, $post );
+			} else {
+				$upcoming_poll++;
+				array_push( $upcoming_list, $post );
+			}
+		}
+
+		if ( false === $lists ) {
+			$response = array(
+				'active'   => $active_poll,
+				'expired'  => $expired_poll,
+				'upcoming' => $upcoming_poll,
+			);
+		} else {
+			$response = array(
+				'active'   => $active_list,
+				'expired'  => $expired_list,
+				'upcoming' => $upcoming_list,
+			);
+		}
+		return (object) $response;
+	}
+
+	/**
+	 * Get active polls report
+	 *
+	 * @since 1.2.0
+	 *
+	 * @param integer $days report days. Report will be
+	 * generated as per mention days. Default is 7 days which
+	 * means report between (current_date - 7 days) AND current_date.
+	 *
+	 * @return array
+	 */
+	public static function active_polls_report( int $days = 7 ): array {
+		$get_polls    = self::get_poll_statistics( true );
+		$active_polls = $get_polls->active;
+
+		// Get total submission for each based on days.
+		foreach ( $active_polls as $poll ) {
+			$total_submission       = Feedback::total_submission( $poll->ID, 7 );
+			$poll->total_submission = $total_submission;
+		}
+		return is_array( $active_polls ) && count( $active_polls ) ? $active_polls : array();
+	}
+
+	/**
+	 * Get active polls request ajax handler
+	 *
+	 * @since 1.2.0
+	 *
+	 * @return void send wp_json response
+	 */
+	public static function get_active_polls_report() {
+		;
+		if ( false !== Utilities::verify_nonce( false ) ) {
+			$active_polls = self::active_polls_report();
+			wp_send_json_success( $active_polls );
+		} else {
+			wp_send_json_error( __( 'Nonce verification failed', 'easy-poll' ) );
+		}
+	}
+
+	/**
+	 * Get poll percentage statistics for single
+	 * type question
+	 *
+	 * @since 1.2.0
+	 *
+	 * @param integer $poll_id poll id.
+	 *
+	 * @return object wpdb::get_results() response
+	 */
+	public function get_poll_percentage_statistics( int $poll_id ) {
+		global $wpdb;
+		$poll_id   = Utilities::sanitize( $poll_id );
+		$cache_key = 'ep-poll-percentage-statistics-' . $poll_id;
+
+		$query = $wpdb->prepare(
+			"SELECT options.option_label,
+				question.field_label,
+				COUNT(userFeedback.feedback) AS total_answers, 
+				ROUND((COUNT(userFeedback.feedback) / 
+					(SELECT COUNT(*) FROM {$this->feedback_table}
+					WHERE field_id = question.id)) * 100) AS percentage
+
+				FROM {$this->field_table} AS question
+
+				LEFT JOIN {$this->option_table} AS options 
+					ON question.id = options.field_id
+
+				LEFT JOIN {$this->feedback_table} AS userFeedback 
+				   ON TRIM(userFeedback.feedback) = TRIM(options.option_label)
+
+				WHERE question.poll_id = %d 
+					AND question.field_type = 'single_choice'
+				GROUP BY options.option_label, question.id
+			",
+			$poll_id
+		);
+
+		$results = wp_cache_get( $cache_key );
+		if ( false === $results ) {
+			wp_cache_set( $cache_key, $wpdb->get_results( $query ) );
+			$results = wp_cache_get( $cache_key );
+		}
+		return $results;
 	}
 }

@@ -26,14 +26,40 @@ if ( ! defined( 'ABSPATH' ) ) {
 class PostCallBack {
 
 	/**
-	 * Save poll start & expire datetime & zone
-	 * with this key name
+	 * Poll start datetime key
 	 *
 	 * @since 1.1.0
 	 *
 	 * @var string
 	 */
-	const POLL_DATETIME_META_KEY = 'ep-poll-datetime';
+	const POLL_START_DATETIME = 'ep-poll-start-datetime';
+
+	/**
+	 * Poll end datetime key
+	 *
+	 * @since 1.1.0
+	 *
+	 * @var string
+	 */
+	const POLL_EXPIRE_DATETIME = 'ep-poll-end-datetime';
+
+	/**
+	 * Poll datetime zone
+	 *
+	 * @since 1.1.0
+	 *
+	 * @var string
+	 */
+	const POLL_DATETIME_TZ = 'ep-poll-datetime-tz';
+
+	/**
+	 * Show poll summary meta key
+	 *
+	 * @since 1.2.0
+	 *
+	 * @var string
+	 */
+	const SHOW_POLL_SUMMARY_KEY = 'ep-show-poll-summary';
 
 	/**
 	 * Register hooks
@@ -65,17 +91,13 @@ class PostCallBack {
 			return;
 		}
 
-		$meta_data = array(
-			'start_datetime'  => $start_datetime,
-			'expire_datetime' => $expire_datetime,
-			'timezone'        => $timezone,
-		);
+		update_post_meta( $post_id, self::POLL_START_DATETIME, $start_datetime );
+		update_post_meta( $post_id, self::POLL_EXPIRE_DATETIME, $expire_datetime );
+		update_post_meta( $post_id, self::POLL_DATETIME_TZ, $timezone );
 
-		update_post_meta(
-			$post_id,
-			self::POLL_DATETIME_META_KEY,
-			wp_json_encode( $meta_data )
-		);
+		// Show poll summary to users after submit.
+		$show = (int) isset( $_POST['ep-show-poll-summary'] );
+		update_post_meta( $post_id, self::SHOW_POLL_SUMMARY_KEY, $show );
 	}
 
 	/**
@@ -88,15 +110,12 @@ class PostCallBack {
 	 * @return object
 	 */
 	public static function get_poll_datetime( int $poll_id ):object {
-		$datetime = json_decode( get_post_meta( $poll_id, self::POLL_DATETIME_META_KEY, true ) );
 		// If meta value empty then set default value.
-		if ( ! $datetime ) {
-			$datetime = array(
-				'start_datetime'  => '',
-				'expire_datetime' => '',
-				'timezone'        => '',
-			);
-		}
+		$datetime = array(
+			'start_datetime'  => get_post_meta( $poll_id, self::POLL_START_DATETIME, true ),
+			'expire_datetime' => get_post_meta( $poll_id, self::POLL_EXPIRE_DATETIME, true ),
+			'timezone'        => get_post_meta( $poll_id, self::POLL_DATETIME_TZ, true ),
+		);
 		return (object) $datetime;
 	}
 }

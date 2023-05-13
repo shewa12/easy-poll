@@ -3,7 +3,7 @@ $prefix: ep;
 
 // Default styles
 .#{$prefix}-wrapper {
-	input {
+	input[type="text"] {
 		width: 100%;
 	}
 	input[type=datetime-local] {
@@ -128,6 +128,13 @@ $prefix: ep;
 	margin-bottom: 30px;
 }
 
+
+.#{$prefix}-p-10 {
+	padding: 10px;
+}
+.#{$prefix}-p-20 {
+	padding: 20px;
+}
 .#{$prefix}-pt-10 {
 	padding-top: 10px;
 }
@@ -151,6 +158,18 @@ $prefix: ep;
 }
 .#{$prefix}-pr-20 {
 	padding-right: 20px;
+}
+.#{$prefix}-px-10 {
+	padding: 0 10px;
+}
+.#{$prefix}-px-20 {
+	padding: 0 20px;
+}
+.#{$prefix}-py-10 {
+	padding: 10px 0;
+}
+.#{$prefix}-px-20 {
+	padding: 20x 0;
 }
 
 // Color vars
@@ -276,6 +295,18 @@ $alertSuccessBorderColor: #badbcc;
 	flex-direction: column;
 	background-color: #fff;
 	border: 1px solid $alertPrimaryBackground;
+	&.ep-card-primary {
+		background-color: $primary;
+	}
+	&.ep-card-success {
+		background-color: $success;
+	}
+	&.ep-card-warning {
+		background-color: $warning;
+	}
+	&.ep-card-danger {
+		background-color: $danger;
+	}
 	.ep-card-collapse {
 		cursor: pointer;
 	}
@@ -296,6 +327,20 @@ $alertSuccessBorderColor: #badbcc;
 		padding: 5px 8px;
 		margin: 0 3px;
 	}
+}
+
+// Text
+.ep-text-small {
+	font-weight: 300;
+	font-size: 12px;
+}
+.ep-text-large {
+	font-weight: 500;
+	font-size: 24px;
+}
+.ep-text-extra-large {
+	font-weight: 800;
+	font-size: 32px;
 }
 
 // Badge
@@ -323,3 +368,43 @@ $alertSuccessBorderColor: #badbcc;
 		@include badge( $danger );
 	}
 }
+
+// progress bar
+.ep-progress-bar {
+	width: 100%;
+	min-height: 20px;
+	background-color: #ddd;
+	border-radius: 10px;
+	position: relative;
+	.ep-progress {
+		height: 100%;
+		background-color: $primary;
+		border-radius: 10px;
+		border-top-right-radius: 0;
+		border-bottom-right-radius: 0;
+		border-top-left-radius: 10px;
+		border-bottom-left-radius: 10px;
+		display: flex;
+		align-items: center;
+		&.ep-progress-100 {
+			border-top-right-radius: 10px !important;
+			border-bottom-right-radius: 10px !important;
+		}
+	}
+	.ep-progress-text {
+		position: absolute;
+		top: 5px;
+		left: 10%;
+		color: #fff;
+		font-size: 14px;
+		line-height: 10px;
+		white-space: normal; /* allow text to wrap to next line */
+		overflow: visible; /* show text that overflows the container */
+		min-height: 20px; /* set minimum height to match the container */
+		width: 100%; 
+	}
+}
+  
+
+
+  

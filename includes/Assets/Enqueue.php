@@ -11,6 +11,7 @@ namespace EasyPoll\Assets;
 
 use EasyPoll;
 use EasyPoll\Settings\Options;
+use EasyPoll\Utilities\Utilities;
 
 /**
  * Enqueue styles & scripts
@@ -30,6 +31,10 @@ class Enqueue {
 		// Set up script translation.
 		add_action( 'admin_enqueue_scripts', __CLASS__ . '::backend_translation' );
 		add_action( 'wp_enqueue_scripts', __CLASS__ . '::frontend_translation' );
+
+		// Remove admin notices.
+		add_action( 'admin_init', __CLASS__ . '::remove_all_notices' );
+		add_filter( 'admin_footer_text', __CLASS__ . '::admin_footer_text' );
 	}
 
 	/**
@@ -51,6 +56,17 @@ class Enqueue {
 			// add data to use in js files.
 			wp_add_inline_script( 'ep-backend-script', 'const epData = ' . json_encode( self::scripts_data() ), 'before' );
 		}
+
+		/**
+		 * On the backend report page enqueue chart js
+		 *
+		 * @since 1.2.0
+		 */
+		if ( 'ep-report' === $page ) {
+			self::enqueue_chart_js();
+		}
+
+		self::common_scripts();
 	}
 
 	/**
@@ -74,6 +90,8 @@ class Enqueue {
 
 		// Add data to use in js files.
 		wp_add_inline_script( 'ep-frontend-script', 'const epData = ' . json_encode( self::scripts_data() ), 'before' );
+
+		self::common_scripts();
 	}
 
 	/**
@@ -113,5 +131,77 @@ class Enqueue {
 		$plugin_data = EasyPoll::plugin_data();
 
 		wp_set_script_translations( 'ep-frontend-scripts', $plugin_data['plugin_path'] . 'languages/' );
+	}
+
+	/**
+	 * Enqueue chart js scripts
+	 *
+	 * @since 1.2.0
+	 *
+	 * @return void
+	 */
+	public static function enqueue_chart_js() {
+		$plugin_data = EasyPoll::plugin_data();
+		// Plugin min script.
+		wp_enqueue_script(
+			'ep-chart',
+			$plugin_data['assets'] . 'lib/chart/chart.js',
+			array(),
+			filemtime( $plugin_data['plugin_path'] . 'assets/lib/chart/chart.js' ),
+			true
+		);
+		// Chart config script.
+		wp_enqueue_script(
+			'ep-chart-config',
+			$plugin_data['assets'] . 'lib/chart/chart-config.js',
+			array(),
+			filemtime( $plugin_data['plugin_path'] . 'assets/lib/chart/chart-config.js' ),
+			true
+		);
+	}
+
+	/**
+	 * Enqueue common scripts & styles
+	 *
+	 * @since 1.2.0
+	 *
+	 * @return void
+	 */
+	public static function common_scripts() {
+		$plugin_data = EasyPoll::plugin_data();
+
+		wp_enqueue_style( 'ep-common-style', $plugin_data['assets'] . 'bundles/common-style.min.css', array(), filemtime( $plugin_data['plugin_path'] . 'assets/bundles/common-style.min.css' ) );
+	}
+
+	/**
+	 * Remove all admin notices
+	 *
+	 * @since 1.2.0
+	 *
+	 * @return void
+	 */
+	public static function remove_all_notices() {
+		$current_page = Utilities::sanitize_get_field( 'page' );
+		if ( 'ep-report' === $current_page || 'ep-settings' === $current_page ) {
+			remove_all_actions( 'admin_notices' );
+		}
+	}
+
+	/**
+	 * Modify admin footer text
+	 *
+	 * @since 1.2.0
+	 *
+	 * @param string $text default text.
+	 *
+	 * @return string
+	 */
+	public static function admin_footer_text( $text ) {
+		$current_page = Utilities::sanitize_get_field( 'page' );
+		$post_type    = Utilities::sanitize_get_field( 'post_type' );
+		if ( 'ep-report' === $current_page || 'ep-settings' === $current_page || 'easy-poll' === $post_type ) {
+			$text = 'If you like <strong>Easy Poll</strong>. Please consider <a href="https://www.buymeacoffee.com/shewa" target="_blank">donating</a> to support the future development and maintenance of this plugin.';
+		}
+		return $text;
 	}
 }

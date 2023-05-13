@@ -74,6 +74,7 @@ $already_submitted = Feedback::is_user_already_submitted( $poll_id );
 		?>
 		<?php if ( is_array( $poll_questions ) && count( $poll_questions ) ) : ?>
 			<form method="post" id="ep-poll-form">
+				<input type="hidden" name="ep-poll-id" value="<?php echo esc_html( $poll_id ); ?>">
 			<?php Utilities::create_nonce_field(); ?>
 				<?php foreach ( $poll_questions as $question ) : ?>
 					<?php

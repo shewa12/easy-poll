@@ -14,6 +14,7 @@ $fields      = FormField::get_poll_fields_with_option( get_the_ID() );
 $timezones   = Utilities::timezone_lists();
 $datetime    = PostCallBack::get_poll_datetime( get_the_ID() );
 $plugin_data = EasyPoll::plugin_data();
+
 ?>
 <?php do_action( 'ep_before_poll_builder_meta_box', get_the_ID() ); ?>
 <div class="ep-meta-box-wrapper ep-wrapper">
@@ -62,6 +63,16 @@ $plugin_data = EasyPoll::plugin_data();
 			<?php esc_html_e( 'Add Question, Input/Textarea', 'easy-poll' ); ?>
 		</button>
 	</div>
+
+	<!-- poll specific settings -->
+	<div class="ep-d-flex ep-gap-10 ep-align-center ep-mt-20">
+		<input type="checkbox" id="ep-show-poll-summary" name="ep-show-poll-summary" class="ep-mt-10 ep-checkbox" value=""/>
+		<label for="ep-show-poll-summary">
+			<?php esc_html_e( 'Show Poll Summary (Single Type) to Users after Submit the Poll', 'easy-poll' ); ?>
+		</label>
+	</div>
+	<!-- poll specific settings end -->
+
 
 	<!-- field listing -->
 	<div class="ep-poll-fields-wrapper ep-pt-10">

@@ -52,7 +52,7 @@ class EasyPollFeedback extends DatabaseTable {
 		$sql             = "CREATE TABLE IF NOT EXISTS $table_name (
         id INT(9) unsigned NOT NULL AUTO_INCREMENT,
 		field_id INT(9) unsigned NOT NULL,
-
+		option_id INT(9),
         FOREIGN KEY (field_id)
 		    REFERENCES $field_table(id)
             ON DELETE CASCADE,
@@ -60,6 +60,7 @@ class EasyPollFeedback extends DatabaseTable {
 		user_id INT(9) NOT NULL DEFAULT 0,
         feedback LONGTEXT,
 		user_ip VARCHAR(255),
+		created_at TIMESTAMP default CURRENT_TIMESTAMP,
         PRIMARY KEY  (id)
         )  ENGINE = INNODB
         $charset_collate;";

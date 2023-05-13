@@ -1,15 +1,15 @@
-# Copyright (C) 2022 Shewa
+# Copyright (C) 2023 Shewa
 # This file is distributed under the same license as the Easy Poll plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Easy Poll 1.1.0\n"
+"Project-Id-Version: Easy Poll 1.2.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/easy-poll\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-12-10T15:23:53+00:00\n"
+"POT-Creation-Date: 2023-01-24T16:57:59+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.7.1\n"
 "X-Domain: easy-poll\n"
@@ -62,6 +62,7 @@ msgstr ""
 #: build/includes/Admin/Menu/SubMenu/Report.php:38
 #: includes/Admin/Menu/SubMenu/Report.php:27
 #: includes/Admin/Menu/SubMenu/Report.php:38
+#: views/report/report.php:30
 msgid "Report"
 msgstr ""
 
@@ -69,6 +70,7 @@ msgstr ""
 #: build/includes/Admin/Menu/SubMenu/Settings.php:38
 #: includes/Admin/Menu/SubMenu/Settings.php:27
 #: includes/Admin/Menu/SubMenu/Settings.php:38
+#: views/settings/settings.php:30
 msgid "Settings"
 msgstr ""
 
@@ -258,6 +260,18 @@ msgstr ""
 msgid "Save Questions"
 msgstr ""
 
+#: includes/Report/Report.php:81
+msgid "Summary"
+msgstr ""
+
+#: includes/Report/Report.php:82
+msgid "Submission List"
+msgstr ""
+
+#: includes/Report/Report.php:277
+msgid "Nonce verification failed"
+msgstr ""
+
 #: includes/Settings/Options.php:51
 msgid "Poll Slug"
 msgstr ""
@@ -389,7 +403,10 @@ msgstr ""
 msgid "Invalid attribute"
 msgstr ""
 
-#: build/templates/components/modal.php:33
+#: includes/Utilities/Utilities.php:116
+msgid "Easy poll nonce verification failed"
+msgstr ""
+
 #: templates/components/modal.php:33
 msgid "Modal arguments required"
 msgstr ""
@@ -404,17 +421,17 @@ msgstr ""
 msgid "Guest are not allowed for participating the Poll. Please log-in to participate."
 msgstr ""
 
-#: templates/easy-poll.php:72
+#: templates/easy-poll.php:89
 #: templates/poll-form.php:60
 msgid "Poll Already Submitted"
 msgstr ""
 
-#: templates/easy-poll.php:73
+#: templates/easy-poll.php:90
 #: templates/poll-form.php:61
 msgid "The Poll you are trying access is already submitted"
 msgstr ""
 
-#: templates/easy-poll.php:96
+#: templates/easy-poll.php:114
 msgid " file not found"
 msgstr ""
 
@@ -422,13 +439,11 @@ msgstr ""
 msgid "Invalid poll id"
 msgstr ""
 
-#: build/templates/poll-form.php:151
-#: templates/poll-form.php:151
+#: templates/poll-form.php:152
 msgid "Submit"
 msgstr ""
 
-#: build/templates/poll-form.php:156
-#: templates/poll-form.php:156
+#: templates/poll-form.php:157
 msgid "Questions not available"
 msgstr ""
 
@@ -461,39 +476,43 @@ msgstr ""
 msgid "Add More Question"
 msgstr ""
 
-#: views/metabox/poll-builder.php:31
+#: views/metabox/poll-builder.php:32
 msgid "Start Date Time"
 msgstr ""
 
-#: views/metabox/poll-builder.php:37
+#: views/metabox/poll-builder.php:38
 msgid "Expiration Date Time"
 msgstr ""
 
-#: views/metabox/poll-builder.php:43
+#: views/metabox/poll-builder.php:44
 msgid "Timezone"
 msgstr ""
 
-#: views/metabox/poll-builder.php:58
+#: views/metabox/poll-builder.php:59
 msgid "Add Question, Single/Multiple Choice"
 msgstr ""
 
-#: views/metabox/poll-builder.php:62
+#: views/metabox/poll-builder.php:63
 msgid "Add Question, Input/Textarea"
 msgstr ""
 
 #: views/metabox/poll-builder.php:71
+msgid "Show Poll Summary (Single Type) to Users after Submit the Poll"
+msgstr ""
+
+#: views/metabox/poll-builder.php:82
 msgid "Poll Questions"
 msgstr ""
 
-#: views/metabox/poll-builder.php:82
+#: views/metabox/poll-builder.php:93
 msgid "Do you want to delete this question?"
 msgstr ""
 
-#: views/metabox/poll-builder.php:82
+#: views/metabox/poll-builder.php:93
 msgid "Warning: Questions & their feedback will be deleted permanently!"
 msgstr ""
 
-#: views/metabox/poll-builder.php:94
+#: views/metabox/poll-builder.php:105
 #: assets/scripts/backend/poll-builder.js:54
 #: assets/scripts/backend/poll-builder.js:109
 msgid "Delete"
@@ -513,57 +532,79 @@ msgstr ""
 msgid "Add More Option"
 msgstr ""
 
-#: build/views/report/submission-lists.php:31
-#: views/report/submission-lists.php:31
-msgid "Select Poll"
-msgstr ""
-
-#: build/views/report/submission-lists.php:45
-#: views/report/submission-lists.php:45
-msgid "Poll not available"
-msgstr ""
-
-#: build/views/report/submission-lists.php:50
-#: views/report/submission-lists.php:50
-msgid "Apply"
-msgstr ""
-
-#: build/views/report/submission-lists.php:69
-#: views/report/submission-lists.php:69
+#: views/report/poll-submission-lists.php:38
 msgid "User Name: "
 msgstr ""
 
-#: build/views/report/submission-lists.php:70
-#: views/report/submission-lists.php:70
+#: views/report/poll-submission-lists.php:39
 msgid "User IP: "
 msgstr ""
 
-#: build/views/report/submission-lists.php:91
-#: views/report/submission-lists.php:91
+#: views/report/poll-submission-lists.php:60
 msgid "Q) "
 msgstr ""
 
-#: build/views/report/submission-lists.php:100
-#: views/report/submission-lists.php:100
+#: views/report/poll-submission-lists.php:69
 msgid "Options: "
 msgstr ""
 
-#: build/views/report/submission-lists.php:111
-#: views/report/submission-lists.php:111
+#: views/report/poll-submission-lists.php:80
 msgid "Feedback"
 msgstr ""
 
-#: build/views/report/submission-lists.php:148
-#: views/report/submission-lists.php:148
+#: views/report/poll-submission-lists.php:117
 msgid "No record available"
 msgstr ""
 
-#: build/views/settings/settings.php:20
+#: views/report/poll-summary.php:56
+msgid "No data found"
+msgstr ""
+
+#: views/report/report-overview.php:17
+msgid "Polls Overview"
+msgstr ""
+
+#: views/report/report-overview.php:22
+msgid "Active"
+msgstr ""
+
+#: views/report/report-overview.php:30
+msgid "Upcoming"
+msgstr ""
+
+#: views/report/report-overview.php:38
+msgid "Expired"
+msgstr ""
+
+#: views/report/report-overview.php:48
+msgid "Statistics of Active Polls"
+msgstr ""
+
+#: views/report/report-overview.php:52
+msgid "Last 7 Days Report"
+msgstr ""
+
+#: views/report/report.php:40
+msgid "Select Poll"
+msgstr ""
+
+#: views/report/report.php:45
+msgid "Select a poll"
+msgstr ""
+
+#: views/report/report.php:57
+msgid "Poll not available"
+msgstr ""
+
+#: views/report/report.php:69
+msgid "Apply"
+msgstr ""
+
 #: views/settings/settings.php:20
 msgid "Invalid settings, try re-install the plugin"
 msgstr ""
 
-#: views/settings/settings.php:91
+#: views/settings/settings.php:102
 msgid "Save Changes"
 msgstr ""
 
@@ -584,7 +625,7 @@ msgstr ""
 msgid "Do you want to submit it? This cannot be reverted!"
 msgstr ""
 
-#: assets/scripts/frontend.js:41
+#: assets/scripts/frontend.js:47
 msgid "Something went wrong, please try again."
 msgstr ""
 

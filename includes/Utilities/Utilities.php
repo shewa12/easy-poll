@@ -48,7 +48,7 @@ class Utilities {
 	 * Load template file
 	 *
 	 * @param string $template  required views relative path,
-	 * path should be before views folder.
+	 * path should be after views folder. Ex: components/admin-header.php.
 	 * @param mixed  $data  data that will be available on the file.
 	 * @param bool   $once  if true file will be included once.
 	 *
@@ -105,12 +105,18 @@ class Utilities {
 	 *
 	 * @since v1.0.0
 	 *
-	 * @return void
+	 * @param bool $die whether to die or not.
+	 *
+	 * @return bool if die false otherwise it will die
 	 */
-	public static function verify_nonce() {
+	public static function verify_nonce( bool $die = true ) {
 		$plugin_data = EasyPoll::plugin_data();
 		if ( isset( $_POST[ $plugin_data['nonce'] ] ) && ! wp_verify_nonce( $_POST[ $plugin_data['nonce'] ], $plugin_data['nonce_action'] ) ) {
-			die( __( 'Tutor periscope nonce verification failed', 'tutor-periscope' ) );
+			if ( $die ) {
+				die( esc_html_e( 'Easy poll nonce verification failed', 'easy-poll' ) );
+			} else {
+				return false;
+			}
 		}
 	}
 
@@ -293,9 +299,13 @@ class Utilities {
 	 * @param string $timezone  timezone.
 	 * @param string $format    optional date format to get formatted date.
 	 *
-	 * @return string date time.
+	 * @return string date time| empty string.
 	 */
 	public static function get_gmt_date_from_timezone_date( $datetime, $timezone, $format = '' ) {
+		if ( ! trim( $datetime ) || ! trim( $timezone ) ) {
+			return '';
+		}
+
 		if ( '' === $format ) {
 			$format = get_option( 'date_format' ) . ' ' . get_option( 'time_format' );
 		}
@@ -385,6 +395,26 @@ class Utilities {
 		//phpcs:ignore
 		if ( isset( $_POST[ $key ] ) ) {
 			return call_user_func( $callback, wp_unslash( $_POST[ $key ] ) ); //phpcs:ignore
+		}
+		return $default;
+	}
+
+	/**
+	 * Sanitize get value through callable function
+	 *
+	 * @param string   $key required $_GET key.
+	 * @param callable $callback callable WP sanitize/esc func.
+	 * @param string   $default will be returned if key not set.
+	 *
+	 * @return string
+	 */
+	public static function sanitize_get_field( string $key, callable $callback = null, $default = '' ) {
+		if ( is_null( $callback ) ) {
+			$callback = 'sanitize_text_field';
+		}
+		//phpcs:ignore
+		if ( isset( $_GET[ $key ] ) ) {
+			return call_user_func( $callback, wp_unslash( $_GET[ $key ] ) ); //phpcs:ignore
 		}
 		return $default;
 	}

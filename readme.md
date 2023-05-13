@@ -28,6 +28,9 @@ Then activate the plugin and you are all set.
 
 1) Create & manage poll, survey or feedback system
 2) 4 types of questions: single choice, multiple choice, input & textarea
-3) View Submissions
-4) Short code to place poll anywhere needed
-5) Settings
+3) Make schedule polls specific region wise
+4) View Submissions
+5) Short code to place poll anywhere needed
+6) Settings
+7) Report
+8) Poll submission percentage summary
