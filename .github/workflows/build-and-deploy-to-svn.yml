@@ -40,7 +40,7 @@ jobs:
       - name: Build project
         run: npm run plugin-build
 
-      -- name: check build
+      - name: check build
         run: ls
 
       - name: Checkout SVN repository
