@@ -40,6 +40,9 @@ jobs:
       - name: Build project
         run: npm run plugin-build
 
+      -- name: check build
+        run: ls
+
       - name: Checkout SVN repository
         run: |
           svn co --depth=immediates --username ${{ secrets.SVN_USERNAME }} --password ${{ secrets.SVN_PASSWORD }} https://plugins.svn.wordpress.org/easy-poll/ ./svn-dir
