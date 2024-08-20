@@ -50,7 +50,7 @@ jobs:
       - name: Copy files to SVN trunk
         run: |
           rm -rf easy-poll/trunk/*
-          cp -r * build/
+          cp -r build/* easy-poll/trunk
           svn add --force easy-poll/trunk/*
     
       - name: Create SVN tag
