@@ -1,4 +1,4 @@
-# Copyright (C) 2023 Shewa
+# Copyright (C) 2024 Shewa
 # This file is distributed under the same license as the Easy Poll plugin.
 msgid ""
 msgstr ""
@@ -9,30 +9,35 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-01-24T16:57:59+00:00\n"
+"POT-Creation-Date: 2024-08-20T17:07:47+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.7.1\n"
+"X-Generator: WP-CLI 2.10.0\n"
 "X-Domain: easy-poll\n"
 
 #. Plugin Name of the plugin
+#: easy-poll.php
 #: includes/Admin/Menu/MainMenu.php:64
 #: includes/Admin/Menu/MainMenu.php:73
 msgid "Easy Poll"
 msgstr ""
 
 #. Plugin URI of the plugin
+#: easy-poll.php
 msgid "https://shewazone.com/products/easy-poll"
 msgstr ""
 
 #. Description of the plugin
+#: easy-poll.php
 msgid "A simple plugin for creating polls, survey, user's feedback management system"
 msgstr ""
 
 #. Author of the plugin
+#: easy-poll.php
 msgid "Shewa"
 msgstr ""
 
 #. Author URI of the plugin
+#: easy-poll.php
 msgid "https://shewazone.com"
 msgstr ""
 
@@ -47,7 +52,6 @@ msgstr ""
 #: includes/Admin/Menu/SubMenu/Polls.php:29
 #: includes/Admin/Menu/SubMenu/Polls.php:40
 #: includes/CustomPosts/EasyPollPost.php:64
-#: tests/PHPUnit/EasyPollPostTest.php:64
 msgid "Polls"
 msgstr ""
 
@@ -64,82 +68,67 @@ msgid "Settings"
 msgstr ""
 
 #: includes/CustomPosts/EasyPollPost.php:53
-#: tests/PHPUnit/EasyPollPostTest.php:53
 msgid "Poll"
 msgstr ""
 
 #: includes/CustomPosts/EasyPollPost.php:55
-#: tests/PHPUnit/EasyPollPostTest.php:55
 msgctxt "post type general name"
 msgid "Polls"
 msgstr ""
 
 #: includes/CustomPosts/EasyPollPost.php:56
-#: tests/PHPUnit/EasyPollPostTest.php:56
 msgctxt "post type singular name"
 msgid "Poll"
 msgstr ""
 
 #: includes/CustomPosts/EasyPollPost.php:57
-#: tests/PHPUnit/EasyPollPostTest.php:57
 msgctxt "admin menu"
 msgid "Polls"
 msgstr ""
 
 #: includes/CustomPosts/EasyPollPost.php:58
-#: tests/PHPUnit/EasyPollPostTest.php:58
 msgctxt "add new on admin bar"
 msgid "Poll"
 msgstr ""
 
 #: includes/CustomPosts/EasyPollPost.php:59
-#: tests/PHPUnit/EasyPollPostTest.php:59
 msgctxt "tutor Poll add"
 msgid "Add New"
 msgstr ""
 
 #: includes/CustomPosts/EasyPollPost.php:60
-#: tests/PHPUnit/EasyPollPostTest.php:60
 msgid "Add New Poll"
 msgstr ""
 
 #: includes/CustomPosts/EasyPollPost.php:61
-#: tests/PHPUnit/EasyPollPostTest.php:61
 msgid "New Poll"
 msgstr ""
 
 #: includes/CustomPosts/EasyPollPost.php:62
-#: tests/PHPUnit/EasyPollPostTest.php:62
 msgid "Edit Poll"
 msgstr ""
 
 #: includes/CustomPosts/EasyPollPost.php:63
-#: tests/PHPUnit/EasyPollPostTest.php:63
 msgid "View Poll"
 msgstr ""
 
 #: includes/CustomPosts/EasyPollPost.php:65
-#: tests/PHPUnit/EasyPollPostTest.php:65
 msgid "Search Polls"
 msgstr ""
 
 #: includes/CustomPosts/EasyPollPost.php:66
-#: tests/PHPUnit/EasyPollPostTest.php:66
 msgid "Parent Polls:"
 msgstr ""
 
 #: includes/CustomPosts/EasyPollPost.php:67
-#: tests/PHPUnit/EasyPollPostTest.php:67
 msgid "No Polls found."
 msgstr ""
 
 #: includes/CustomPosts/EasyPollPost.php:68
-#: tests/PHPUnit/EasyPollPostTest.php:68
 msgid "No Polls found in Trash."
 msgstr ""
 
 #: includes/CustomPosts/EasyPollPost.php:70
-#: tests/PHPUnit/EasyPollPostTest.php:70
 msgid "Easy poll custom post type"
 msgstr ""
 

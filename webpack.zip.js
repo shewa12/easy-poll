@@ -42,6 +42,7 @@ module.exports = (env) => {
                                 "**/*.dist*",
                                 "**/*.zip*",
                                 "**/*.md*",
+                                "**/*.cache*",
                                 "**/webpack.config.js",
                                 "**/webpack.zip.js",
                                 "**/assets/bundles/backend-style.min.js",
@@ -49,7 +50,8 @@ module.exports = (env) => {
                                 "**/assets/bundles/common-style.min.js",
                                 "**/assets/scripts/**",
                                 "**/assets/scss/**",
-                                "**/.git"
+                                "**/.git",
+                                "**/.github/**"
                             ],
                         },
                     },
@@ -57,7 +59,7 @@ module.exports = (env) => {
                 ],
             }),
             new ZipPlugin({
-                path: './',
+                path: '../',
                 filename: `easy-poll.zip`,
                 extension: 'zip',
                 fileOptions: {

@@ -1,0 +1,66 @@
+name: Build and Deploy to SVN
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16.17.0'
+
+      - name: Install dependencies
+        run: npm install --legacy-peer-deps
+
+      - name: Install Composer
+        run: sudo apt-get update && sudo apt-get install -y composer
+
+      - name: Install WP CLI
+        run: |
+          curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+          chmod +x wp-cli.phar
+          sudo mv wp-cli.phar /usr/local/bin/wp
+          wp --info
+
+      - name: Extract version number
+        id: get_version
+        run: |
+          version=$(grep -Po 'Version:\s*\K[\d.]+' easy-poll.php)
+          echo "VERSION_NUMBER=$version" >> $GITHUB_ENV
+
+      - name: Build project
+        run: npm run plugin-build
+
+      - name: Checkout SVN repository
+        run: |
+          svn co --depth=immediates --username ${{ secrets.SVN_USERNAME }} --password ${{ secrets.SVN_PASSWORD }} https://plugins.svn.wordpress.org/easy-poll/ ./svn-dir
+
+      - name: Copy files to SVN trunk
+        run: |
+          rm -rf easy-poll/trunk/*
+          cp -r easy-poll/build/*
+          svn add --force easy-poll/trunk/*
+    
+      - name: Create SVN tag
+        run: |
+          svn co --depth=immediates https://plugins.svn.wordpress.org/easy-poll/ ./svn-dir
+          svn mkdir ./svn-dir/tags/$VERSION_NUMBER
+          cp -R ./build/* ./svn-dir/tags/$VERSION_NUMBER/
+          svn add ./svn-dir/tags/$VERSION_NUMBER
+          svn ci -m "Release version $VERSION_NUMBER" ./svn-dir
+
+      - name: Commit and push to SVN
+        run: |
+          cd ./svn-dir
+          svn up
+          svn add --force .
+          svn commit -m "Deploying version $VERSION_NUMBER"
