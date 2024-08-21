@@ -46,14 +46,9 @@ jobs:
       - name: Checkout SVN repository
         run: |
           svn co --depth=immediates --username ${{ secrets.SVN_USERNAME }} --password ${{ secrets.SVN_PASSWORD }} https://plugins.svn.wordpress.org/easy-poll/ ./svn-dir
-      - name: LS
-        run: ls
-      - name: Checkout SVN repository
-        run: |
-          svn co ${{ secrets.SVN_USERNAME }} --password ${{ secrets.SVN_PASSWORD }} https://plugins.svn.wordpress.org/easy-poll
-      - name: LS
-        run: ls
-
+      - run: ls
+      - run: svn-dir ls
+      - run: svn-dir/tags ls
       - name: Copy files to SVN trunk
         run: |
           rm -rf svn-dir/trunk/*
