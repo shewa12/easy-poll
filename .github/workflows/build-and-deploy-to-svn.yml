@@ -53,13 +53,18 @@ jobs:
           cp -r build/* svn-dir/trunk
           svn add --force svn-dir/trunk/*
     
-      - name: Create SVN tag
+      - name: Prepare SVN tag directory
         run: |
-          svn co --depth=immediates https://plugins.svn.wordpress.org/easy-poll/ ./svn-dir
-          svn mkdir ./svn-dir/tags/$VERSION_NUMBER
+          # Ensure the tag directory does not exist locally
+          if [ -d "./svn-dir/tags/$VERSION_NUMBER" ]; then
+            rm -rf "./svn-dir/tags/$VERSION_NUMBER"
+          fi
+          
+          # Recreate the tag directory
+          mkdir -p ./svn-dir/tags/$VERSION_NUMBER
+          
+          # Copy new build files to the tag directory
           cp -R ./build/* ./svn-dir/tags/$VERSION_NUMBER/
-          svn add ./svn-dir/tags/$VERSION_NUMBER
-          svn ci -m "Release version $VERSION_NUMBER" ./svn-dir
 
       - name: Commit and push to SVN
         run: |
