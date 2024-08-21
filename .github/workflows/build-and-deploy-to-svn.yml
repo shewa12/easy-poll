@@ -1,76 +1,31 @@
-name: Build and Deploy to SVN
-
+name: Deploy and Release Plugin
 on:
   push:
-    branches:
-      - dev
-
+    tags:
+    - "*"
 jobs:
-  build:
+  tag:
+    name: New tag
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '16.17.0'
-
-      - name: Install dependencies
-        run: npm install --legacy-peer-deps
-
-      - name: Install Composer
-        run: sudo apt-get update && sudo apt-get install -y composer
-
-      - name: Install WP CLI
-        run: |
-          curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
-          chmod +x wp-cli.phar
-          sudo mv wp-cli.phar /usr/local/bin/wp
-          wp --info
-
-      - name: Extract version number
-        id: get_version
-        run: |
-          version=$(grep -Po 'Version:\s*\K[\d.]+' easy-poll.php)
-          echo "VERSION_NUMBER=$version" >> $GITHUB_ENV
-
-      - name: Build project
-        run: npm run plugin-build
-
-      - name: check build
-        run: ls
-
-      - name: Checkout SVN repository
-        run: |
-          svn co --depth=immediates --username ${{ secrets.SVN_USERNAME }} --password ${{ secrets.SVN_PASSWORD }} https://plugins.svn.wordpress.org/easy-poll/ ./svn-dir
-      - run: ls
-      - run: svn-dir ls
-      - run: svn-dir/tags ls
-      - name: Copy files to SVN trunk
-        run: |
-          rm -rf svn-dir/trunk/*
-          cp -r build/* svn-dir/trunk
-          svn add --force svn-dir/trunk/*
-    
-      - name: Prepare SVN tag directory
-        run: |
-          # Ensure the tag directory does not exist locally
-          if [ -d "./svn-dir/tags/$VERSION_NUMBER" ]; then
-            rm -rf "./svn-dir/tags/$VERSION_NUMBER"
-          fi
-          
-          # Recreate the tag directory
-          mkdir -p ./svn-dir/tags/$VERSION_NUMBER
-          
-          # Copy new build files to the tag directory
-          cp -R ./build/* ./svn-dir/tags/$VERSION_NUMBER/
-
-      - name: Commit and push to SVN
-        run: |
-          cd ./svn-dir
-          svn up
-          svn add --force .
-          svn commit -m "Deploying version $VERSION_NUMBER"
+    - name: Checkout code
+      uses: actions/checkout@v2
+    - name: Build
+      run: |
+        npm install
+        npm run build
+    - name: WordPress Plugin Deploy
+      id: deploy
+      uses: 10up/action-wordpress-plugin-deploy@stable
+      with:
+        generate-zip: true
+      env:
+        SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
+        SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
+    - name: Create GitHub release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: ${{github.workspace}}/${{ github.event.repository.name }}.zip
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        
