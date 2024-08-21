@@ -3,9 +3,9 @@ Contributors: shewa12
 Donate link: https://www.buymeacoffee.com/shewa
 Tags: Poll, survey, feedback, contact-form, form, quiz, vote, online-poll
 Requires at least: 5.3
-Tested up to: 6.1
+Tested up to: 6.6
 Requires PHP: 7.0
-Stable tag: 1.2.0
+Stable tag: 1.2.1
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
