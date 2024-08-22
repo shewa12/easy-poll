@@ -1,19 +1,46 @@
-name: Deploy and Release Plugin
+name: Build and Deploy to SVN
+
 on:
   push:
-    tags:
-    - "*"
+    branches:
+      - dev
+
 jobs:
-  tag:
-    name: New tag
+  build:
     runs-on: ubuntu-latest
+
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-    - name: Build
-      run: |
-        npm install
-        npm run build
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16.17.0'
+
+      - name: Install dependencies
+        run: npm install --legacy-peer-deps
+
+      - name: Install Composer
+        run: sudo apt-get update && sudo apt-get install -y composer
+
+      - name: Install WP CLI
+        run: |
+          curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+          chmod +x wp-cli.phar
+          sudo mv wp-cli.phar /usr/local/bin/wp
+          wp --info
+
+      - name: Extract version number
+        id: get_version
+        run: |
+          version=$(grep -Po 'Version:\s*\K[\d.]+' easy-poll.php)
+          echo "VERSION_NUMBER=$version" >> $GITHUB_ENV
+
+      - name: Build project
+        run: npm run build
+        run: composer i --no-dev
+
     - name: WordPress Plugin Deploy
       id: deploy
       uses: 10up/action-wordpress-plugin-deploy@stable
