@@ -1,8 +1,8 @@
 name: Build and Deploy to SVN
 on:
   push:
-    branches:
-    - "dev"
+    tag:
+    - "*"
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -43,12 +43,11 @@ jobs:
           SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
           SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
           BUILD_DIR: build
-          VERSION: 1.2.2
 
       - name: Create GitHub release
         uses: softprops/action-gh-release@v1
         with:
-          files: ${{github.workspace}}/${{ github.event.repository.name }}.zip
+          files: build/${{ github.event.repository.name }}.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         
