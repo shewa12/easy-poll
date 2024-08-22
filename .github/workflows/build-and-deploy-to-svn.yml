@@ -1,8 +1,8 @@
 name: Build and Deploy to SVN
 on:
   push:
-    branches:
-      - dev
+    tags:
+    - "*"
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -28,17 +28,8 @@ jobs:
           sudo mv wp-cli.phar /usr/local/bin/wp
           wp --info
 
-      - name: Extract version number
-        id: get_version
-        run: |
-          version=$(grep -Po 'Version:\s*\K[\d.]+' easy-poll.php)
-          echo "VERSION_NUMBER=$version" >> $GITHUB_ENV
-
-      - name: Build JS
+      - name: Build Plugin
         run: npm run build
-      
-      - name: Install Composer
-        run: composer i --no-dev
 
       - name: WordPress Plugin Deploy
         id: deploy
@@ -48,6 +39,7 @@ jobs:
         env:
           SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
           SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
+          BUILD_DIR: build
 
       - name: Create GitHub release
         uses: softprops/action-gh-release@v1
