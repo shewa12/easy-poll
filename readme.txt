@@ -1,9 +1,9 @@
 === Easy Poll - Best WordPress Poll System & Survey Plugin ===
 Contributors: shewa12
 Donate link: https://www.buymeacoffee.com/shewa
-Tags: Poll, survey, feedback, contact-form, form, quiz, vote, online-poll
+Tags: contact-form, form, quiz, vote, online-poll
 Requires at least: 5.3
-Tested up to: 6.6
+Tested up to: 6.7
 Requires PHP: 7.0
 Stable tag: 1.2.3
 License: GPLv3
@@ -87,8 +87,9 @@ Answer: Make your website permalink is set to post name. If not so, set it & upd
 
 === Changelog ===
 
-= 1.2.3 - 03 September, 2024
-Update: WordPress 6.6 compatibility
+= 1.2.3 - 20 February, 2025
+Update: WordPress 6.7 compatibility
+Fix: ShortCode not found issue
 
 = 1.2.0 - 25 January, 2023 =
 New: Now Admin can see Active poll statistics report on the backend
