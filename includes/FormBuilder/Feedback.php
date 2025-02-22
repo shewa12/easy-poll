@@ -76,6 +76,7 @@ class Feedback {
 		$poll_id   = Utilities::sanitize( $poll_id );
 		$user_id   = get_current_user_id();
 		$user_ip   = isset( $_SERVER['REMOTE_ADDR'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ) ) : '';
+		
 		$submitted = $wpdb->get_var(
 			$wpdb->prepare(
 				"SELECT

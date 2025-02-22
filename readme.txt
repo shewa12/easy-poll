@@ -1,11 +1,11 @@
 === Easy Poll - Best WordPress Poll System & Survey Plugin ===
 Contributors: shewa12
 Donate link: https://www.buymeacoffee.com/shewa
-Tags: Poll, survey, feedback, contact-form, form, quiz, vote, online-poll
+Tags: contact-form, form, quiz, vote, online-poll
 Requires at least: 5.3
-Tested up to: 6.1
+Tested up to: 6.7
 Requires PHP: 7.0
-Stable tag: 1.2.0
+Stable tag: 1.2.4
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -87,8 +87,17 @@ Answer: Make your website permalink is set to post name. If not so, set it & upd
 
 === Changelog ===
 
-= 1.0.0 = 
-* Plugin released
+= 1.2.4 - 20 February, 2025
+Fix: PHP Fatal error
+
+= 1.2.3 - 20 February, 2025
+Update: WordPress 6.7 compatibility
+Fix: ShortCode not found issue
+
+= 1.2.0 - 25 January, 2023 =
+New: Now Admin can see Active poll statistics report on the backend
+New: Now Admin can see the poll summary percentage of single-type questions
+New: Now Users can see the poll summary percentage of single-type questions after submitting the poll
 
 = 1.1.0 - 10 December, 2022 =
 New: Now poll could be created for any specific timezone with start & expire time
@@ -97,9 +106,7 @@ New: easy-poll default slug update option added on the settings page
 New: Textarea field added to add message that will be visible if user visit before poll start and after expire
 Fix: Javascript error showing on the console
 
-= 1.2.0 - 25 January, 2023 =
-New: Now Admin can see Active poll statistics report on the backend
-New: Now Admin can see the poll summary percentage of single-type questions
-New: Now Users can see the poll summary percentage of single-type questions after submitting the poll
+= 1.0.0 = 
+* Plugin released
 
 === Upgrade Notice ===

@@ -7,6 +7,6 @@ assets/bundles/*
 *.tar.gz
 *.zip
 vendor/
-.distignore
 .editorconfig
 build/
+*.pot
