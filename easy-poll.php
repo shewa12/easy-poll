@@ -7,7 +7,7 @@
  * Author URI:      https://shewazone.com
  * Text Domain:     easy-poll
  * Domain Path:     /languages
- * Version:         1.2.3
+ * Version:         1.2.4
  *
  * @package         EasyPoll
  */

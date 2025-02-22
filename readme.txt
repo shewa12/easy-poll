@@ -5,7 +5,7 @@ Tags: contact-form, form, quiz, vote, online-poll
 Requires at least: 5.3
 Tested up to: 6.7
 Requires PHP: 7.0
-Stable tag: 1.2.3
+Stable tag: 1.2.4
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -86,6 +86,9 @@ Answer: Make your website permalink is set to post name. If not so, set it & upd
 8. Bar Chart of active polls
 
 === Changelog ===
+
+= 1.2.4 - 20 February, 2025
+Fix: PHP Fatal error
 
 = 1.2.3 - 20 February, 2025
 Update: WordPress 6.7 compatibility
