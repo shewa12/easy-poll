@@ -26,6 +26,7 @@ class Options {
 	 * @var OPTION_KEY
 	 */
 	const OPTION_KEY = 'ep-settings';
+	const REQUIRE_PERMALINK_UPDATE = 'ep-permalink-update-require';
 
 	/**
 	 * Register hooks
@@ -174,6 +175,14 @@ class Options {
 		do_action( 'easy_poll_before_default_settings_save', $combined_options );
 		update_option( self::OPTION_KEY, $combined_options );
 		do_action( 'easy_poll_after_default_settings_save', $combined_options );
+
+		/**
+		 * On plugin activate set option that permalink
+		 * update is required to prevent 404 error
+		 *
+		 * @since v1.0.1
+		 */
+		update_option( self::REQUIRE_PERMALINK_UPDATE, 1 );
 	}
 
 	/**

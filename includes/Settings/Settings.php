@@ -25,5 +25,6 @@ class Settings {
 	 */
 	public function __construct() {
 		new Options();
+		new RewriteRules();
 	}
 }
